@@ -8,4 +8,5 @@ toc: true
 date: 2019-05-14 21:39:24
 ---
 
-首先要有node.js和Git环境。
+首先要有node.js和Git环境，没有的话自行安装。
+
