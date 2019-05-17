@@ -4,8 +4,8 @@
 
 # Site
 title: 人间的我
-subtitle:
-description: 沧浪之水清兮，可以濯吾衣。沧浪之水浊兮，可以濯吾足。
+subtitle: 直而温，宽而栗，刚而无虐，简而无傲。
+description: 无双BaOY_WHA的个人主页。
 keywords:
 author: 无双BaOY_WHA
 language: zh-Hans
@@ -73,7 +73,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
