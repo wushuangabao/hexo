@@ -8,8 +8,8 @@ subtitle: 直而温，宽而栗，刚而无虐，简而无傲。
 description: 无双BaOY_WHA的个人主页。
 keywords:
 author: 无双BaOY_WHA
-language: zh-Hans
-timezone:
+language: zh-cn
+timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
