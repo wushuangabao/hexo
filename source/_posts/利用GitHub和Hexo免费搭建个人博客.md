@@ -1,7 +1,10 @@
 ---
 title: 利用GitHub和Hexo免费搭建个人博客
-tags: []
-categories: []
+tags:
+  - 记录
+  - 技巧
+categories:
+  - 奇技淫巧
 toc: false
 date: 2019-05-16 22:50:28
 ---
