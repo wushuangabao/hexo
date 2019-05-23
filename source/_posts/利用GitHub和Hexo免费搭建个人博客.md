@@ -1,8 +1,8 @@
 ---
 title: 利用GitHub和Hexo免费搭建个人博客
 tags:
-  - 记录
   - 技巧
+  - 产出
 categories:
   - 奇技淫巧
 toc: false
@@ -61,6 +61,9 @@ GitHub Pages也是基于一个GitHub文件仓库，这个仓库里的文件可�
 
 ## 4. 更换成NexT主题
 
-Hexo生成的博客，主题风格不好看怎么办？
+Hexo生成的博客，默认的主题风格不好看怎么办？
 
-我们可以换，也可以自己写自定义风格。据说用得最多的主题是NexT，可以尝试换一下。（[参考](https://blog.csdn.net/u011475210/article/details/79023429#jekyll-or-hexo)）
+我们可以换，也可以自己写自定义风格。据说用得最多的主题是NexT，可以尝试换一下。
+
+- Hexo及其主题介绍，[别人写的个人博客之旅](https://blog.csdn.net/u011475210/article/details/79023429#jekyll-or-hexo)
+- 简述上的，NexT主题的[常用配置参考](https://www.jianshu.com/p/3a05351a37dc)
