@@ -177,9 +177,9 @@ menu_settings:
 # ---------------------------------------------------------------
 
 # Schemes
-#scheme: Muse
+scheme: Muse
 #scheme: Mist
-scheme: Pisces
+#scheme: Pisces
 #scheme: Gemini
 
 
@@ -200,7 +200,7 @@ social:
   GitHub: https://github.com/wushuangabao || github
   E-Mail: mailto:445395697@qq.com || envelope
   Weibo: https://weibo.com/u/3801041566 || weibo
-  Bilibili: https://space.bilibili.com/20467999 || bilibili
+  Bilibili: https://space.bilibili.com/20467999 || youtube-square
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
   #FB Page: https://www.facebook.com/yourname || facebook
@@ -211,7 +211,7 @@ social:
   #Skype: skype:yourname?call|chat || skype
 
 social_icons:
-  enable: false
+  enable: true
   icons_only: false
   transition: false
 
