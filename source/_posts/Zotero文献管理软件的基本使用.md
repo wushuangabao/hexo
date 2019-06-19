@@ -13,6 +13,8 @@ date: 2019-06-19 19:40:59
 
 我曾经在[微信公号](http://mp.weixin.qq.com/s?__biz=MzI1MzEyODQyMA==&mid=2708133016&idx=1&sn=0ba2974967de9ebb5a168c874a6bd704&chksm=cd474f13fa30c6059a7e3a80bb213b9108c821db9825c74f289bcb3c45c86f4fde47993f2250&mpshare=1&scene=23&srcid=#rd)中比较过几款主流的文献管理工具。其中 Zotero 作为开源软件，功能扩展性极强。
 
+<!--more-->
+
 我一开始了解到 Zotero 是因为看了阳志平的[入门六篇](https://www.douban.com/group/topic/45562674/)，里面不但介绍了Zotero 的使用，还介绍了很多配套工具。
 
 如何安装无须多讲，直接上官网[传送门](https://www.zotero.org/support/word_processor_plugin_installation)。
@@ -64,4 +66,3 @@ Zotero 默认的引文格式中找不到中文标准 GB 样式，如何添加呢
 ![首选项-引文](https://upload-images.jianshu.io/upload_images/5727621-ada62e18161b6e5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/616/format/webp)
 
 点“获取其他样式…”，然后搜索`Chinese Std GB/T 7714-2005 (numeric, Chinese)`，将它添加到样式管理器中，就可以选用中文标准的引文格式了。
-
