@@ -2,7 +2,6 @@
 title: 利用GitHub和Hexo免费搭建个人博客
 tags:
   - 技巧
-  - 产出
 categories:
   - 奇技淫巧
 toc: false
