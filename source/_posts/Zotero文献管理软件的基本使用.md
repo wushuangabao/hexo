@@ -22,17 +22,19 @@ date: 2019-06-19 19:40:59
 此外，使用之前还须要[注册](https://www.zotero.org/user/register/)一个账号，用来在不同设备之间同步你的文献库（另外还可以创建 group 进行团队协作，可以关注其他用户）。
 
 
-## 在 Chrome 中使用 Zotero
+## 在浏览器中使用 Zotero
 
-Chrome 浏览器拥有丰富的插件，其中我经常使用的有：
-- TamperMonkey，允许用户自己编写、共享插件脚本，不少 geek 写了许多很实用的脚本，比如解析网上的 VIP 视频、免费下载百度文库等；
-- 谷歌访问助手，允许浏览器直接访问 Google 主页以及 Google scholar 等网站；
+选择 Zotero 菜单栏中的工具 > 安装浏览器插件，会打开浏览器（Firefox, Chrome 等）并进入插件浏览器下载页面。
 
-打开本地的 Zotero 软件，再配合 Zotero 谷歌插件，可以直接从你打开的网页上爬取文献资料的信息（标题、作者、摘要等）。
+打开本地的 Zotero 软件，再配合 Zotero 的浏览器插件，你可以直接从你打开的网页上爬取文献资料的信息（标题、作者、摘要等）。
 
 阳志平入门六篇的[第一篇](https://www.yangzhiping.com/tech/zotero1.html)就介绍了6种向 Zotero 导入文献的方法。不过我最常用的还是下图这种：
 
-![导入豆瓣图书信息](https://mmbiz.qpic.cn/mmbiz_png/X6tKT89jLw1qjEKakBKicSHFFZ31fDRZajfV32XaoiacVAFshuiaT5MF5vuLm3RYQUFVR5yqTZgNr17BXxHNE1afw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![导入豆瓣图书信息](http://m.qpic.cn/psb?/V11Tp57c2B9kPO/QiV5wb1EnTqdWuKohkD7qoIDK1F6870aZjAZAje5WZY!/b/dD4BAAAAAAAA&bo=OQPfAQAAAAADB8Y!&rf=viewer_4)
+
+顺带一提，Chrome 浏览器拥有丰富的插件，其中我经常使用的有：
+- TamperMonkey，允许用户自己编写、共享插件脚本，不少 geek 写了许多很实用的脚本，比如解析网上的 VIP 视频、免费下载百度文库等；
+- 谷歌访问助手，允许浏览器直接访问 Google 主页以及 Google scholar 等网站；
 
 （由于 QQ 浏览器使用 Chrome 内核，我个人体验是：以上插件在 QQ 浏览器基本上也可以使用。我用 QQ 主要是因为一直在用 QQ 账号同步网页收藏夹。）
 
