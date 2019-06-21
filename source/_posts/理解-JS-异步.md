@@ -202,7 +202,7 @@ result.then(function(img) {
 })
 ```
 
-低版本浏览器可能不支持 Promise 语法，这时需要在 HTML 的 <script> 标签中引入 bluebird 脚本（在 CDNBoot 上面查找）。
+低版本浏览器可能不支持 Promise 语法，这时需要在 HTML 的 script 标签中引入 bluebird 脚本（在 [BootCDN](https://www.bootcdn.cn/) 上面查找）。
 
 ### 异常捕获
 
