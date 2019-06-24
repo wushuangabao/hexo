@@ -32,6 +32,8 @@ date: 2019-06-19 19:40:59
 
 ![导入豆瓣图书信息](http://m.qpic.cn/psb?/V11Tp57c2B9kPO/QiV5wb1EnTqdWuKohkD7qoIDK1F6870aZjAZAje5WZY!/b/dD4BAAAAAAAA&bo=OQPfAQAAAAADB8Y!&rf=viewer_4)
 
+**注：**最近我发现，先打开浏览器再打开 Zotero 的情况下，导入文献会出错，须要重启浏览器。另外 Zotero 无法识别万方数据库的文献元数据（可能因为网页改版了），国内的文献还是去 CNKI 搜索吧，而且在 CNKI 还能支持批量导入……
+
 顺带一提，Chrome 浏览器拥有丰富的插件，其中我经常使用的有：
 - TamperMonkey，允许用户自己编写、共享插件脚本，不少 geek 写了许多很实用的脚本，比如解析网上的 VIP 视频、免费下载百度文库等；
 - 谷歌访问助手，允许浏览器直接访问 Google 主页以及 Google scholar 等网站；
