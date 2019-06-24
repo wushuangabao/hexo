@@ -32,7 +32,10 @@ date: 2019-06-19 19:40:59
 
 ![导入豆瓣图书信息](http://m.qpic.cn/psb?/V11Tp57c2B9kPO/QiV5wb1EnTqdWuKohkD7qoIDK1F6870aZjAZAje5WZY!/b/dD4BAAAAAAAA&bo=OQPfAQAAAAADB8Y!&rf=viewer_4)
 
-**注：**最近我发现，先打开浏览器再打开 Zotero 的情况下，导入文献会出错，须要重启浏览器。另外 Zotero 无法识别万方数据库的文献元数据（可能因为网页改版了），国内的文献还是去 CNKI 搜索吧，而且在 CNKI 还能支持批量导入……
+**注：**
+1. 先打开浏览器再打开 Zotero 的情况下，导入文献会出错，须要重启浏览器。
+2. Zotero 无法识别万方数据库的文献元数据（可能因为网页改版了），国内的文献还是去 CNKI 搜索吧，而且在 CNKI 还能支持批量导入。
+3. 有时明明在浏览器导入了A文献，再去导入B文献，却发现 Zotero 导入的还是A文献。解决办法是重启浏览器，或者个浏览器。
 
 顺带一提，Chrome 浏览器拥有丰富的插件，其中我经常使用的有：
 - TamperMonkey，允许用户自己编写、共享插件脚本，不少 geek 写了许多很实用的脚本，比如解析网上的 VIP 视频、免费下载百度文库等；
@@ -70,3 +73,16 @@ Zotero 默认的引文格式中找不到中文标准 GB 样式，如何添加呢
 ![首选项-引文](https://upload-images.jianshu.io/upload_images/5727621-ada62e18161b6e5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/616/format/webp)
 
 点“获取其他样式…”，然后搜索`Chinese Std GB/T 7714-2005 (numeric, Chinese)`，将它添加到样式管理器中，就可以选用中文标准的引文格式了。
+
+## 标注文献重要性
+
+Zotero 中，可以给一条文献条目创建文件链接（比如 pdf 全文）、关联文献、笔记、标签等。
+
+看完一篇文献后，觉得它比较重要，怎么才能给这篇文献的条目添加标记呢？**利用标签**。
+
+比如，给一篇文献创造一个名为“重要文献”的标签。接着在界面的左下角，找到该标签，然后右键，对该标签**指派颜色**。如下图。
+
+![](https://www.yangzhiping.com/images/zotero/zotero5/zotero-3.jpg)
+![](https://www.yangzhiping.com/images/zotero/zotero5/zotero-4.jpg)
+
+给标签指派颜色的同时，也会设置**快捷键**（从1到9）。以后，给其他文献条目添加相同的标签时，只需要按快捷键就行了。
