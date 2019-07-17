@@ -1,8 +1,8 @@
 ---
 title: 【Qt】QRegExp Class 文档翻译
 tags:
-  - Qt
   - 学习
+  - Qt
 categories:
   - 编程艺术
 toc: false
@@ -124,10 +124,10 @@ Characters and Abbreviations for **Sets of Characters** (字符集)
 | \S | Matches a non-whitespace character. |
 | \w | Matches a word character (QChar::isLetterOrNumber(), QChar::isMark(), 或下划线) |
 | \W | Matches a non-word character. |
-| \n | The n-th backreference, e.g. \1, \2, etc. |
+| \n | The n-th backreference, e.g. \1, \2, etc. 第n个[反向引用](https://www.runoob.com/regexp/regexp-syntax.html) |
 
 **Note:** The C++ compiler transforms backslashes in strings. To include a `\` in a regexp, enter it twice, i.e. `\\`. To match the backslash character itself, enter it four times, i.e. `\\\\`.
 
-疑惑：什么是 newline，什么是 n-th backreference？
+疑惑：什么是 newline？
 
 ## 未完待续
