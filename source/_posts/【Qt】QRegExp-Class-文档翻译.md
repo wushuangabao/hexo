@@ -35,6 +35,8 @@ In particular, the **pattern syntax** can be set to `QRegExp::FixedString`, whic
 
 注意：Qt5 中新的 QRegularExpression 类提供了兼容 Perl （Perl compatible）的正则表达式实现，来代替 QRegExp 类。
 
+工具：正则表达式[在线测试](https://c.runoob.com/front-end/854)
+
 ## 介绍
 
 ### 基本组成
