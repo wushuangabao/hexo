@@ -36,10 +36,10 @@ date: 2019-08-16 17:20:07
 class Foo;
 
 void Command(const int nInputParam1,
-             const float nInputParam2,
-             const Foo& nInputClass1,
-             const Foo* nInputClass2,
-             void* pOutputParam1);
+                  const float nInputParam2,
+                  const Foo& nInputClass1,
+                  const Foo* nInputClass2,
+                  void* pOutputParam1);
 ```
 
 ## 头文件包含的顺序
@@ -66,7 +66,7 @@ void Command(const int nInputParam1,
 
 对于结构体或数组，声明以后，也应立刻进行初始化操作：
 ```
-TOOLTIP tooltip = {0{;
+TOOLTIP tooltip = {0};
 char buff[1024] = {0};
 
 memset(&tooltip, 0, sizeof(tooltip));
