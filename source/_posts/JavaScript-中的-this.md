@@ -1,8 +1,8 @@
 ---
 title: JavaScript 中的 this
 tags:
-  - JavaScript
   - 学习
+  - JavaScript
 categories:
   - 编程艺术
 toc: false
@@ -10,6 +10,8 @@ date: 2019-08-29 17:43:51
 ---
 
 ## 执行上下文中的 this
+
+<!--more-->
 
 JS 代码在执行之前需要被 JS 引擎编译。经过编译之后，会产生两部分内容：
 - 执行上下文（Execution context）
