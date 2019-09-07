@@ -14,7 +14,7 @@ date: 2019-08-16 17:20:07
 
 ## 头文件依赖与前向声明
 
-当我们在头文件中需要类的定义时，只需要申明 class CLASSNAME 就可以了，无需使用`#include “CLASSNAME.h”`。
+当我们在头文件中需要类的定义时，只需要声明 class CLASSNAME 就可以了，无需使用`#include “CLASSNAME.h”`。
 
 优势：
 - 减少文件依赖，节约编译时间；
