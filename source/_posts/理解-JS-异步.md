@@ -284,7 +284,7 @@ Promise.race([result1,result2]).then(data => {
 - Promise 实例必须实现 then 这个方法
 - then() 必须可以接收两个函数作为参数
 - then() 返回的必须是一个 Promise 实例
-        - 如果没有明文返回 Promise 实例，默认返回调用该 then() 的 Promise 实例
+	* 如果没有明文返回 Promise 实例，默认返回调用该 then() 的 Promise 实例
 
 ## 介绍 async/await
 
