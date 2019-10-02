@@ -65,6 +65,8 @@ Windows 用户的插件安装步骤如下：
 
 ![Word 中的 Zotero 插件](http://m.qpic.cn/psb?/V11Tp57c2B9kPO/m4xFU4yRplBvfx3zYEem*X2kLjW31lMeLq3Z0IN6fV0!/b/dDABAAAAAAAA&bo=RQJ1AAAAAAADBxA!&rf=viewer_4)
 
+如果你的 Word 中使用了 Zotero 之后变得特别卡，可以尝试关闭 Word 的自动校对（自动更正与拼写检查），亲测有用。
+
 ### 添加中文文献引用样式
 
 Zotero 默认的引文格式中找不到中文标准 GB 样式，如何添加呢？
