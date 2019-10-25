@@ -2,7 +2,7 @@
 title: 【浏览器工作原理】CSS 如何影响首次加载时的白屏时间？
 tags:
   - JavaScript
-originContent: ''
+  - 浏览器工作原理
 categories:
   - 编程艺术
 toc: false
