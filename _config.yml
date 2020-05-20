@@ -1,4 +1,4 @@
-# Hexo Configuration
+﻿# Hexo Configuration
 ## Docs: https://hexo.io/docs/configuration.html
 ## Source: https://github.com/hexojs/hexo/
 
@@ -85,7 +85,6 @@ search:
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repo: https://GH_TOKEN@github.com/wushuangabao/wushuangabao.github.io
+- type: git
+  repo: https://GH_TOKEN@github.com/wushuangabao/wushuangabao.github.io.git
   branch: master
-  message:
