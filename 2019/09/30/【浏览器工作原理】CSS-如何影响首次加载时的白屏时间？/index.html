@@ -44,21 +44,21 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/hexo/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link rel="stylesheet" href="/css/main.css?v=7.1.1">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+<link rel="stylesheet" href="/hexo/css/main.css?v=7.1.1">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/hexo/images/apple-touch-icon-next.png?v=7.1.1">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/hexo/images/favicon-32x32-next.png?v=7.1.1">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/hexo/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/hexo/images/logo.svg?v=7.1.1" color="#222">
 
 
 
@@ -69,7 +69,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '/hexo/',
     scheme: 'Gemini',
     version: '7.1.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -100,14 +100,14 @@
 <meta name="keywords" content="JavaScript,浏览器工作原理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【浏览器工作原理】CSS 如何影响首次加载时的白屏时间？">
-<meta property="og:url" content="http://wushuangabao.github.io/2019/09/30/【浏览器工作原理】CSS-如何影响首次加载时的白屏时间？/index.html">
+<meta property="og:url" content="http://wushuangabao.github.io/hexo/2019/09/30/【浏览器工作原理】CSS-如何影响首次加载时的白屏时间？/index.html">
 <meta property="og:site_name" content="人间的我">
 <meta property="og:description" content="上一篇《JavaScript 对构建 DOM 树的影响》介绍了 DOM 的生成过程，并分析了 JavaScript 是如何阻塞 DOM 生成的。 本文继续聊渲染流水线中的 CSS。首先站在渲染流水线的视角来介绍 CSS 是如何工作的，然后通过 CSS 的工作流程来分析性能瓶颈，最后再来讨论如何减少首次加载时的白屏时间。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://a4.qpic.cn/psb?/V11Tp57c2B9kPO/VTN6SAe35p0Os5P7hru8jCyZOgsUGZraUX0nXyaTJzA!/b/dJ8AAAAAAAAA&ek=1&kp=1&pt=0&bo=dgTVAQAAAAARF4Y!&tl=3&vuin=445395697&tm=1569812400&sce=60-4-3&rf=viewer_4">
 <meta property="og:image" content="http://m.qpic.cn/psb?/V11Tp57c2B9kPO/SwSslT4zFeXZyKcIBtE33i9FKVmXQPRvcqcawu7.veg!/b/dA8BAAAAAAAA&bo=dgTnAQAAAAARF7Q!&rf=viewer_4">
 <meta property="og:image" content="http://m.qpic.cn/psb?/V11Tp57c2B9kPO/cJYMt46pxU0cuWbN9uBasfh2Mvo4wOsOn3Y1F38W0DU!/b/dNEAAAAAAAAA&bo=dgQGAgAAAAARF1Y!&rf=viewer_4">
-<meta property="og:updated_time" content="2020-05-22T04:06:06.532Z">
+<meta property="og:updated_time" content="2020-05-23T02:42:23.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【浏览器工作原理】CSS 如何影响首次加载时的白屏时间？">
 <meta name="twitter:description" content="上一篇《JavaScript 对构建 DOM 树的影响》介绍了 DOM 的生成过程，并分析了 JavaScript 是如何阻塞 DOM 生成的。 本文继续聊渲染流水线中的 CSS。首先站在渲染流水线的视角来介绍 CSS 是如何工作的，然后通过 CSS 的工作流程来分析性能瓶颈，最后再来讨论如何减少首次加载时的白屏时间。">
@@ -119,7 +119,7 @@
 
   
   
-  <link rel="canonical" href="http://wushuangabao.github.io/2019/09/30/【浏览器工作原理】CSS-如何影响首次加载时的白屏时间？/">
+  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2019/09/30/【浏览器工作原理】CSS-如何影响首次加载时的白屏时间？/">
 
 
 
@@ -186,7 +186,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
+      <a href="/hexo/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">人间的我</span>
         <span class="logo-line-after"><i></i></span>
@@ -229,7 +229,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/hexo/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
 
   </li>
         
@@ -246,7 +246,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/hexo/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
 
   </li>
         
@@ -263,7 +263,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/hexo/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
 
   </li>
         
@@ -280,7 +280,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/hexo/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
 
   </li>
         
@@ -297,7 +297,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/hexo/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
 
   </li>
 
@@ -385,12 +385,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/2019/09/30/【浏览器工作原理】CSS-如何影响首次加载时的白屏时间？/">
+    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2019/09/30/【浏览器工作原理】CSS-如何影响首次加载时的白屏时间？/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="无双BaOY_WHA">
       <meta itemprop="description" content="服装工程专业，非科班新手程序员。">
-      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="image" content="/hexo/images/header.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -445,7 +445,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-05-22 12:06:06" itemprop="dateModified" datetime="2020-05-22T12:06:06+08:00">2020-05-22</time>
+                <time title="修改时间：2020-05-23 10:42:23" itemprop="dateModified" datetime="2020-05-23T10:42:23+08:00">2020-05-23</time>
               
             
           </span>
@@ -462,7 +462,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程艺术/" itemprop="url" rel="index"><span itemprop="name">编程艺术</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/编程艺术/" itemprop="url" rel="index"><span itemprop="name">编程艺术</span></a></span>
 
                 
                 
@@ -561,9 +561,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+            <a href="/hexo/tags/JavaScript/" rel="tag"># JavaScript</a>
           
-            <a href="/tags/浏览器工作原理/" rel="tag"># 浏览器工作原理</a>
+            <a href="/hexo/tags/浏览器工作原理/" rel="tag"># 浏览器工作原理</a>
           
         </div>
       
@@ -576,7 +576,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/29/JavaScript-对构建-DOM-树的影响/" rel="next" title="JavaScript 对构建 DOM 树的影响">
+              <a href="/hexo/2019/09/29/JavaScript-对构建-DOM-树的影响/" rel="next" title="JavaScript 对构建 DOM 树的影响">
                 <i class="fa fa-chevron-left"></i> JavaScript 对构建 DOM 树的影响
               </a>
             
@@ -586,7 +586,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/10/01/《追时间的人》读书（纸质书）笔记/" rel="prev" title="《追时间的人》读书（纸质书）笔记">
+              <a href="/hexo/2019/10/01/《追时间的人》读书（纸质书）笔记/" rel="prev" title="《追时间的人》读书（纸质书）笔记">
                 《追时间的人》读书（纸质书）笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -646,7 +646,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/header.jpg" alt="无双BaOY_WHA">
+              <img class="site-author-image" itemprop="image" src="/hexo/images/header.jpg" alt="无双BaOY_WHA">
             
               <p class="site-author-name" itemprop="name">无双BaOY_WHA</p>
               <div class="site-description motion-element" itemprop="description">服装工程专业，非科班新手程序员。</div>
@@ -657,7 +657,7 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/hexo/archives/">
                 
                     <span class="site-state-item-count">52</span>
                     <span class="site-state-item-name">日志</span>
@@ -671,7 +671,7 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/hexo/categories/">
                     
                   
                     
@@ -716,7 +716,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/hexo/tags/">
                     
                   
                     
@@ -946,45 +946,45 @@
 
 
   
-  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  <script src="/hexo/lib/jquery/index.js?v=2.1.3"></script>
 
   
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/hexo/lib/velocity/velocity.min.js?v=1.2.1"></script>
 
   
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-
-  
-
-
-  <script src="/js/utils.js?v=7.1.1"></script>
-
-  <script src="/js/motion.js?v=7.1.1"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/affix.js?v=7.1.1"></script>
-
-  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
-
-
-
-
-  
-  <script src="/js/scrollspy.js?v=7.1.1"></script>
-<script src="/js/post-details.js?v=7.1.1"></script>
-
+  <script src="/hexo/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
 
   
 
 
-  <script src="/js/next-boot.js?v=7.1.1"></script>
+  <script src="/hexo/js/utils.js?v=7.1.1"></script>
+
+  <script src="/hexo/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/hexo/js/affix.js?v=7.1.1"></script>
+
+  <script src="/hexo/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/hexo/js/scrollspy.js?v=7.1.1"></script>
+<script src="/hexo/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/hexo/js/next-boot.js?v=7.1.1"></script>
 
 
   
@@ -1011,7 +1011,7 @@
     } else if (/json$/i.test(search_path)) {
       isXml = false;
     }
-    var path = "/" + search_path;
+    var path = "/hexo/" + search_path;
     // monitor main search box;
 
     var onPopupClose = function (e) {
