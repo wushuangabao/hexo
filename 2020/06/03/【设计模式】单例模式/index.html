@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/hexo/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/hexo/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/hexo/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/hexo/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/hexo/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/hexo/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/hexo/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="为什么要使用单例？ 单例存在哪些问题？有何解决方案？ 如何设计实现一个集群环境下的分布式单例模式？">
+<meta name="keywords" content="学习,设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【设计模式】单例模式">
+<meta property="og:url" content="http://wushuangabao.github.io/hexo/2020/06/03/【设计模式】单例模式/index.html">
+<meta property="og:site_name" content="人间的我">
+<meta property="og:description" content="为什么要使用单例？ 单例存在哪些问题？有何解决方案？ 如何设计实现一个集群环境下的分布式单例模式？">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/j5BRZUlgKbUG5yYXn162*aJ21Vrdf*VB7TnoQOhI2axiDm0AEz65zJhrLkCW*KylwDV4A2ObQsi9PRdaaUgMRw!!/b&bo=QQeYAgAAAAADB*4!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/j5BRZUlgKbUG5yYXn162*VXE8y2QHcR5*BOoGrMgcrrpZWNxn6Uc8.ST5YHXnSSHP25ZS7rqyLtjvhXOj4f6TQ!!/b&bo=DwJxAQAAAAADB18!&rf=viewer_4">
+<meta property="og:updated_time" content="2020-06-03T07:43:48.897Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【设计模式】单例模式">
+<meta name="twitter:description" content="为什么要使用单例？ 单例存在哪些问题？有何解决方案？ 如何设计实现一个集群环境下的分布式单例模式？">
+<meta name="twitter:image" content="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/j5BRZUlgKbUG5yYXn162*aJ21Vrdf*VB7TnoQOhI2axiDm0AEz65zJhrLkCW*KylwDV4A2ObQsi9PRdaaUgMRw!!/b&bo=QQeYAgAAAAADB*4!&rf=viewer_4">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2020/06/03/【设计模式】单例模式/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>【设计模式】单例模式 | 人间的我</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/hexo/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">人间的我</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">大多数人在体能和意志上训练不足，却在思维和情感上训练过度。</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/wushuangabao" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2020/06/03/【设计模式】单例模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="无双BaOY_WHA">
+      <meta itemprop="description" content="服装工程专业，非科班新手程序员。">
+      <meta itemprop="image" content="/hexo/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="人间的我">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【设计模式】单例模式
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-06-03 15:42:12 / 修改时间：15:43:48" itemprop="dateCreated datePublished" datetime="2020-06-03T15:42:12+08:00">2020-06-03</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/编程艺术/" itemprop="url" rel="index"><span itemprop="name">编程艺术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>为什么要使用单例？</li>
+<li>单例存在哪些问题？有何解决方案？</li>
+<li>如何设计实现一个集群环境下的分布式单例模式？</li>
+</ul>
+<a id="more"></a>
+<h2 id="为什么要使用单例？"><a href="#为什么要使用单例？" class="headerlink" title="为什么要使用单例？"></a>为什么要使用单例？</h2><h3 id="处理资源访问冲突"><a href="#处理资源访问冲突" class="headerlink" title="处理资源访问冲突"></a>处理资源访问冲突</h3><p>我们自定义实现了一个往文件中打印日志的 Logger 类。具体的代码实现如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class Logger &#123;</span><br><span class="line">  private FileWriter writer;</span><br><span class="line">  </span><br><span class="line">  public Logger() &#123;</span><br><span class="line">    File file = new File(&quot;/Users/wangzheng/log.txt&quot;);</span><br><span class="line">    writer = new FileWriter(file, true); //true表示追加写入</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public void log(String message) &#123;</span><br><span class="line">    writer.write(mesasge);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Logger类的应用示例：</span><br><span class="line">public class UserController &#123;</span><br><span class="line">  private Logger logger = new Logger();</span><br><span class="line">  </span><br><span class="line">  public void login(String username, String password) &#123;</span><br><span class="line">    // ...省略业务逻辑代码...</span><br><span class="line">    logger.log(username + &quot; logined!&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class OrderController &#123;</span><br><span class="line">  private Logger logger = new Logger();</span><br><span class="line">  </span><br><span class="line">  public void create(OrderVo order) &#123;</span><br><span class="line">    // ...省略业务逻辑代码...</span><br><span class="line">    logger.log(&quot;Created an order: &quot; + order.toString());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这段代码存在如下问题：<br>所有的日志都写入到同一个文件 /Users/wangzheng/log.txt 中。在<code>UserController</code>和<code>OrderController</code>中，我们分别创建两个 Logger 对象。在 Web 容器的 Servlet 多线程环境下，如果两个 Servlet 线程同时分别执行<code>login()</code>和<code>create()</code>两个函数，并且同时写日志到 log.txt 文件中，那就有可能存在日志信息互相覆盖的情况。</p>
+<p>为什么会相互覆盖呢？<br>在多线程环境下，如果两个线程同时给同一个共享变量加 1，因为共享变量是竞争资源，所以，共享变量最后的结果有可能并不是加了 2，而是只加了 1。同理，这里的 log.txt 文件也是竞争资源，两个线程同时往里面写数据，就有可能存在互相覆盖的情况。如图：<br><img src="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/j5BRZUlgKbUG5yYXn162*aJ21Vrdf*VB7TnoQOhI2axiDm0AEz65zJhrLkCW*KylwDV4A2ObQsi9PRdaaUgMRw!!/b&amp;bo=QQeYAgAAAAADB*4!&amp;rf=viewer_4" alt="竞争资源"></p>
+<p>最容易想到的解决方法是给<code>log()</code>函数加互斥锁（Java 中可以通过 synchronized 的关键字），同一时刻只允许一个线程调用执行<code>log()</code>函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Logger &#123;</span><br><span class="line">  private FileWriter writer;</span><br><span class="line"></span><br><span class="line">  public Logger() &#123;</span><br><span class="line">    File file = new File(&quot;/Users/wangzheng/log.txt&quot;);</span><br><span class="line">    writer = new FileWriter(file, true); //true表示追加写入</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public void log(String message) &#123;</span><br><span class="line">    synchronized(this) &#123;</span><br><span class="line">      writer.write(mesasge);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但这种锁只是一个对象级别的锁，<strong>不同的对象之间并不共享同一把锁</strong>。在不同的线程下，通过不同的对象调用执行<code>log()</code>函数，锁并不会起作用，仍然有可能存在写入日志互相覆盖的问题。</p>
+<p><img src="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/j5BRZUlgKbUG5yYXn162*VXE8y2QHcR5*BOoGrMgcrrpZWNxn6Uc8.ST5YHXnSSHP25ZS7rqyLtjvhXOj4f6TQ!!/b&amp;bo=DwJxAQAAAAADB18!&amp;rf=viewer_4" alt="对象级别的锁"></p>
+<blockquote>
+<p><code>log()</code>函数加不加对象级别的锁，其实都没有关系。因为 FileWriter 本身就是线程安全的，它的内部实现中本身就加了对象级别的锁，因此，在外层调用<code>write()</code>函数的时候，再加对象级别的锁实际上是多此一举。<br>因为不同的 Logger 对象不共享 FileWriter 对象，所以 FileWriter 对象级别的锁也解决不了数据写入互相覆盖的问题。</p>
+</blockquote>
+<p>我们只需要把对象级别的锁，换成<strong>类级别的锁</strong>就可以了。让所有的对象都共享同一把锁。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Logger &#123;</span><br><span class="line">  private FileWriter writer;</span><br><span class="line"></span><br><span class="line">  public Logger() &#123;</span><br><span class="line">    File file = new File(&quot;/Users/wangzheng/log.txt&quot;);</span><br><span class="line">    writer = new FileWriter(file, true); //true表示追加写入</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public void log(String message) &#123;</span><br><span class="line">    synchronized(Logger.class) &#123; // 类级别的锁</span><br><span class="line">      writer.write(mesasge);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="单例模式是一种解决方案"><a href="#单例模式是一种解决方案" class="headerlink" title="单例模式是一种解决方案"></a>单例模式是一种解决方案</h4><p>实际上，除了使用类级别锁之外，解决资源竞争问题的办法还有很多，<strong>分布式锁</strong>是最常听到的一种解决方案（不过，实现一个安全可靠、无 bug、高性能的分布式锁，并不是件容易的事情）。除此之外，<strong>并发队列</strong>（比如 Java 中的 BlockingQueue）也可以解决这个问题：多个线程同时往并发队列里写日志，一个单独的线程负责将并发队列中的数据，写入到日志文件（这种方式实现起来也稍微有点复杂）。</p>
+<p>相对于这两种解决方案，单例模式的解决思路就简单一些了。单例模式相对于之前类级别锁的好处是，不用创建那么多 Logger 对象，一方面<strong>节省内存空间</strong>，另一方面<strong>节省系统文件句柄</strong>（对于操作系统来说，文件句柄也是一种资源，不能随便浪费）。<br>我们将 Logger 设计成一个单例类，程序中只允许创建一个 Logger 对象，所有的线程共享使用的这一个 Logger 对象，共享一个 FileWriter 对象，而 FileWriter 本身是对象级别线程安全的，也就避免了多线程情况下写日志会互相覆盖的问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">public class Logger &#123;</span><br><span class="line">  private FileWriter writer;</span><br><span class="line">  private static final Logger instance = new Logger();</span><br><span class="line"></span><br><span class="line">  private Logger() &#123;</span><br><span class="line">    File file = new File(&quot;/Users/wangzheng/log.txt&quot;);</span><br><span class="line">    writer = new FileWriter(file, true); //true表示追加写入</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public static Logger getInstance() &#123;</span><br><span class="line">    return instance;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public void log(String message) &#123;</span><br><span class="line">    writer.write(mesasge);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Logger类的应用示例：</span><br><span class="line">public class UserController &#123;</span><br><span class="line">  public void login(String username, String password) &#123;</span><br><span class="line">    // ...省略业务逻辑代码...</span><br><span class="line">    Logger.getInstance().log(username + &quot; logined!&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class OrderController &#123;  </span><br><span class="line">  public void create(OrderVo order) &#123;</span><br><span class="line">    // ...省略业务逻辑代码...</span><br><span class="line">    Logger.getInstance().log(&quot;Created a order: &quot; + order.toString());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="表示全局唯一类"><a href="#表示全局唯一类" class="headerlink" title="表示全局唯一类"></a>表示全局唯一类</h3><p>从业务概念上说，有些数据在系统中只应保存一份，那就比较适合设计为单例类。</p>
+<p>比如，配置信息类。系统中只有一份配置文件，当它被加载到内存之后以对象的形式存在，也理所应当只有一份。</p>
+<p>再比如，唯一递增 ID 号码生成器。如果程序中有两个对象，那就会存在生成重复 ID 的情况，所以应该将 ID 生成器类设计为单例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import java.util.concurrent.atomic.AtomicLong;</span><br><span class="line">public class IdGenerator &#123;</span><br><span class="line">  // AtomicLong是一个Java并发库中提供的一个原子变量类型,</span><br><span class="line">  // 它将一些线程不安全需要加锁的复合操作封装为了线程安全的原子操作，</span><br><span class="line">  // 比如下面会用到的incrementAndGet().</span><br><span class="line">  private AtomicLong id = new AtomicLong(0);</span><br><span class="line">  private static final IdGenerator instance = new IdGenerator();</span><br><span class="line">  private IdGenerator() &#123;&#125;</span><br><span class="line">  public static IdGenerator getInstance() &#123;</span><br><span class="line">    return instance;</span><br><span class="line">  &#125;</span><br><span class="line">  public long getId() &#123; </span><br><span class="line">    return id.incrementAndGet();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// IdGenerator使用举例</span><br><span class="line">long id = IdGenerator.getInstance().getId();</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>实际上，上面两个代码实例（Logger、IdGenerator）设计得都并不优雅，还存在一些问题。<br>单例的实现方法有：饿汉式、懒汉式、双检测、静态类、枚举。饿汉式不能延迟加载，懒汉式在并发时存在效率问题。</p>
+</blockquote>
+<h2 id="单例存在哪些问题？"><a href="#单例存在哪些问题？" class="headerlink" title="单例存在哪些问题？"></a>单例存在哪些问题？</h2><h3 id="单例对-OOP-特性的支持不友好"><a href="#单例对-OOP-特性的支持不友好" class="headerlink" title="单例对 OOP 特性的支持不友好"></a>单例对 OOP 特性的支持不友好</h3><p>单例模式对抽象、继承、多态都支持得不好。还是通过 IdGenerator 这个例子来讲解：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Order &#123;</span><br><span class="line">  public void create(...) &#123;</span><br><span class="line">    //...</span><br><span class="line">    long id = IdGenerator.getInstance().getId();</span><br><span class="line">    //...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class User &#123;</span><br><span class="line">  public void create(...) &#123;</span><br><span class="line">    // ...</span><br><span class="line">    long id = IdGenerator.getInstance().getId();</span><br><span class="line">    //...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>IdGenerator 的使用方式违背了<strong>基于接口而非实现</strong>的设计原则，也就违背了广义上理解的 OOP 的抽象特性。<br>如果未来我们希望针对不同的业务采用不同的 ID 生成算法。比如，订单 ID 和用户 ID 采用不同的 ID 生成器来生成。为了应对这个需求变化，我们需要修改所有用到 IdGenerator 类的地方，这样代码的改动就会比较大。</p>
+<p>从理论上来讲，单例类也可以被继承、也可以实现多态，只是实现起来会非常奇怪，会导致代码的可读性变差。所以，一旦你选择将某个类设计成到单例类，也就意味着放弃了继承和多态这两个强有力的面向对象特性，也就相当于损失了可以应对未来需求变化的扩展性。</p>
+<h3 id="单例会隐藏类之间的依赖关系"><a href="#单例会隐藏类之间的依赖关系" class="headerlink" title="单例会隐藏类之间的依赖关系"></a>单例会隐藏类之间的依赖关系</h3><p>通过构造函数、参数传递等方式声明的类之间的依赖关系，我们通过查看函数的定义，就能很容易识别出来。但是，单例类不需要显示创建、不需要依赖参数传递，在函数中直接调用就可以了。如果代码比较复杂，这种调用关系就会非常隐蔽，降低代码的可读性。</p>
+<h3 id="单例对代码的扩展性不友好"><a href="#单例对代码的扩展性不友好" class="headerlink" title="单例对代码的扩展性不友好"></a>单例对代码的扩展性不友好</h3><p>单例类只能有一个对象实例，如果未来我们需要在代码中创建两个或多个实例，那就要对代码有比较大的改动。<br>数据库连接池、线程池这类的资源池，最好还是不要设计成单例类。实际上，一些开源的数据库连接池、线程池也确实没有设计成单例类。</p>
+<h3 id="单例对代码的可测试性不友好"><a href="#单例对代码的可测试性不友好" class="headerlink" title="单例对代码的可测试性不友好"></a>单例对代码的可测试性不友好</h3><p>如果单例类依赖比较重的外部资源，比如 DB，我们在写单元测试的时候，希望能通过 mock 的方式将它替换掉。而单例类这种硬编码式的使用方式，导致无法实现 mock 替换。</p>
+<p>除此之外，如果单例类持有成员变量（比如 IdGenerator 中的 id 成员变量），那它实际上相当于一种全局变量，被所有的代码共享。如果这个全局变量是可变的，那我们在编写单元测试的时候，还需要注意不同测试用例之间，修改了单例类中的同一个成员变量的值，从而导致测试结果互相影响的问题。</p>
+<h3 id="单例不支持有参数的构造函数"><a href="#单例不支持有参数的构造函数" class="headerlink" title="单例不支持有参数的构造函数"></a>单例不支持有参数的构造函数</h3><p>比如我们创建一个连接池的单例对象，我们没法通过参数来指定连接池的大小。</p>
+<p>当然将参数放到 getIntance() 方法中也不是不行，但实现起来不够优雅。推荐的解决方法是，将参数放到另外一个全局变量中。</p>
+<h2 id="有何替代解决方案？"><a href="#有何替代解决方案？" class="headerlink" title="有何替代解决方案？"></a>有何替代解决方案？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 1. 老的使用方式</span><br><span class="line">public demofunction() &#123;</span><br><span class="line">  //...</span><br><span class="line">  long id = IdGenerator.getInstance().getId();</span><br><span class="line">  //...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 2. 新的使用方式：依赖注入</span><br><span class="line">public demofunction(IdGenerator idGenerator) &#123;</span><br><span class="line">  long id = idGenerator.getId();</span><br><span class="line">&#125;</span><br><span class="line">// 外部调用demofunction()的时候，传入idGenerator</span><br><span class="line">IdGenerator idGenerator = IdGenerator.getInsance();</span><br><span class="line">demofunction(idGenerator);</span><br></pre></td></tr></table></figure>
+<p>我们将单例生成的对象，作为参数传递给函数（也可以通过构造函数传递给类的成员变量），可以解决单例隐藏类之间依赖关系的问题。<br>不过，对于单例存在的其他问题，比如对 OOP 特性、扩展性、可测性不友好等问题，还是无法解决。</p>
+<p>如果要完全解决这些问题，我们可能要从根上，寻找其他方式来实现全局唯一类。<br>实际上，类对象的全局唯一性可以通过多种不同的方式来保证。我们既可以通过单例模式来强制保证，也可以通过工厂模式、IOC 容器（比如 Spring IOC 容器）来保证，还可以通过程序员自己来保证（自己保证不要创建两个类对象）。</p>
+<h2 id="如何理解单例中的唯一性？"><a href="#如何理解单例中的唯一性？" class="headerlink" title="如何理解单例中的唯一性？"></a>如何理解单例中的唯一性？</h2><p>单例的定义：“一个类只允许创建唯一一个对象（或者实例），那这个类就是一个单例类，这种设计模式就叫作单例设计模式，简称单例模式。”</p>
+<p>单例模式创建的对象是<strong>进程唯一</strong>的。</p>
+<p>我们编写的代码，通过编译、链接，组织在一起，就构成了一个操作系统可以执行的文件，也就是我们平时所说的“可执行文件”（比如 Windows 下的 exe 文件）。可执行文件实际上就是代码被翻译成操作系统可理解的一组指令。<br>当我们使用命令行或者双击运行这个可执行文件的时候，操作系统会启动一个进程，将这个执行文件从磁盘加载到自己的进程地址空间（可以理解操作系统为进程分配的内存存储区，用来存储代码和数据）。接着，进程就一条一条地执行可执行文件中包含的代码。<br>进程之间是不共享地址空间的，如果我们在一个进程中创建另外一个进程（比如<code>fork()</code>语句），操作系统会给新进程分配新的地址空间，并且将老进程地址空间的所有内容，重新拷贝一份到新进程的地址空间中，这些内容包括代码、数据。</p>
+<p>单例类在老进程中存在且只能存在一个对象，在新进程中也会存在且只能存在一个对象。而且，这两个对象并不是同一个对象。</p>
+<h3 id="如何实现线程唯一的单例？"><a href="#如何实现线程唯一的单例？" class="headerlink" title="如何实现线程唯一的单例？"></a>如何实现线程唯一的单例？</h3><p><strong>线程唯一</strong>单例的代码实现很简单，如下所示。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class IdGenerator &#123;</span><br><span class="line">  private AtomicLong id = new AtomicLong(0);</span><br><span class="line"></span><br><span class="line">  private static final ConcurrentHashMap&lt;Long, IdGenerator&gt; instances</span><br><span class="line">          = new ConcurrentHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  private IdGenerator() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  public static IdGenerator getInstance() &#123;</span><br><span class="line">    Long currentThreadId = Thread.currentThread().getId();</span><br><span class="line">    instances.putIfAbsent(currentThreadId, new IdGenerator());</span><br><span class="line">    return instances.get(currentThreadId);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public long getId() &#123;</span><br><span class="line">    return id.incrementAndGet();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在代码中，我们通过一个 HashMap 来存储对象，其中 key 是线程 ID，value 是对象。这样我们就可以做到，不同的线程对应不同的对象，同一个线程只能对应一个对象。</p>
+<h2 id="如何实现集群环境下的单例？"><a href="#如何实现集群环境下的单例？" class="headerlink" title="如何实现集群环境下的单例？"></a>如何实现集群环境下的单例？</h2><p>“进程唯一”指的是进程内唯一、进程间不唯一。“线程唯一”指的是线程内唯一、线程间不唯一。<strong>集群相当于多个进程构成的一个集合</strong>，“集群唯一”就相当于是进程内唯一、进程间也唯一。也就是说，不同的进程间共享同一个对象，不能创建同一个类的多个对象。</p>
+<p>经典的单例模式是进程内唯一的，那如何实现一个<strong>进程间也唯一</strong>的单例呢？如果严格按照不同的进程间共享同一个对象来实现，那集群唯一的单例实现起来就有点难度了。</p>
+<p>具体来说，我们需要把这个单例对象序列化并存储到外部共享存储区（比如文件）。进程在使用这个单例对象的时候，需要先从外部共享存储区中将它读取到内存，并反序列化成对象，然后再使用，使用完成之后还需要再存储回外部共享存储区。<br>为了保证任何时刻，在进程间都只有一份对象存在，一个进程在获取到对象之后，需要对对象加锁，避免其他进程再将其获取。在进程使用完这个对象之后，还需要显式地将对象从内存中删除，并且释放对对象的加锁。按照这个思路，我用伪代码实现了一下这个过程，具体如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class IdGenerator &#123;</span><br><span class="line">  private AtomicLong id = new AtomicLong(0);</span><br><span class="line">  private static IdGenerator instance;</span><br><span class="line">  private static SharedObjectStorage storage = FileSharedObjectStorage(/*入参省略，比如文件地址*/);</span><br><span class="line">  private static DistributedLock lock = new DistributedLock();</span><br><span class="line">  </span><br><span class="line">  private IdGenerator() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  public synchronized static IdGenerator getInstance() </span><br><span class="line">    if (instance == null) &#123;</span><br><span class="line">      lock.lock();</span><br><span class="line">      instance = storage.load(IdGenerator.class);</span><br><span class="line">    &#125;</span><br><span class="line">    return instance;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public synchroinzed void freeInstance() &#123;</span><br><span class="line">    storage.save(this, IdGeneator.class);</span><br><span class="line">    instance = null; //释放对象</span><br><span class="line">    lock.unlock();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public long getId() &#123; </span><br><span class="line">    return id.incrementAndGet();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// IdGenerator使用举例</span><br><span class="line">IdGenerator idGeneator = IdGenerator.getInstance();</span><br><span class="line">long id = idGenerator.getId();</span><br><span class="line">IdGenerator.freeInstance();</span><br></pre></td></tr></table></figure></p>
+<h2 id="如何实现一个多例模式？"><a href="#如何实现一个多例模式？" class="headerlink" title="如何实现一个多例模式？"></a>如何实现一个多例模式？</h2><p>“多例”指的是，一个类可以创建多个对象，但是个数是有限制的。</p>
+<p>用代码简单示例一下三例模式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public class BackendServer &#123;</span><br><span class="line">  private long serverNo;</span><br><span class="line">  private String serverAddress;</span><br><span class="line"></span><br><span class="line">  private static final int SERVER_COUNT = 3;</span><br><span class="line">  private static final Map&lt;Long, BackendServer&gt; serverInstances = new HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  static &#123;</span><br><span class="line">    serverInstances.put(1L, new BackendServer(1L, &quot;192.134.22.138:8080&quot;));</span><br><span class="line">    serverInstances.put(2L, new BackendServer(2L, &quot;192.134.22.139:8080&quot;));</span><br><span class="line">    serverInstances.put(3L, new BackendServer(3L, &quot;192.134.22.140:8080&quot;));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  private BackendServer(long serverNo, String serverAddress) &#123;</span><br><span class="line">    this.serverNo = serverNo;</span><br><span class="line">    this.serverAddress = serverAddress;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public BackendServer getInstance(long serverNo) &#123;</span><br><span class="line">    return serverInstances.get(serverNo);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public BackendServer getRandomInstance() &#123;</span><br><span class="line">    Random r = new Random();</span><br><span class="line">    int no = r.nextInt(SERVER_COUNT)+1;</span><br><span class="line">    return serverInstances.get(no);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实际上，对于多例模式，还有一种理解方式：同一类型的只能创建一个对象，不同类型的可以创建多个对象。这里的“类型”如何理解呢？我们还是通过一个例子来解释一下，具体代码如下所示。在代码中，logger name 就是刚刚说的“类型”，同一个 logger name 获取到的对象实例是相同的，不同的 logger name 获取到的对象实例是不同的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class Logger &#123;</span><br><span class="line">  private static final ConcurrentHashMap&lt;String, Logger&gt; instances</span><br><span class="line">          = new ConcurrentHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  private Logger() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  public static Logger getInstance(String loggerName) &#123;</span><br><span class="line">    instances.putIfAbsent(loggerName, new Logger());</span><br><span class="line">    return instances.get(loggerName);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public void log() &#123;</span><br><span class="line">    //...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//l1==l2, l1!=l3</span><br><span class="line">Logger l1 = Logger.getInstance(&quot;User.class&quot;);</span><br><span class="line">Logger l2 = Logger.getInstance(&quot;User.class&quot;);</span><br><span class="line">Logger l3 = Logger.getInstance(&quot;Order.class&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>这种多例模式的理解方式有点类似工厂模式。它跟工厂模式的不同之处是，多例模式创建的对象都是同一个类的对象，而工厂模式创建的是不同子类的对象。<br>实际上，它还有点类似享元模式。</p>
+<p>除此之外，枚举类型也相当于多例模式，一个类型只能对应一个对象，一个类可以创建多个对象。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/hexo/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/hexo/tags/设计模式/" rel="tag"># 设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/hexo/2020/05/29/【设计模式】积分系统设计实战/" rel="next" title="【设计模式】积分系统设计实战">
+                <i class="fa fa-chevron-left"></i> 【设计模式】积分系统设计实战
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/hexo/images/header.jpg" alt="无双BaOY_WHA">
+            
+              <p class="site-author-name" itemprop="name">无双BaOY_WHA</p>
+              <div class="site-description motion-element" itemprop="description">服装工程专业，非科班新手程序员。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/hexo/archives/">
+                
+                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/hexo/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/hexo/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/wushuangabao" title="GitHub &rarr; https://github.com/wushuangabao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:445395697@qq.com" title="E-Mail &rarr; mailto:445395697@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/u/3801041566" title="Weibo &rarr; https://weibo.com/u/3801041566" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://space.bilibili.com/20467999" title="Bilibili &rarr; https://space.bilibili.com/20467999" rel="noopener" target="_blank"><i class="fa fa-fw fa-youtube-square"></i>Bilibili</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用单例？"><span class="nav-text">为什么要使用单例？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#处理资源访问冲突"><span class="nav-text">处理资源访问冲突</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单例模式是一种解决方案"><span class="nav-text">单例模式是一种解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表示全局唯一类"><span class="nav-text">表示全局唯一类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单例存在哪些问题？"><span class="nav-text">单例存在哪些问题？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单例对-OOP-特性的支持不友好"><span class="nav-text">单例对 OOP 特性的支持不友好</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单例会隐藏类之间的依赖关系"><span class="nav-text">单例会隐藏类之间的依赖关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单例对代码的扩展性不友好"><span class="nav-text">单例对代码的扩展性不友好</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单例对代码的可测试性不友好"><span class="nav-text">单例对代码的可测试性不友好</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单例不支持有参数的构造函数"><span class="nav-text">单例不支持有参数的构造函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有何替代解决方案？"><span class="nav-text">有何替代解决方案？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何理解单例中的唯一性？"><span class="nav-text">如何理解单例中的唯一性？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何实现线程唯一的单例？"><span class="nav-text">如何实现线程唯一的单例？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何实现集群环境下的单例？"><span class="nav-text">如何实现集群环境下的单例？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何实现一个多例模式？"><span class="nav-text">如何实现一个多例模式？</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">无双BaOY_WHA</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/hexo/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/hexo/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/hexo/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/hexo/js/utils.js?v=7.1.1"></script>
+
+  <script src="/hexo/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/hexo/js/affix.js?v=7.1.1"></script>
+
+  <script src="/hexo/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/hexo/js/scrollspy.js?v=7.1.1"></script>
+<script src="/hexo/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/hexo/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/hexo/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
