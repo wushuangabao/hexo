@@ -96,24 +96,18 @@
 
 
 
-  <meta name="description" content="介绍与安装我曾经在微信公号中比较过几款主流的文献管理工具。其中 Zotero 作为开源软件，功能扩展性极强。">
-<meta name="keywords" content="技巧,科研">
+  <meta name="description" content="Builder 模式，中文翻译为建造者模式或者构建者模式，也有人叫它生成器模式。  直接使用构造函数或配合 set 方法就能创建对象，为什么还需要建造者模式来创建？ 建造者模式和工厂模式都可以创建对象，它们两个的区别在哪？">
+<meta name="keywords" content="学习,设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Zotero文献管理软件的基本使用">
-<meta property="og:url" content="http://wushuangabao.github.io/hexo/2019/06/19/Zotero文献管理软件的基本使用/index.html">
+<meta property="og:title" content="【设计模式】建造者模式">
+<meta property="og:url" content="http://wushuangabao.github.io/hexo/2020/06/05/【设计模式】建造者模式/index.html">
 <meta property="og:site_name" content="人间的我">
-<meta property="og:description" content="介绍与安装我曾经在微信公号中比较过几款主流的文献管理工具。其中 Zotero 作为开源软件，功能扩展性极强。">
+<meta property="og:description" content="Builder 模式，中文翻译为建造者模式或者构建者模式，也有人叫它生成器模式。  直接使用构造函数或配合 set 方法就能创建对象，为什么还需要建造者模式来创建？ 建造者模式和工厂模式都可以创建对象，它们两个的区别在哪？">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://m.qpic.cn/psb?/V11Tp57c2B9kPO/QiV5wb1EnTqdWuKohkD7qoIDK1F6870aZjAZAje5WZY!/b/dD4BAAAAAAAA&bo=OQPfAQAAAAADB8Y!&rf=viewer_4">
-<meta property="og:image" content="http://m.qpic.cn/psb?/V11Tp57c2B9kPO/m4xFU4yRplBvfx3zYEem*X2kLjW31lMeLq3Z0IN6fV0!/b/dDABAAAAAAAA&bo=RQJ1AAAAAAADBxA!&rf=viewer_4">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5727621-ada62e18161b6e5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/616/format/webp">
-<meta property="og:image" content="https://www.yangzhiping.com/images/zotero/zotero5/zotero-3.jpg">
-<meta property="og:image" content="https://www.yangzhiping.com/images/zotero/zotero5/zotero-4.jpg">
-<meta property="og:updated_time" content="2020-06-10T03:05:07.659Z">
+<meta property="og:updated_time" content="2020-06-10T03:05:07.663Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zotero文献管理软件的基本使用">
-<meta name="twitter:description" content="介绍与安装我曾经在微信公号中比较过几款主流的文献管理工具。其中 Zotero 作为开源软件，功能扩展性极强。">
-<meta name="twitter:image" content="http://m.qpic.cn/psb?/V11Tp57c2B9kPO/QiV5wb1EnTqdWuKohkD7qoIDK1F6870aZjAZAje5WZY!/b/dD4BAAAAAAAA&bo=OQPfAQAAAAADB8Y!&rf=viewer_4">
+<meta name="twitter:title" content="【设计模式】建造者模式">
+<meta name="twitter:description" content="Builder 模式，中文翻译为建造者模式或者构建者模式，也有人叫它生成器模式。  直接使用构造函数或配合 set 方法就能创建对象，为什么还需要建造者模式来创建？ 建造者模式和工厂模式都可以创建对象，它们两个的区别在哪？">
 
 
 
@@ -121,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2019/06/19/Zotero文献管理软件的基本使用/">
+  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2020/06/05/【设计模式】建造者模式/">
 
 
 
@@ -131,7 +125,7 @@
   };
 </script>
 
-  <title>Zotero文献管理软件的基本使用 | 人间的我</title>
+  <title>【设计模式】建造者模式 | 人间的我</title>
   
 
 
@@ -387,7 +381,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2019/06/19/Zotero文献管理软件的基本使用/">
+    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2020/06/05/【设计模式】建造者模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="无双BaOY_WHA">
@@ -404,7 +398,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Zotero文献管理软件的基本使用
+          <h1 class="post-title" itemprop="name headline">【设计模式】建造者模式
 
               
             
@@ -430,7 +424,7 @@
                 
               
 
-              <time title="创建时间：2019-06-19 19:40:59" itemprop="dateCreated datePublished" datetime="2019-06-19T19:40:59+08:00">2019-06-19</time>
+              <time title="创建时间：2020-06-05 12:04:52" itemprop="dateCreated datePublished" datetime="2020-06-05T12:04:52+08:00">2020-06-05</time>
             
 
             
@@ -464,7 +458,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/奇技淫巧/" itemprop="url" rel="index"><span itemprop="name">奇技淫巧</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/编程艺术/" itemprop="url" rel="index"><span itemprop="name">编程艺术</span></a></span>
 
                 
                 
@@ -499,50 +493,72 @@
       
 
       
-        <h2 id="介绍与安装"><a href="#介绍与安装" class="headerlink" title="介绍与安装"></a>介绍与安装</h2><p>我曾经在<a href="http://mp.weixin.qq.com/s?__biz=MzI1MzEyODQyMA==&amp;mid=2708133016&amp;idx=1&amp;sn=0ba2974967de9ebb5a168c874a6bd704&amp;chksm=cd474f13fa30c6059a7e3a80bb213b9108c821db9825c74f289bcb3c45c86f4fde47993f2250&amp;mpshare=1&amp;scene=23&amp;srcid=#rd" target="_blank" rel="noopener">微信公号</a>中比较过几款主流的文献管理工具。其中 Zotero 作为开源软件，功能扩展性极强。</p>
-<a id="more"></a>
-<p>我一开始了解到 Zotero 是因为看了阳志平的<a href="https://www.douban.com/group/topic/45562674/" target="_blank" rel="noopener">入门六篇</a>，里面不但介绍了Zotero 的使用，还介绍了很多配套工具。</p>
-<p>如何安装无须多讲，直接上官网<a href="https://www.zotero.org/support/word_processor_plugin_installation" target="_blank" rel="noopener">传送门</a>。</p>
-<p>此外，使用之前还须要<a href="https://www.zotero.org/user/register/" target="_blank" rel="noopener">注册</a>一个账号，用来在不同设备之间同步你的文献库（另外还可以创建 group 进行团队协作，可以关注其他用户）。</p>
-<h2 id="在浏览器中使用-Zotero"><a href="#在浏览器中使用-Zotero" class="headerlink" title="在浏览器中使用 Zotero"></a>在浏览器中使用 Zotero</h2><p>选择 Zotero 菜单栏中的工具 &gt; 安装浏览器插件，会打开浏览器（Firefox, Chrome 等）并进入插件浏览器下载页面。</p>
-<p>打开本地的 Zotero 软件，再配合 Zotero 的浏览器插件，你可以直接从你打开的网页上爬取文献资料的信息（标题、作者、摘要等）。</p>
-<p>阳志平入门六篇的<a href="https://www.yangzhiping.com/tech/zotero1.html" target="_blank" rel="noopener">第一篇</a>就介绍了6种向 Zotero 导入文献的方法。不过我最常用的还是下图这种：</p>
-<p><img src="http://m.qpic.cn/psb?/V11Tp57c2B9kPO/QiV5wb1EnTqdWuKohkD7qoIDK1F6870aZjAZAje5WZY!/b/dD4BAAAAAAAA&amp;bo=OQPfAQAAAAADB8Y!&amp;rf=viewer_4" alt="导入豆瓣图书信息"></p>
-<p><strong>注：</strong></p>
-<ol>
-<li>先打开浏览器再打开 Zotero 的情况下，导入文献会出错，须要重启浏览器。</li>
-<li>Zotero 无法识别万方数据库的文献元数据（可能因为网页改版了），国内的文献还是去 CNKI 搜索吧，而且在 CNKI 还能支持批量导入。</li>
-<li>有时明明在浏览器导入了A文献，再去导入B文献，却发现 Zotero 导入的还是A文献。解决办法是重启浏览器，或者换个浏览器。</li>
-</ol>
-<p>顺带一提，Chrome 浏览器拥有丰富的插件，其中我经常使用的有：</p>
+        <p>Builder 模式，中文翻译为建造者模式或者构建者模式，也有人叫它生成器模式。</p>
 <ul>
-<li>TamperMonkey，允许用户自己编写、共享插件脚本，不少 geek 写了许多很实用的脚本，比如解析网上的 VIP 视频、免费下载百度文库等；</li>
-<li>谷歌访问助手，允许浏览器直接访问 Google 主页以及 Google scholar 等网站；</li>
+<li>直接使用构造函数或配合 set 方法就能创建对象，为什么还需要建造者模式来创建？</li>
+<li>建造者模式和工厂模式都可以创建对象，它们两个的区别在哪？</li>
 </ul>
-<p>（由于 QQ 浏览器使用 Chrome 内核，我个人体验是：以上插件在 QQ 浏览器基本上也可以使用。我用 QQ 主要是因为一直在用 QQ 账号同步网页收藏夹。）</p>
-<h2 id="在-Word-中使用-Zotero"><a href="#在-Word-中使用-Zotero" class="headerlink" title="在 Word 中使用 Zotero"></a>在 Word 中使用 Zotero</h2><p>在 Word 中使用 Zotero 可以方便地插入参考文献的引用。<br>（我在 Win7 下的盗版 Word 2013 用了文献管理插件插入文献，然后 Word 变得很卡，原因不明。）</p>
-<p>只要你想引用的文献已经添加到 Zotero 文库中，就可以直接插入 Word 文档的任意位置，并在指定位置、按指定样式，自动生成该参考文献的信息。即使引文插入的位置有先后变化，只要刷新一下就会自动调整。</p>
-<p>是不是很激动人心？如果你的 Windows 系统安装了 Zotero 和 Word，只需要再按下面2个步骤操作，就可以做到上述神奇的功能。</p>
-<h3 id="安装-Zotero-Word-插件"><a href="#安装-Zotero-Word-插件" class="headerlink" title="安装 Zotero Word 插件"></a>安装 Zotero Word 插件</h3><p>如果你在你的 Word 中找不到 ZOTERO 插件，可以参考<a href="https://www.zotero.org/support/word_processor_plugin_manual_installation" target="_blank" rel="noopener">官方文档</a>进行手动安装。</p>
-<p>Windows 用户的插件安装步骤如下：</p>
-<ol>
-<li>打开 Zotero 的安装文件夹（默认路径为<code>C:\Program Files (x86)\Zotero</code>）</li>
-<li>在安装文件夹中，依次打开<code>extensions\zoteroWinWordIntegration@zotero.org\install</code>，里面有2个文件 Zotero.dotm (用于 Word 2007 及以上版本) 以及 Zotero.dot (用于旧版本的 Word)</li>
-<li>找到 Word 的 startup 文件夹（对于 XP 以后的操作系统，路径为 <code>C:\Users\你的系统用户名\AppData\Roaming\Microsoft\Word\STARTUP</code>，如果没有 STARTUP 文件夹的话自己创建一个）</li>
-<li>复制一份 Zotero.dotm 或 Zotero.dot 文件（取决于你的 Word 版本）到 Word 的 Startup 文件夹</li>
-<li>打开或重启 Word，你会发现工具面板多了一块内容，如图：</li>
-</ol>
-<p><img src="http://m.qpic.cn/psb?/V11Tp57c2B9kPO/m4xFU4yRplBvfx3zYEem*X2kLjW31lMeLq3Z0IN6fV0!/b/dDABAAAAAAAA&amp;bo=RQJ1AAAAAAADBxA!&amp;rf=viewer_4" alt="Word 中的 Zotero 插件"></p>
-<p>如果你的 Word 中使用了 Zotero 之后变得特别卡，可以尝试关闭 Word 的自动校对（自动更正与拼写检查），亲测有用。</p>
-<h3 id="添加中文文献引用样式"><a href="#添加中文文献引用样式" class="headerlink" title="添加中文文献引用样式"></a>添加中文文献引用样式</h3><p>Zotero 默认的引文格式中找不到中文标准 GB 样式，如何添加呢？</p>
-<p>在 Word 插件的 Document Preference 中，有“添加引文样式…”字样，点它就相当于打开了 Zotero 软件的首选项设置，如下图：</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/5727621-ada62e18161b6e5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/616/format/webp" alt="首选项-引文"></p>
-<p>点“获取其他样式…”，然后搜索<code>Chinese Std GB/T 7714-2005 (numeric, Chinese)</code>，将它添加到样式管理器中，就可以选用中文标准的引文格式了。</p>
-<h2 id="标注文献重要性"><a href="#标注文献重要性" class="headerlink" title="标注文献重要性"></a>标注文献重要性</h2><p>Zotero 中，可以给一条文献条目创建文件链接（比如 pdf 全文）、关联文献、笔记、标签等。</p>
-<p>看完一篇文献后，觉得它比较重要，怎么才能给这篇文献的条目添加标记呢？<strong>利用标签</strong>。</p>
-<p>比如，给一篇文献创造一个名为“重要文献”的标签。接着在界面的左下角，找到该标签，然后右键，对该标签<strong>指派颜色</strong>。如下图。</p>
-<p><img src="https://www.yangzhiping.com/images/zotero/zotero5/zotero-3.jpg" alt><br><img src="https://www.yangzhiping.com/images/zotero/zotero5/zotero-4.jpg" alt></p>
-<p>给标签指派颜色的同时，也会设置<strong>快捷键</strong>（从1到9）。以后，给其他文献条目添加相同的标签时，只需要按快捷键就行了。</p>
+<a id="more"></a>
+<h2 id="为什么需要建造者模式？"><a href="#为什么需要建造者模式？" class="headerlink" title="为什么需要建造者模式？"></a>为什么需要建造者模式？</h2><p>假设有这样一道设计面试题：</p>
+<blockquote>
+<p>我们需要定义一个资源池配置类 ResourcePoolConfig。在这个资源池配置类中，有以下几个成员变量（即可配置项）。请你编写代码实现这个 ResourcePoolConfig 类。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>成员变量</th>
+<th>解释</th>
+<th>是否必填？</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>资源名称</td>
+<td>是</td>
+<td>没有</td>
+</tr>
+<tr>
+<td>maxTotal</td>
+<td>最大总资源数量</td>
+<td>否</td>
+<td>8</td>
+</tr>
+<tr>
+<td>maxIdle</td>
+<td>最大空闲资源数量</td>
+<td>否</td>
+<td>8</td>
+</tr>
+<tr>
+<td>minIdle</td>
+<td>最小空闲资源数量</td>
+<td>否</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>最常见、最容易想到的实现思路：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">public class ResourcePoolConfig &#123;</span><br><span class="line">  private static final int DEFAULT_MAX_TOTAL = 8;</span><br><span class="line">  private static final int DEFAULT_MAX_IDLE = 8;</span><br><span class="line">  private static final int DEFAULT_MIN_IDLE = 0;</span><br><span class="line"></span><br><span class="line">  private String name;</span><br><span class="line">  private int maxTotal = DEFAULT_MAX_TOTAL;</span><br><span class="line">  private int maxIdle = DEFAULT_MAX_IDLE;</span><br><span class="line">  private int minIdle = DEFAULT_MIN_IDLE;</span><br><span class="line"></span><br><span class="line">  public ResourcePoolConfig(String name, Integer maxTotal, Integer maxIdle, Integer minIdle) &#123;</span><br><span class="line">    if (StringUtils.isBlank(name)) &#123;</span><br><span class="line">      throw new IllegalArgumentException(&quot;name should not be empty.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    this.name = name;</span><br><span class="line"></span><br><span class="line">    if (maxTotal != null) &#123;</span><br><span class="line">      if (maxTotal &lt;= 0) &#123;</span><br><span class="line">        throw new IllegalArgumentException(&quot;maxTotal should be positive.&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">      this.maxTotal = maxTotal;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (maxIdle != null) &#123;</span><br><span class="line">      if (maxIdle &lt; 0) &#123;</span><br><span class="line">        throw new IllegalArgumentException(&quot;maxIdle should not be negative.&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">      this.maxIdle = maxIdle;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (minIdle != null) &#123;</span><br><span class="line">      if (minIdle &lt; 0) &#123;</span><br><span class="line">        throw new IllegalArgumentException(&quot;minIdle should not be negative.&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">      this.minIdle = minIdle;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  //...省略getter方法...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在，ResourcePoolConfig 只有 4 个可配置项，对应到构造函数中，也只有 4 个参数，参数的个数不多。<br>但是，如果可配置项逐渐增多，变成了 8 个、10 个，甚至更多，那继续沿用现在的设计思路，<strong>构造函数的参数列表会变得很长</strong>，代码在可读性和易用性上都会变差。在使用构造函数的时候，我们就容易搞错各参数的顺序，传递进错误的参数值，导致非常隐蔽的 bug。</p>
+<h3 id="使用-set-方法的局限性"><a href="#使用-set-方法的局限性" class="headerlink" title="使用 set 方法的局限性"></a>使用 set 方法的局限性</h3><p>解决方法是<strong>用<code>set()</code>函数来给成员变量赋值，以减短构造函数的长度</strong>。其中，配置项 name 是必填的，所以我们把它放到构造函数中设置，强制创建类对象的时候就要填写。其他配置项都不是必填的，所以我们通过<code>set()</code>来设置，让使用者自主选择填写或者不填写。</p>
+<p>但是如果我们把问题的难度再加大点，比如，还需要<strong>解决下面这三个问题</strong>，那上面的设计思路就不能满足了。</p>
+<ul>
+<li>如果必填的配置项有很多，把这些必填配置项都放到构造函数中设置，那构造函数就又会出现参数列表很长的问题。如果我们把必填项也通过 set 方法设置，那校验这些必填项是否已经填写的逻辑就无处安放了。</li>
+<li>除此之外，假设配置项之间有一定的依赖关系，比如，如果用户设置了 maxTotal、maxIdle、minIdle 其中一个，就必须显式地设置另外两个；或者配置项之间有一定的约束条件，比如，maxIdle 和 minIdle 要小于等于 maxTotal。这些配置项之间的依赖关系或者约束条件的校验逻辑无处安放。</li>
+<li>如果我们希望 ResourcePoolConfig 类对象是不可变对象，也就是说，对象在创建好之后，就不能再修改内部的属性值。要实现这个功能，我们就不能在 ResourcePoolConfig 类中暴露 set 方法。</li>
+</ul>
+<h3 id="建造者模式登场"><a href="#建造者模式登场" class="headerlink" title="建造者模式登场"></a>建造者模式登场</h3><p>为了解决这些问题，建造者模式就派上用场了。我们可以把校验逻辑放置到 Builder 类中，先创建 Builder，并且通过 set 方法设置建造者的变量值，然后在使用<code>build()</code>方法真正创建对象之前，做集中的校验，校验通过之后才会创建对象。除此之外，我们把 ResourcePoolConfig 的构造函数改为 private 私有权限。这样我们就只能通过建造者来创建 ResourcePoolConfig 类对象。并且，ResourcePoolConfig 没有提供任何 set 方法，这样我们创建出来的对象就是不可变对象了。<br>用建造者模式重新实现上面的需求，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">public class ResourcePoolConfig &#123;</span><br><span class="line">  private String name;</span><br><span class="line">  private int maxTotal;</span><br><span class="line">  private int maxIdle;</span><br><span class="line">  private int minIdle;</span><br><span class="line"></span><br><span class="line">  private ResourcePoolConfig(Builder builder) &#123;</span><br><span class="line">    this.name = builder.name;</span><br><span class="line">    this.maxTotal = builder.maxTotal;</span><br><span class="line">    this.maxIdle = builder.maxIdle;</span><br><span class="line">    this.minIdle = builder.minIdle;</span><br><span class="line">  &#125;</span><br><span class="line">  //...省略getter方法...</span><br><span class="line"></span><br><span class="line">  //我们将Builder类设计成了ResourcePoolConfig的内部类，</span><br><span class="line">  //也可以将Builder类设计成独立的非内部类ResourcePoolConfigBuilder。</span><br><span class="line">  public static class Builder &#123;</span><br><span class="line">    private static final int DEFAULT_MAX_TOTAL = 8;</span><br><span class="line">    private static final int DEFAULT_MAX_IDLE = 8;</span><br><span class="line">    private static final int DEFAULT_MIN_IDLE = 0;</span><br><span class="line"></span><br><span class="line">    private String name;</span><br><span class="line">    private int maxTotal = DEFAULT_MAX_TOTAL;</span><br><span class="line">    private int maxIdle = DEFAULT_MAX_IDLE;</span><br><span class="line">    private int minIdle = DEFAULT_MIN_IDLE;</span><br><span class="line"></span><br><span class="line">    public ResourcePoolConfig build() &#123;</span><br><span class="line">      // 校验逻辑放到这里来做，包括必填项校验、依赖关系校验、约束条件校验等</span><br><span class="line">      if (StringUtils.isBlank(name)) &#123;</span><br><span class="line">        throw new IllegalArgumentException(&quot;...&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">      if (maxIdle &gt; maxTotal) &#123;</span><br><span class="line">        throw new IllegalArgumentException(&quot;...&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">      if (minIdle &gt; maxTotal || minIdle &gt; maxIdle) &#123;</span><br><span class="line">        throw new IllegalArgumentException(&quot;...&quot;);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      return new ResourcePoolConfig(this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Builder setName(String name) &#123;</span><br><span class="line">      if (StringUtils.isBlank(name)) &#123;</span><br><span class="line">        throw new IllegalArgumentException(&quot;...&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">      this.name = name;</span><br><span class="line">      return this;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Builder setMaxTotal(int maxTotal) &#123;</span><br><span class="line">      if (maxTotal &lt;= 0) &#123;</span><br><span class="line">        throw new IllegalArgumentException(&quot;...&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">      this.maxTotal = maxTotal;</span><br><span class="line">      return this;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Builder setMaxIdle(int maxIdle) &#123;</span><br><span class="line">      if (maxIdle &lt; 0) &#123;</span><br><span class="line">        throw new IllegalArgumentException(&quot;...&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">      this.maxIdle = maxIdle;</span><br><span class="line">      return this;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Builder setMinIdle(int minIdle) &#123;</span><br><span class="line">      if (minIdle &lt; 0) &#123;</span><br><span class="line">        throw new IllegalArgumentException(&quot;...&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">      this.minIdle = minIdle;</span><br><span class="line">      return this;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 这段代码会抛出IllegalArgumentException，因为minIdle&gt;maxIdle</span><br><span class="line">ResourcePoolConfig config = new ResourcePoolConfig.Builder()</span><br><span class="line">        .setName(&quot;dbconnectionpool&quot;)</span><br><span class="line">        .setMaxTotal(16)</span><br><span class="line">        .setMaxIdle(10)</span><br><span class="line">        .setMinIdle(12)</span><br><span class="line">        .build();</span><br></pre></td></tr></table></figure></p>
+<p>使用建造者模式创建对象，还能避免对象存在无效状态（因为一次性初始化好了所有成员变量）。</p>
+<h3 id="两种构建方法的取舍"><a href="#两种构建方法的取舍" class="headerlink" title="两种构建方法的取舍"></a>两种构建方法的取舍</h3><p>实际上，如果我们并不是很关心对象是否有短暂的无效状态，也不是太在意对象是否是可变的，那我们直接暴露<code>set()</code>方法来设置类的成员变量值是完全没问题的。</p>
+<p>而且，使用建造者模式来构建对象，代码实际上是有点重复的，ResourcePoolConfig 类中的成员变量，要在 Builder 类中重新再定义一遍。</p>
+<p>对建造者模式，要注意避免过度使用。</p>
+<h2 id="与工厂模式有何区别？"><a href="#与工厂模式有何区别？" class="headerlink" title="与工厂模式有何区别？"></a>与工厂模式有何区别？</h2><p>建造者模式是让建造者类来负责对象的创建工作。上一节课中讲到的工厂模式，是由工厂类来负责对象创建的工作。那它们之间有什么区别呢？</p>
+<p>实际上，工厂模式是用来创建<strong>不同但是相关类型的对象</strong>（继承同一父类或者接口的一组子类），由给定的参数来决定创建哪种类型的对象。建造者模式是用来创建<strong>一种类型的复杂对象</strong>，通过设置不同的可选参数，“定制化”地创建不同的对象。</p>
+<blockquote>
+<p>顾客走进一家餐馆点餐，我们利用工厂模式，根据用户不同的选择，来制作不同的食物，比如披萨、汉堡、沙拉。<br>对于披萨来说，用户又有各种配料可以定制，比如奶酪、西红柿、起司，我们通过建造者模式根据用户选择的不同配料来制作披萨。</p>
+</blockquote>
+<p>实际上，我们也不要太学院派，非得把工厂模式、建造者模式分得那么清楚，我们需要知道的是，每个模式为什么这么设计，能解决什么问题。<strong>只有了解了这些最本质的东西，我们才能灵活应用，甚至可以混用各种模式创造出新的模式，来解决特定场景的问题。</strong></p>
 
       
     </div>
@@ -566,9 +582,9 @@
       
         <div class="post-tags">
           
-            <a href="/hexo/tags/技巧/" rel="tag"># 技巧</a>
+            <a href="/hexo/tags/学习/" rel="tag"># 学习</a>
           
-            <a href="/hexo/tags/科研/" rel="tag"># 科研</a>
+            <a href="/hexo/tags/设计模式/" rel="tag"># 设计模式</a>
           
         </div>
       
@@ -581,8 +597,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/hexo/2019/06/17/【学习】许世伟的架构课（极客时间）/" rel="next" title="【学习】许世伟的架构课（极客时间）">
-                <i class="fa fa-chevron-left"></i> 【学习】许世伟的架构课（极客时间）
+              <a href="/hexo/2020/06/04/【设计模式】工厂模式/" rel="next" title="【设计模式】工厂模式">
+                <i class="fa fa-chevron-left"></i> 【设计模式】工厂模式
               </a>
             
           </div>
@@ -590,10 +606,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/hexo/2019/06/20/《海边的卡夫卡》微信读书笔记/" rel="prev" title="《海边的卡夫卡》微信读书笔记">
-                《海边的卡夫卡》微信读书笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -850,7 +862,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍与安装"><span class="nav-text">介绍与安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在浏览器中使用-Zotero"><span class="nav-text">在浏览器中使用 Zotero</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-Word-中使用-Zotero"><span class="nav-text">在 Word 中使用 Zotero</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-Zotero-Word-插件"><span class="nav-text">安装 Zotero Word 插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加中文文献引用样式"><span class="nav-text">添加中文文献引用样式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标注文献重要性"><span class="nav-text">标注文献重要性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要建造者模式？"><span class="nav-text">为什么需要建造者模式？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-set-方法的局限性"><span class="nav-text">使用 set 方法的局限性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建造者模式登场"><span class="nav-text">建造者模式登场</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两种构建方法的取舍"><span class="nav-text">两种构建方法的取舍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与工厂模式有何区别？"><span class="nav-text">与工厂模式有何区别？</span></a></li></ol></div>
             
 
           </div>
