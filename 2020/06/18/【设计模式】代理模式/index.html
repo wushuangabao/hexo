@@ -96,22 +96,18 @@
 
 
 
-  <meta name="description" content="上一篇《JavaScript 对构建 DOM 树的影响》介绍了 DOM 的生成过程，并分析了 JavaScript 是如何阻塞 DOM 生成的。 本文继续聊渲染流水线中的 CSS。首先站在渲染流水线的视角来介绍 CSS 是如何工作的，然后通过 CSS 的工作流程来分析性能瓶颈，最后再来讨论如何减少首次加载时的白屏时间。">
-<meta name="keywords" content="JavaScript,浏览器工作原理">
+  <meta name="description" content="代理模式的原理代理模式（Proxy Design Pattern）的定义：  在不改变原始类（或叫被代理类）的情况下，通过引入代理类来给原始类附加功能。  举个例子，我们开发了一个性能计数器 MetricsCollector 类，用来收集接口请求的原始数据，比如访问时间、处理时长等。在业务系统中，采用如下方式使用这个 MetricsCollector 类：123456789101112131415">
+<meta name="keywords" content="学习,设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【浏览器工作原理】CSS 如何影响首次加载时的白屏时间？">
-<meta property="og:url" content="http://wushuangabao.github.io/hexo/2019/09/30/【浏览器工作原理】CSS-如何影响首次加载时的白屏时间？/index.html">
+<meta property="og:title" content="【设计模式】代理模式">
+<meta property="og:url" content="http://wushuangabao.github.io/hexo/2020/06/18/【设计模式】代理模式/index.html">
 <meta property="og:site_name" content="人间的我">
-<meta property="og:description" content="上一篇《JavaScript 对构建 DOM 树的影响》介绍了 DOM 的生成过程，并分析了 JavaScript 是如何阻塞 DOM 生成的。 本文继续聊渲染流水线中的 CSS。首先站在渲染流水线的视角来介绍 CSS 是如何工作的，然后通过 CSS 的工作流程来分析性能瓶颈，最后再来讨论如何减少首次加载时的白屏时间。">
+<meta property="og:description" content="代理模式的原理代理模式（Proxy Design Pattern）的定义：  在不改变原始类（或叫被代理类）的情况下，通过引入代理类来给原始类附加功能。  举个例子，我们开发了一个性能计数器 MetricsCollector 类，用来收集接口请求的原始数据，比如访问时间、处理时长等。在业务系统中，采用如下方式使用这个 MetricsCollector 类：123456789101112131415">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://a4.qpic.cn/psb?/V11Tp57c2B9kPO/VTN6SAe35p0Os5P7hru8jCyZOgsUGZraUX0nXyaTJzA!/b/dJ8AAAAAAAAA&ek=1&kp=1&pt=0&bo=dgTVAQAAAAARF4Y!&tl=3&vuin=445395697&tm=1569812400&sce=60-4-3&rf=viewer_4">
-<meta property="og:image" content="http://m.qpic.cn/psb?/V11Tp57c2B9kPO/SwSslT4zFeXZyKcIBtE33i9FKVmXQPRvcqcawu7.veg!/b/dA8BAAAAAAAA&bo=dgTnAQAAAAARF7Q!&rf=viewer_4">
-<meta property="og:image" content="http://m.qpic.cn/psb?/V11Tp57c2B9kPO/cJYMt46pxU0cuWbN9uBasfh2Mvo4wOsOn3Y1F38W0DU!/b/dNEAAAAAAAAA&bo=dgQGAgAAAAARF1Y!&rf=viewer_4">
 <meta property="og:updated_time" content="2020-06-18T08:04:25.020Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【浏览器工作原理】CSS 如何影响首次加载时的白屏时间？">
-<meta name="twitter:description" content="上一篇《JavaScript 对构建 DOM 树的影响》介绍了 DOM 的生成过程，并分析了 JavaScript 是如何阻塞 DOM 生成的。 本文继续聊渲染流水线中的 CSS。首先站在渲染流水线的视角来介绍 CSS 是如何工作的，然后通过 CSS 的工作流程来分析性能瓶颈，最后再来讨论如何减少首次加载时的白屏时间。">
-<meta name="twitter:image" content="http://a4.qpic.cn/psb?/V11Tp57c2B9kPO/VTN6SAe35p0Os5P7hru8jCyZOgsUGZraUX0nXyaTJzA!/b/dJ8AAAAAAAAA&ek=1&kp=1&pt=0&bo=dgTVAQAAAAARF4Y!&tl=3&vuin=445395697&tm=1569812400&sce=60-4-3&rf=viewer_4">
+<meta name="twitter:title" content="【设计模式】代理模式">
+<meta name="twitter:description" content="代理模式的原理代理模式（Proxy Design Pattern）的定义：  在不改变原始类（或叫被代理类）的情况下，通过引入代理类来给原始类附加功能。  举个例子，我们开发了一个性能计数器 MetricsCollector 类，用来收集接口请求的原始数据，比如访问时间、处理时长等。在业务系统中，采用如下方式使用这个 MetricsCollector 类：123456789101112131415">
 
 
 
@@ -119,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2019/09/30/【浏览器工作原理】CSS-如何影响首次加载时的白屏时间？/">
+  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2020/06/18/【设计模式】代理模式/">
 
 
 
@@ -129,7 +125,7 @@
   };
 </script>
 
-  <title>【浏览器工作原理】CSS 如何影响首次加载时的白屏时间？ | 人间的我</title>
+  <title>【设计模式】代理模式 | 人间的我</title>
   
 
 
@@ -385,7 +381,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2019/09/30/【浏览器工作原理】CSS-如何影响首次加载时的白屏时间？/">
+    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2020/06/18/【设计模式】代理模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="无双BaOY_WHA">
@@ -402,7 +398,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【浏览器工作原理】CSS 如何影响首次加载时的白屏时间？
+          <h1 class="post-title" itemprop="name headline">【设计模式】代理模式
 
               
             
@@ -428,24 +424,12 @@
                 
               
 
-              <time title="创建时间：2019-09-30 12:24:15" itemprop="dateCreated datePublished" datetime="2019-09-30T12:24:15+08:00">2019-09-30</time>
+              <time title="创建时间：2020-06-18 14:41:49 / 修改时间：16:04:25" itemprop="dateCreated datePublished" datetime="2020-06-18T14:41:49+08:00">2020-06-18</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-18 16:04:25" itemprop="dateModified" datetime="2020-06-18T16:04:25+08:00">2020-06-18</time>
               
             
           </span>
@@ -497,47 +481,39 @@
       
 
       
-        <p>上一篇《<a href="https://wushuangabao.github.io/2019/09/29/JavaScript-%E5%AF%B9%E6%9E%84%E5%BB%BA-DOM-%E6%A0%91%E7%9A%84%E5%BD%B1%E5%93%8D/">JavaScript 对构建 DOM 树的影响</a>》介绍了 DOM 的生成过程，并分析了 JavaScript 是如何阻塞 DOM 生成的。</p>
-<p>本文继续聊渲染流水线中的 CSS。首先站在渲染流水线的视角来介绍 CSS 是如何工作的，然后通过 CSS 的工作流程来分析性能瓶颈，最后再来讨论如何减少首次加载时的白屏时间。</p>
-<a id="more"></a>
-<h2 id="渲染流水线视角下的-CSS"><a href="#渲染流水线视角下的-CSS" class="headerlink" title="渲染流水线视角下的 CSS"></a>渲染流水线视角下的 CSS</h2><h3 id="先看最简单的渲染流程"><a href="#先看最简单的渲染流程" class="headerlink" title="先看最简单的渲染流程"></a>先看最简单的渲染流程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//theme.css</span><br><span class="line">div&#123; </span><br><span class="line">    color : coral;</span><br><span class="line">    background-color:black</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;link href=&quot;theme.css&quot; rel=&quot;stylesheet&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;geekbang com&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="http://a4.qpic.cn/psb?/V11Tp57c2B9kPO/VTN6SAe35p0Os5P7hru8jCyZOgsUGZraUX0nXyaTJzA!/b/dJ8AAAAAAAAA&amp;ek=1&amp;kp=1&amp;pt=0&amp;bo=dgTVAQAAAAARF4Y!&amp;tl=3&amp;vuin=445395697&amp;tm=1569812400&amp;sce=60-4-3&amp;rf=viewer_4" alt="含有 CSS 的页面渲染流水线"></p>
-<p>首先是发起主页面的请求，这个发起请求方可能是渲染进程，也有可能是浏览器进程，发起的请求被送到网络进程中去执行。网络进程接收到返回的 HTML 数据之后，将其发送给渲染进程，渲染进程会解析 HTML 数据并构建 DOM。这里你需要特别注意下，请求 HTML 数据和构建 DOM 中间有一段空闲时间，这个空闲时间有可能成为页面渲染的瓶颈。</p>
-<p><a href="https://wushuangabao.github.io/2019/09/29/JavaScript-%E5%AF%B9%E6%9E%84%E5%BB%BA-DOM-%E6%A0%91%E7%9A%84%E5%BD%B1%E5%93%8D/">上一篇文章</a>提到过，当渲染进程接收 HTML 文件字节流时，会开启一个预解析线程，如果遇到 JavaScript 文件或者 CSS 文件，那么预解析进程会提前下载这些数据。对于上面的代码，预解析线程会解析出来一个外部的 theme.css 文件，并发起 theme.css 的下载。这里也有一个空闲时间需要你注意一下，就是在 DOM 构建结束之后、theme.css 文件还未下载完成的这段时间内，渲染流水线无事可做，因为下一步是合成布局树，而合成布局树需要 CSSOM 和 DOM，所以这里需要等待 CSS 加载结束并解析成 CSSOM。</p>
-<p><strong>渲染流水线为什么需要 CCSOM 呢？</strong> 和 HTML 一样，渲染流水线也是无法直接理解 CSS 文件的内容的，所以须要将其解析成浏览器能够理解的结构，这个结构就是 CSSOM。和 DOM 一样，CSSOM 也有两个作用，第一个是提供给 JavaScript 操作样式表的能力，第二个是为布局树的合成提供基础的样式信息。这个 CCSOM 体现在 DOM 中就是 <code>document.styleSheets</code>。</p>
-<p>有了 DOM 和 CSSOM，接下来就可以合成布局树了。布局树的结构基本上就是复制 DOM 树的结构，不同之处在于 DOM 树中那些不需要显示的元素会被过滤掉，如 display:none 属性的元素、head 标签、script 标签等。复制好基本的布局树结构之后，渲染引擎会为对应的 DOM 元素选择对应的样式信息，这个过程就是样式计算。样式计算完成之后，渲染引擎还需要计算布局树中每个元素对应的几何位置，这个过程就是计算布局。通过样式计算和计算布局就完成了最终布局树的构建。再之后，就该进行后续的绘制操作了。</p>
-<p>以上就是在渲染过程中涉及到 CSS 的一些主要流程。</p>
-<h3 id="再看稍微复杂一点的场景"><a href="#再看稍微复杂一点的场景" class="headerlink" title="再看稍微复杂一点的场景"></a>再看稍微复杂一点的场景</h3><p>在 body 标签的内部加了一个简单的 JavaScript：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//theme.css</span><br><span class="line">div&#123; </span><br><span class="line">    color : coral;</span><br><span class="line">    background-color:black</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;link href=&quot;theme.css&quot; rel=&quot;stylesheet&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;geekbang com&lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        console.log(&apos;time.geekbang.org&apos;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">    &lt;div&gt;geekbang com&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="http://m.qpic.cn/psb?/V11Tp57c2B9kPO/SwSslT4zFeXZyKcIBtE33i9FKVmXQPRvcqcawu7.veg!/b/dA8BAAAAAAAA&amp;bo=dgTnAQAAAAARF7Q!&amp;rf=viewer_4" alt="含有 JavaScript 和 CSS 的页面渲染流水线"></p>
-<p>在解析 DOM 的过程中，如果遇到了 JavaScript 脚本，那么需要先暂停 DOM 解析去执行 JavaScript，因为 JavaScript 有可能会修改当前状态下的 DOM。</p>
-<p>不过在执行 JavaScript 脚本之前，如果页面中包含了外部 CSS 文件的引用，或者通过 style 标签内置了 CSS 内容，那么渲染引擎还需要将这些内容转换为 CSSOM，因为 JavaScript 有修改 CSSOM 的能力，所以在执行 JavaScript 之前，还需要依赖 CSSOM。也就是说 CSS 在部分情况下也会阻塞 DOM 的生成。</p>
-<h3 id="再看更加复杂一点的情况"><a href="#再看更加复杂一点的情况" class="headerlink" title="再看更加复杂一点的情况"></a>再看更加复杂一点的情况</h3><p>如果在 body 中被包含的是 JavaScript 外部引用文件，Demo 代码如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//theme.css</span><br><span class="line">div&#123; </span><br><span class="line">    color : coral;</span><br><span class="line">    background-color:black</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//foo.js</span><br><span class="line">console.log(&apos;time.geekbang.org&apos;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;link href=&quot;theme.css&quot; rel=&quot;stylesheet&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;geekbang com&lt;/div&gt;</span><br><span class="line">    &lt;script src=&apos;foo.js&apos;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;div&gt;geekbang com&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="http://m.qpic.cn/psb?/V11Tp57c2B9kPO/cJYMt46pxU0cuWbN9uBasfh2Mvo4wOsOn3Y1F38W0DU!/b/dNEAAAAAAAAA&amp;bo=dgQGAgAAAAARF1Y!&amp;rf=viewer_4" alt="含有 JavaScript 文件和 CSS 文件页面的渲染流水线"></p>
-<p>从图中可以看出来，在接收到 HTML 数据之后的预解析过程中，HTML 预解析器识别出来了有 CSS 文件和 JavaScript 文件需要下载，然后就同时发起这两个文件的下载请求，需要注意的是，这两个文件的下载过程是重叠的，所以下载时间按照最久的那个文件来算。</p>
-<p>后面的流水线就和前面是一样的了，不管 CSS 文件和 JavaScript 文件谁先到达，都要先等到 CSS 文件下载完成并生成 CSSOM，然后再执行 JavaScript 脚本，最后再继续构建 DOM，构建布局树，绘制页面。</p>
-<h2 id="影响页面展示的因素以及优化策略"><a href="#影响页面展示的因素以及优化策略" class="headerlink" title="影响页面展示的因素以及优化策略"></a>影响页面展示的因素以及优化策略</h2><p>渲染流水线影响了首次页面展示的速度，而首次页面展示的速度又直接影响到了用户体验。所以，我们分析渲染流水线的目的就是为了找出一些影响到首屏展示的因素，再基于这些因素做一些针对性的调整。</p>
-<p>那么接下来我们就来看看从发起 URL 请求开始，到首次显示页面的内容，在视觉上经历的三个阶段：</p>
+        <h2 id="代理模式的原理"><a href="#代理模式的原理" class="headerlink" title="代理模式的原理"></a>代理模式的原理</h2><p>代理模式（Proxy Design Pattern）的定义：</p>
+<blockquote>
+<p>在<strong>不改变原始类</strong>（或叫被代理类）的情况下，通过引入代理类来<strong>给原始类附加功能</strong>。</p>
+</blockquote>
+<p>举个例子，我们开发了一个性能计数器 MetricsCollector 类，用来收集接口请求的原始数据，比如访问时间、处理时长等。<br>在业务系统中，采用如下方式使用这个 MetricsCollector 类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class UserController &#123;</span><br><span class="line">  //...省略其他属性和方法...</span><br><span class="line">  private MetricsCollector metricsCollector; // 依赖注入</span><br><span class="line"></span><br><span class="line">  public UserVo login(String telephone, String password) &#123;</span><br><span class="line">    long startTimestamp = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">    // ... 省略login逻辑...</span><br><span class="line"></span><br><span class="line">    long endTimeStamp = System.currentTimeMillis();</span><br><span class="line">    long responseTime = endTimeStamp - startTimestamp;</span><br><span class="line">    RequestInfo requestInfo = new RequestInfo(&quot;login&quot;, responseTime, startTimestamp);</span><br><span class="line">    metricsCollector.recordRequest(requestInfo);</span><br><span class="line"></span><br><span class="line">    //...返回UserVo数据...</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public UserVo register(String telephone, String password) &#123;</span><br><span class="line">    long startTimestamp = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">    // ... 省略register逻辑...</span><br><span class="line"></span><br><span class="line">    long endTimeStamp = System.currentTimeMillis();</span><br><span class="line">    long responseTime = endTimeStamp - startTimestamp;</span><br><span class="line">    RequestInfo requestInfo = new RequestInfo(&quot;register&quot;, responseTime, startTimestamp);</span><br><span class="line">    metricsCollector.recordRequest(requestInfo);</span><br><span class="line"></span><br><span class="line">    //...返回UserVo数据...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种写法存在两个问题：</p>
 <ol>
-<li>第一个阶段，等请求发出去之后，到提交数据阶段，这时页面展示出来的还是之前页面的内容。关于提交数据，可以参考导航流程那篇文章。</li>
-<li>第二个阶段，提交数据之后渲染进程会创建一个空白页面，我们通常把这段时间称为解析白屏，并等待 CSS 文件和 JavaScript 文件的加载完成，生成 CSSOM 和 DOM，然后合成布局树，最后还要经过一系列的步骤准备首次渲染。</li>
-<li>第三个阶段，等首次渲染完成之后，就开始进入完整页面的生成阶段了，然后页面会一点点被绘制出来。</li>
+<li><label style="color:red">性能计数器<strong>框架代码</strong>侵入到<strong>业务代码</strong>中</label>，跟业务代码高度耦合。如果未来需要替换这个框架，那替换的成本会比较大。</li>
+<li>收集接口请求的代码跟业务代码无关，本就不应该放到一个类中。<label style="color:red">业务类最好职责更加单一</label>，只聚焦业务处理。</li>
 </ol>
-<p>现在我们重点关注第二个阶段，这个阶段的主要问题是白屏时间，如果白屏时间过久，就会影响到用户体验。为了缩短白屏时间，我们来挨个分析这个阶段的主要任务，包括了解析 HTML、下载 CSS、下载 JavaScript、生成 CSSOM、执行 JavaScript、生成布局树、绘制页面一系列操作。</p>
-<p>通常情况下的瓶颈主要体现在下载 CSS 文件、下载 JavaScript 文件和执行 JavaScript。</p>
-<p>所以要想缩短白屏时长，可以有以下策略：</p>
+<p>为解决这些问题，可以这样使用代理模式：</p>
 <ul>
-<li>通过内联 JavaScript、内联 CSS 来移除这两种类型的文件下载，这样获取到 HTML 文件之后就可以直接开始渲染流程了。</li>
-<li>但并不是所有的场合都适合内联，那么还可以尽量减少文件大小，比如通过 webpack 等工具移除一些不必要的注释，并压缩 JavaScript 文件。</li>
-<li>还可以将一些不需要在解析 HTML 阶段使用的 JavaScript 标记上 sync 或者 defer。</li>
-<li>对于大的 CSS 文件，可以通过媒体查询属性，将其拆分为多个不同用途的 CSS 文件，这样只有在特定的场景下才会加载特定的 CSS 文件。</li>
+<li>代理类 UserControllerProxy 和原始类 UserController 实现相同的接口 IUserController。</li>
+<li>原始类 UserController 类只负责业务功能。</li>
+<li>代理类 UserControllerProxy 负责<strong>在业务代码执行前后附加其他逻辑代码</strong>，并通过委托的方式<strong>调用原始类来执行业务代码</strong>。</li>
 </ul>
-<p>通过以上策略就能缩短白屏展示的时长了，不过在实际项目中，总是存在各种各样的情况，这些策略并不能随心所欲地去引用，所以还需要结合实际情况来调整最佳方案。</p>
+<h2 id="代理模式的实现"><a href="#代理模式的实现" class="headerlink" title="代理模式的实现"></a>代理模式的实现</h2><p>具体的代码实现如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">public interface IUserController &#123;</span><br><span class="line">  UserVo login(String telephone, String password);</span><br><span class="line">  UserVo register(String telephone, String password);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class UserController implements IUserController &#123;</span><br><span class="line">  //...省略其他属性和方法...</span><br><span class="line"></span><br><span class="line">  @Override</span><br><span class="line">  public UserVo login(String telephone, String password) &#123;</span><br><span class="line">    //...省略login逻辑...返回UserVo数据...</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Override</span><br><span class="line">  public UserVo register(String telephone, String password) &#123;</span><br><span class="line">    //...省略register逻辑...返回UserVo数据...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class UserControllerProxy implements IUserController &#123;</span><br><span class="line">  private MetricsCollector metricsCollector;</span><br><span class="line">  private UserController userController;</span><br><span class="line"></span><br><span class="line">  public UserControllerProxy(UserController userController) &#123;</span><br><span class="line">    this.userController = userController;</span><br><span class="line">    this.metricsCollector = new MetricsCollector();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Override</span><br><span class="line">  public UserVo login(String telephone, String password) &#123;</span><br><span class="line">    long startTimestamp = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">    // 委托</span><br><span class="line">    UserVo userVo = userController.login(telephone, password);</span><br><span class="line"></span><br><span class="line">    long endTimeStamp = System.currentTimeMillis();</span><br><span class="line">    long responseTime = endTimeStamp - startTimestamp;</span><br><span class="line">    RequestInfo requestInfo = new RequestInfo(&quot;login&quot;, responseTime, startTimestamp);</span><br><span class="line">    metricsCollector.recordRequest(requestInfo);</span><br><span class="line"></span><br><span class="line">    return userVo;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Override</span><br><span class="line">  public UserVo register(String telephone, String password) &#123;</span><br><span class="line">    // 省略</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//UserControllerProxy使用举例</span><br><span class="line">//因为原始类和代理类实现相同的接口，是基于接口而非实现编程</span><br><span class="line">//将UserController类对象替换为UserControllerProxy类对象，不需要改动太多代码</span><br><span class="line">IUserController userController = new UserControllerProxy(new UserController());</span><br></pre></td></tr></table></figure></p>
+<p>一般情况下，我们让代理类和原始类实现同样的接口，然后使用<label style="color:red"><strong>组合</strong></label>的方式（让代理类委托原始类来执行业务）。<br>但是，<strong>有时候原始类并没有定义接口，并且原始类代码并不是我们开发维护的。</strong><br>在这种情况下，我们可以通过让代理类<label style="color:red"><strong>继承</strong></label>原始类的方法来实现代理模式。代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public class UserControllerProxy extends UserController &#123;</span><br><span class="line">  private MetricsCollector metricsCollector;</span><br><span class="line"></span><br><span class="line">  public UserControllerProxy() &#123;</span><br><span class="line">    this.metricsCollector = new MetricsCollector();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public UserVo login(String telephone, String password) &#123;</span><br><span class="line">    long startTimestamp = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">    UserVo userVo = super.login(telephone, password);</span><br><span class="line"></span><br><span class="line">    long endTimeStamp = System.currentTimeMillis();</span><br><span class="line">    long responseTime = endTimeStamp - startTimestamp;</span><br><span class="line">    RequestInfo requestInfo = new RequestInfo(&quot;login&quot;, responseTime, startTimestamp);</span><br><span class="line">    metricsCollector.recordRequest(requestInfo);</span><br><span class="line"></span><br><span class="line">    return userVo;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public UserVo register(String telephone, String password) &#123;</span><br><span class="line">    // 省略</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//UserControllerProxy使用举例</span><br><span class="line">UserController userController = new UserControllerProxy();</span><br></pre></td></tr></table></figure></p>
+<h2 id="动态代理的原理"><a href="#动态代理的原理" class="headerlink" title="动态代理的原理"></a>动态代理的原理</h2><p>（上面的）静态的代理模式有个毛病：它需要针对每个原始类都创建一个代理类，并且每个代理类中的代码都有点像“重复”代码，增加了开发和维护的成本。</p>
+<p>我们可以通过动态代理（Dynamic Proxy）来解决。<br>我们不事先为每个原始类编写代理类，而是在运行的时候<strong>动态地创建</strong>代理类，然后在系统中用代理类替换掉原始类。</p>
+<p>Java 语言本身就提供了动态代理的语法（实际上底层依赖的是 Java 的反射语法）。</p>
+<blockquote>
+<p>反射是程序可以访问、检测和修改它本身状态或行为的一种能力。例如，程序在运行过程中，可以通过类名称字符串来创建对象，并获取类中申明的成员变量和方法。</p>
+</blockquote>
+<p>问题：<strong>没有反射机制的 C++ 如何实现动态代理？</strong></p>
+<h2 id="代理模式的应用场景"><a href="#代理模式的应用场景" class="headerlink" title="代理模式的应用场景"></a>代理模式的应用场景</h2><p>代理模式常用在业务系统中开发一些非功能性需求，比如：监控、统计、鉴权、限流、事务、幂等、日志。<br>我们将这些附加功能与业务功能解耦，放到代理类统一处理，让程序员只需要关注业务方面的开发。</p>
+<p>除此之外，代理模式还可以用在 RPC、缓存等应用场景中。</p>
+<blockquote>
+<p>RPC 框架也可以看作一种代理模式，GoF 的《设计模式》一书中把它称作<strong>远程代理</strong>。通过远程代理，将网络通信、数据编解码等细节隐藏起来。客户端在使用 RPC 服务的时候，就像使用本地函数一样，无需了解跟服务器交互的细节。RPC 服务的开发者也只需要开发业务逻辑，就像开发本地使用的函数一样，不需要关注跟客户端的交互细节。</p>
+</blockquote>
+<blockquote>
+<p>有时要给每个查询需求都开发两个不同的接口，一个支持缓存查询，一个支持实时查询。但是，这样做显然增加了开发成本，而且会让代码看起来非常臃肿（接口个数成倍增加），也不方便缓存接口的集中管理（增加、删除缓存接口）、集中配置（比如配置每个接口缓存过期时间）。使用动态代理：从配置文件中加载需要支持缓存的接口，以及相应的缓存策略（比如过期时间）等。</p>
+</blockquote>
 
       
     </div>
@@ -561,9 +537,9 @@
       
         <div class="post-tags">
           
-            <a href="/hexo/tags/JavaScript/" rel="tag"># JavaScript</a>
+            <a href="/hexo/tags/学习/" rel="tag"># 学习</a>
           
-            <a href="/hexo/tags/浏览器工作原理/" rel="tag"># 浏览器工作原理</a>
+            <a href="/hexo/tags/设计模式/" rel="tag"># 设计模式</a>
           
         </div>
       
@@ -576,8 +552,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/hexo/2019/09/29/JavaScript-对构建-DOM-树的影响/" rel="next" title="JavaScript 对构建 DOM 树的影响">
-                <i class="fa fa-chevron-left"></i> JavaScript 对构建 DOM 树的影响
+              <a href="/hexo/2020/06/10/【设计模式】原型模式/" rel="next" title="【设计模式】原型模式">
+                <i class="fa fa-chevron-left"></i> 【设计模式】原型模式
               </a>
             
           </div>
@@ -585,10 +561,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/hexo/2019/10/01/《追时间的人》读书（纸质书）笔记/" rel="prev" title="《追时间的人》读书（纸质书）笔记">
-                《追时间的人》读书（纸质书）笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -845,7 +817,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#渲染流水线视角下的-CSS"><span class="nav-text">渲染流水线视角下的 CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先看最简单的渲染流程"><span class="nav-text">先看最简单的渲染流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再看稍微复杂一点的场景"><span class="nav-text">再看稍微复杂一点的场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再看更加复杂一点的情况"><span class="nav-text">再看更加复杂一点的情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#影响页面展示的因素以及优化策略"><span class="nav-text">影响页面展示的因素以及优化策略</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式的原理"><span class="nav-text">代理模式的原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式的实现"><span class="nav-text">代理模式的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态代理的原理"><span class="nav-text">动态代理的原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式的应用场景"><span class="nav-text">代理模式的应用场景</span></a></li></ol></div>
             
 
           </div>
