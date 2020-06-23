@@ -425,12 +425,24 @@
                 
               
 
-              <time title="创建时间：2020-06-18 14:41:49 / 修改时间：16:04:25" itemprop="dateCreated datePublished" datetime="2020-06-18T14:41:49+08:00">2020-06-18</time>
+              <time title="创建时间：2020-06-18 14:41:49" itemprop="dateCreated datePublished" datetime="2020-06-18T14:41:49+08:00">2020-06-18</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-23 16:31:09" itemprop="dateModified" datetime="2020-06-23T16:31:09+08:00">2020-06-23</time>
               
             
           </span>
@@ -483,42 +495,19 @@
 
       
         
-          
-            <h2 id="代理模式的原理"><a href="#代理模式的原理" class="headerlink" title="代理模式的原理"></a>代理模式的原理</h2><p>代理模式（Proxy Design Pattern）的定义：</p>
+          <h2 id="代理模式的原理"><a href="#代理模式的原理" class="headerlink" title="代理模式的原理"></a>代理模式的原理</h2><p>代理模式（Proxy Design Pattern）的定义：</p>
 <blockquote>
 <p>在<strong>不改变原始类</strong>（或叫被代理类）的情况下，通过引入代理类来<strong>给原始类附加功能</strong>。</p>
 </blockquote>
-<p>举个例子，我们开发了一个性能计数器 MetricsCollector 类，用来收集接口请求的原始数据，比如访问时间、处理时长等。<br>在业务系统中，采用如下方式使用这个 MetricsCollector 类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class UserController &#123;</span><br><span class="line">  //...省略其他属性和方法...</span><br><span class="line">  private MetricsCollector metricsCollector; // 依赖注入</span><br><span class="line"></span><br><span class="line">  public UserVo login(String telephone, String password) &#123;</span><br><span class="line">    long startTimestamp = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">    // ... 省略login逻辑...</span><br><span class="line"></span><br><span class="line">    long endTimeStamp = System.currentTimeMillis();</span><br><span class="line">    long responseTime = endTimeStamp - startTimestamp;</span><br><span class="line">    RequestInfo requestInfo = new RequestInfo(&quot;login&quot;, responseTime, startTimestamp);</span><br><span class="line">    metricsCollector.recordRequest(requestInfo);</span><br><span class="line"></span><br><span class="line">    //...返回UserVo数据...</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public UserVo register(String telephone, String password) &#123;</span><br><span class="line">    long startTimestamp = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">    // ... 省略register逻辑...</span><br><span class="line"></span><br><span class="line">    long endTimeStamp = System.currentTimeMillis();</span><br><span class="line">    long responseTime = endTimeStamp - startTimestamp;</span><br><span class="line">    RequestInfo requestInfo = new RequestInfo(&quot;register&quot;, responseTime, startTimestamp);</span><br><span class="line">    metricsCollector.recordRequest(requestInfo);</span><br><span class="line"></span><br><span class="line">    //...返回UserVo数据...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这种写法存在两个问题：</p>
-<ol>
-<li><label style="color:red">性能计数器<strong>框架代码</strong>侵入到<strong>业务代码</strong>中</label>，跟业务代码高度耦合。如果未来需要替换这个框架，那替换的成本会比较大。</li>
-<li>收集接口请求的代码跟业务代码无关，本就不应该放到一个类中。<label style="color:red">业务类最好职责更加单一</label>，只聚焦业务处理。</li>
-</ol>
-<p>为解决这些问题，可以这样使用代理模式：</p>
-<ul>
-<li>代理类 UserControllerProxy 和原始类 UserController 实现相同的接口 IUserController。</li>
-<li>原始类 UserController 类只负责业务功能。</li>
-<li>代理类 UserControllerProxy 负责<strong>在业务代码执行前后附加其他逻辑代码</strong>，并通过委托的方式<strong>调用原始类来执行业务代码</strong>。</li>
-</ul>
-<h2 id="代理模式的实现"><a href="#代理模式的实现" class="headerlink" title="代理模式的实现"></a>代理模式的实现</h2><p>具体的代码实现如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">public interface IUserController &#123;</span><br><span class="line">  UserVo login(String telephone, String password);</span><br><span class="line">  UserVo register(String telephone, String password);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class UserController implements IUserController &#123;</span><br><span class="line">  //...省略其他属性和方法...</span><br><span class="line"></span><br><span class="line">  @Override</span><br><span class="line">  public UserVo login(String telephone, String password) &#123;</span><br><span class="line">    //...省略login逻辑...返回UserVo数据...</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Override</span><br><span class="line">  public UserVo register(String telephone, String password) &#123;</span><br><span class="line">    //...省略register逻辑...返回UserVo数据...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class UserControllerProxy implements IUserController &#123;</span><br><span class="line">  private MetricsCollector metricsCollector;</span><br><span class="line">  private UserController userController;</span><br><span class="line"></span><br><span class="line">  public UserControllerProxy(UserController userController) &#123;</span><br><span class="line">    this.userController = userController;</span><br><span class="line">    this.metricsCollector = new MetricsCollector();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Override</span><br><span class="line">  public UserVo login(String telephone, String password) &#123;</span><br><span class="line">    long startTimestamp = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">    // 委托</span><br><span class="line">    UserVo userVo = userController.login(telephone, password);</span><br><span class="line"></span><br><span class="line">    long endTimeStamp = System.currentTimeMillis();</span><br><span class="line">    long responseTime = endTimeStamp - startTimestamp;</span><br><span class="line">    RequestInfo requestInfo = new RequestInfo(&quot;login&quot;, responseTime, startTimestamp);</span><br><span class="line">    metricsCollector.recordRequest(requestInfo);</span><br><span class="line"></span><br><span class="line">    return userVo;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Override</span><br><span class="line">  public UserVo register(String telephone, String password) &#123;</span><br><span class="line">    // 省略</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//UserControllerProxy使用举例</span><br><span class="line">//因为原始类和代理类实现相同的接口，是基于接口而非实现编程</span><br><span class="line">//将UserController类对象替换为UserControllerProxy类对象，不需要改动太多代码</span><br><span class="line">IUserController userController = new UserControllerProxy(new UserController());</span><br></pre></td></tr></table></figure></p>
-<p>一般情况下，我们让代理类和原始类实现同样的接口，然后使用<label style="color:red"><strong>组合</strong></label>的方式（让代理类委托原始类来执行业务）。<br>但是，<strong>有时候原始类并没有定义接口，并且原始类代码并不是我们开发维护的。</strong><br>在这种情况下，我们可以通过让代理类<label style="color:red"><strong>继承</strong></label>原始类的方法来实现代理模式。代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public class UserControllerProxy extends UserController &#123;</span><br><span class="line">  private MetricsCollector metricsCollector;</span><br><span class="line"></span><br><span class="line">  public UserControllerProxy() &#123;</span><br><span class="line">    this.metricsCollector = new MetricsCollector();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public UserVo login(String telephone, String password) &#123;</span><br><span class="line">    long startTimestamp = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">    UserVo userVo = super.login(telephone, password);</span><br><span class="line"></span><br><span class="line">    long endTimeStamp = System.currentTimeMillis();</span><br><span class="line">    long responseTime = endTimeStamp - startTimestamp;</span><br><span class="line">    RequestInfo requestInfo = new RequestInfo(&quot;login&quot;, responseTime, startTimestamp);</span><br><span class="line">    metricsCollector.recordRequest(requestInfo);</span><br><span class="line"></span><br><span class="line">    return userVo;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public UserVo register(String telephone, String password) &#123;</span><br><span class="line">    // 省略</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//UserControllerProxy使用举例</span><br><span class="line">UserController userController = new UserControllerProxy();</span><br></pre></td></tr></table></figure></p>
-<h2 id="动态代理的原理"><a href="#动态代理的原理" class="headerlink" title="动态代理的原理"></a>动态代理的原理</h2><p>（上面的）静态的代理模式有个毛病：它需要针对每个原始类都创建一个代理类，并且每个代理类中的代码都有点像“重复”代码，增加了开发和维护的成本。</p>
-<p>我们可以通过动态代理（Dynamic Proxy）来解决。<br>我们不事先为每个原始类编写代理类，而是在运行的时候<strong>动态地创建</strong>代理类，然后在系统中用代理类替换掉原始类。</p>
-<p>Java 语言本身就提供了动态代理的语法（实际上底层依赖的是 Java 的反射语法）。</p>
-<blockquote>
-<p>反射是程序可以访问、检测和修改它本身状态或行为的一种能力。例如，程序在运行过程中，可以通过类名称字符串来创建对象，并获取类中申明的成员变量和方法。</p>
-</blockquote>
-<p>问题：<strong>没有反射机制的 C++ 如何实现动态代理？</strong></p>
-<h2 id="代理模式的应用场景"><a href="#代理模式的应用场景" class="headerlink" title="代理模式的应用场景"></a>代理模式的应用场景</h2><p>代理模式常用在业务系统中开发一些非功能性需求，比如：监控、统计、鉴权、限流、事务、幂等、日志。<br>我们将这些附加功能与业务功能解耦，放到代理类统一处理，让程序员只需要关注业务方面的开发。</p>
-<p>除此之外，代理模式还可以用在 RPC、缓存等应用场景中。</p>
-<blockquote>
-<p>RPC 框架也可以看作一种代理模式，GoF 的《设计模式》一书中把它称作<strong>远程代理</strong>。通过远程代理，将网络通信、数据编解码等细节隐藏起来。客户端在使用 RPC 服务的时候，就像使用本地函数一样，无需了解跟服务器交互的细节。RPC 服务的开发者也只需要开发业务逻辑，就像开发本地使用的函数一样，不需要关注跟客户端的交互细节。</p>
-</blockquote>
-<blockquote>
-<p>有时要给每个查询需求都开发两个不同的接口，一个支持缓存查询，一个支持实时查询。但是，这样做显然增加了开发成本，而且会让代码看起来非常臃肿（接口个数成倍增加），也不方便缓存接口的集中管理（增加、删除缓存接口）、集中配置（比如配置每个接口缓存过期时间）。使用动态代理：从配置文件中加载需要支持缓存的接口，以及相应的缓存策略（比如过期时间）等。</p>
-</blockquote>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/hexo/2020/06/18/【设计模式】代理模式/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -635,7 +624,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-18 16:04:25" itemprop="dateModified" datetime="2020-06-18T16:04:25+08:00">2020-06-18</time>
+                <time title="修改时间：2020-06-23 16:31:09" itemprop="dateModified" datetime="2020-06-23T16:31:09+08:00">2020-06-23</time>
               
             
           </span>
@@ -814,7 +803,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-18 16:04:25" itemprop="dateModified" datetime="2020-06-18T16:04:25+08:00">2020-06-18</time>
+                <time title="修改时间：2020-06-23 16:31:09" itemprop="dateModified" datetime="2020-06-23T16:31:09+08:00">2020-06-23</time>
               
             
           </span>
@@ -997,7 +986,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-18 16:04:25" itemprop="dateModified" datetime="2020-06-18T16:04:25+08:00">2020-06-18</time>
+                <time title="修改时间：2020-06-23 16:31:09" itemprop="dateModified" datetime="2020-06-23T16:31:09+08:00">2020-06-23</time>
               
             
           </span>
@@ -1180,7 +1169,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-18 16:04:25" itemprop="dateModified" datetime="2020-06-18T16:04:25+08:00">2020-06-18</time>
+                <time title="修改时间：2020-06-23 16:31:09" itemprop="dateModified" datetime="2020-06-23T16:31:09+08:00">2020-06-23</time>
               
             
           </span>
@@ -1363,7 +1352,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-18 16:04:25" itemprop="dateModified" datetime="2020-06-18T16:04:25+08:00">2020-06-18</time>
+                <time title="修改时间：2020-06-23 16:31:09" itemprop="dateModified" datetime="2020-06-23T16:31:09+08:00">2020-06-23</time>
               
             
           </span>
@@ -1546,7 +1535,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-18 16:04:25" itemprop="dateModified" datetime="2020-06-18T16:04:25+08:00">2020-06-18</time>
+                <time title="修改时间：2020-06-23 16:31:09" itemprop="dateModified" datetime="2020-06-23T16:31:09+08:00">2020-06-23</time>
               
             
           </span>
@@ -1725,7 +1714,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-18 16:04:25" itemprop="dateModified" datetime="2020-06-18T16:04:25+08:00">2020-06-18</time>
+                <time title="修改时间：2020-06-23 16:31:09" itemprop="dateModified" datetime="2020-06-23T16:31:09+08:00">2020-06-23</time>
               
             
           </span>
@@ -1904,7 +1893,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-18 16:04:25" itemprop="dateModified" datetime="2020-06-18T16:04:25+08:00">2020-06-18</time>
+                <time title="修改时间：2020-06-23 16:31:09" itemprop="dateModified" datetime="2020-06-23T16:31:09+08:00">2020-06-23</time>
               
             
           </span>
@@ -2083,7 +2072,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-18 16:04:25" itemprop="dateModified" datetime="2020-06-18T16:04:25+08:00">2020-06-18</time>
+                <time title="修改时间：2020-06-23 16:31:09" itemprop="dateModified" datetime="2020-06-23T16:31:09+08:00">2020-06-23</time>
               
             
           </span>
@@ -2262,7 +2251,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-18 16:04:25" itemprop="dateModified" datetime="2020-06-18T16:04:25+08:00">2020-06-18</time>
+                <time title="修改时间：2020-06-23 16:31:09" itemprop="dateModified" datetime="2020-06-23T16:31:09+08:00">2020-06-23</time>
               
             
           </span>
@@ -2448,7 +2437,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-18 16:04:25" itemprop="dateModified" datetime="2020-06-18T16:04:25+08:00">2020-06-18</time>
+                <time title="修改时间：2020-06-23 16:31:09" itemprop="dateModified" datetime="2020-06-23T16:31:09+08:00">2020-06-23</time>
               
             
           </span>
@@ -2634,7 +2623,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-18 16:04:25" itemprop="dateModified" datetime="2020-06-18T16:04:25+08:00">2020-06-18</time>
+                <time title="修改时间：2020-06-23 16:31:09" itemprop="dateModified" datetime="2020-06-23T16:31:09+08:00">2020-06-23</time>
               
             
           </span>
@@ -2818,7 +2807,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-18 16:04:25" itemprop="dateModified" datetime="2020-06-18T16:04:25+08:00">2020-06-18</time>
+                <time title="修改时间：2020-06-23 16:31:09" itemprop="dateModified" datetime="2020-06-23T16:31:09+08:00">2020-06-23</time>
               
             
           </span>
@@ -3004,7 +2993,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-18 16:04:25" itemprop="dateModified" datetime="2020-06-18T16:04:25+08:00">2020-06-18</time>
+                <time title="修改时间：2020-06-23 16:31:09" itemprop="dateModified" datetime="2020-06-23T16:31:09+08:00">2020-06-23</time>
               
             
           </span>
