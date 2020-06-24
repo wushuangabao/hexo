@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="书名：世界在变软作者：水木然 看书起因6月13日晚7点，切切Candy（16年暑假认识，一个用聊天带给我温暖的网友）开始了她的第一次直播讲课，内容是ACCA练习。 作为一个高一之后就没有受过系统文科训练的门外汉，我听了她的直播以后也有所收获。其中之一，就是因为“经济危机万恶资本家倒牛奶事件”从供需角度分析让我有些疑惑，于是我抱着解决疑惑的想法查阅了得到APP，搜索关键词之后发现了这本书。刚好微信读">
-<meta name="keywords" content="阅读">
+  <meta name="description" content="摘要：主要介绍了门面模式的使用场景（与接口设计有关），组合模式的设计思路，以及享元模式与多例、缓存、池化技术的异同。">
+<meta name="keywords" content="学习,设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《世界正在变软》微信读书笔记">
-<meta property="og:url" content="http://wushuangabao.github.io/hexo/2019/06/14/《世界正在变软》微信读书笔记/index.html">
+<meta property="og:title" content="【设计模式】门面模式，组合模式，享元模式">
+<meta property="og:url" content="http://wushuangabao.github.io/hexo/2020/06/24/【设计模式】门面模式，组合模式，享元模式/index.html">
 <meta property="og:site_name" content="人间的我">
-<meta property="og:description" content="书名：世界在变软作者：水木然 看书起因6月13日晚7点，切切Candy（16年暑假认识，一个用聊天带给我温暖的网友）开始了她的第一次直播讲课，内容是ACCA练习。 作为一个高一之后就没有受过系统文科训练的门外汉，我听了她的直播以后也有所收获。其中之一，就是因为“经济危机万恶资本家倒牛奶事件”从供需角度分析让我有些疑惑，于是我抱着解决疑惑的想法查阅了得到APP，搜索关键词之后发现了这本书。刚好微信读">
+<meta property="og:description" content="摘要：主要介绍了门面模式的使用场景（与接口设计有关），组合模式的设计思路，以及享元模式与多例、缓存、池化技术的异同。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-06-24T04:03:39.900Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《世界正在变软》微信读书笔记">
-<meta name="twitter:description" content="书名：世界在变软作者：水木然 看书起因6月13日晚7点，切切Candy（16年暑假认识，一个用聊天带给我温暖的网友）开始了她的第一次直播讲课，内容是ACCA练习。 作为一个高一之后就没有受过系统文科训练的门外汉，我听了她的直播以后也有所收获。其中之一，就是因为“经济危机万恶资本家倒牛奶事件”从供需角度分析让我有些疑惑，于是我抱着解决疑惑的想法查阅了得到APP，搜索关键词之后发现了这本书。刚好微信读">
+<meta name="twitter:title" content="【设计模式】门面模式，组合模式，享元模式">
+<meta name="twitter:description" content="摘要：主要介绍了门面模式的使用场景（与接口设计有关），组合模式的设计思路，以及享元模式与多例、缓存、池化技术的异同。">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2019/06/14/《世界正在变软》微信读书笔记/">
+  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2020/06/24/【设计模式】门面模式，组合模式，享元模式/">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>《世界正在变软》微信读书笔记 | 人间的我</title>
+  <title>【设计模式】门面模式，组合模式，享元模式 | 人间的我</title>
   
 
 
@@ -381,7 +381,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2019/06/14/《世界正在变软》微信读书笔记/">
+    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2020/06/24/【设计模式】门面模式，组合模式，享元模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="无双BaOY_WHA">
@@ -398,7 +398,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">《世界正在变软》微信读书笔记
+          <h1 class="post-title" itemprop="name headline">【设计模式】门面模式，组合模式，享元模式
 
               
             
@@ -424,24 +424,12 @@
                 
               
 
-              <time title="创建时间：2019-06-14 14:48:26" itemprop="dateCreated datePublished" datetime="2019-06-14T14:48:26+08:00">2019-06-14</time>
+              <time title="创建时间：2020-06-24 12:00:39 / 修改时间：12:03:39" itemprop="dateCreated datePublished" datetime="2020-06-24T12:00:39+08:00">2020-06-24</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-24 12:03:39" itemprop="dateModified" datetime="2020-06-24T12:03:39+08:00">2020-06-24</time>
               
             
           </span>
@@ -458,14 +446,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/书中所得/" itemprop="url" rel="index"><span itemprop="name">书中所得</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/书中所得/商业之潮/" itemprop="url" rel="index"><span itemprop="name">商业之潮</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/编程艺术/" itemprop="url" rel="index"><span itemprop="name">编程艺术</span></a></span>
 
                 
                 
@@ -500,187 +481,68 @@
       
 
       
-        <p>书名：世界在变软<br>作者：水木然</p>
-<h2 id="看书起因"><a href="#看书起因" class="headerlink" title="看书起因"></a>看书起因</h2><p>6月13日晚7点，切切Candy（<em>16年暑假认识，一个用聊天带给我温暖的网友</em>）开始了她的第一次直播讲课，内容是ACCA练习。</p>
-<p>作为一个高一之后就没有受过系统文科训练的门外汉，我听了她的直播以后也有所收获。其中之一，就是因为“经济危机万恶资本家倒牛奶事件”从供需角度分析让我有些疑惑，于是我抱着解决疑惑的想法查阅了得到APP，搜索关键词之后发现了这本书。刚好微信读书也有，我就用2小时19分钟快速看完了，并且做了如下笔记。</p>
+        <p>摘要：主要介绍了门面模式的使用场景（与接口设计有关），组合模式的设计思路，以及享元模式与多例、缓存、池化技术的异同。</p>
 <a id="more"></a>
-<h2 id="读完后的点评"><a href="#读完后的点评" class="headerlink" title="读完后的点评"></a>读完后的点评</h2><p>★★★★☆</p>
-<p>1.这本书的谋篇布局不太好，显然是零散的博眼球网文拼凑起来的，有很多重复提及的内容。不过单独挑出几节来，还是有质量的（比如我频繁划线的那几节）。</p>
-<p>所以，我看得挺快的，一些对我没用的部分我当成废话一扫而过。也不是说这本书差，只是对于非虚构类的书，我基本都是快慢结合看的。</p>
-<p>2.书中的观点并不新鲜，在小众范围（更接近未来的人们）当中，有些已经成为共识。还有一些观点，有点片面，或者带有玄学色彩，或者煽情而不可靠。</p>
-<p>尽管如此，对于多数普罗大众来说，仍然是不错的科普读物，推荐不了解的人阅读以长见识。只是须要注意，要独立思考、批判性接收，别被一些观点带偏了。</p>
-<h2 id="62条笔记"><a href="#62条笔记" class="headerlink" title="62条笔记"></a>62条笔记</h2><blockquote>
-<p>人类文明正值一次全新的大升级，从“大工业时代”跨越到“数据时代”，我们也因此面临一场空前的<strong>社会秩序重组</strong>。每一次的社会升级都会有万物凋零，也必然有万物在悄然重生。</p>
+<h2 id="门面模式"><a href="#门面模式" class="headerlink" title="门面模式"></a>门面模式</h2><h3 id="定义与原理"><a href="#定义与原理" class="headerlink" title="定义与原理"></a>定义与原理</h3><p>门面模式，也叫外观模式，英文全称是 Facade Design Pattern。</p>
+<p>在 GoF 的《设计模式》一书中，门面模式是这样定义的：</p>
+<blockquote>
+<p>Provide a unified interface to a set of interfaces in a subsystem. Facade Pattern defines a higher-level interface that makes the subsystem easier to use.</p>
+</blockquote>
+<p>翻译成中文就是：门面模式为子系统提供一组统一的接口，定义一组高层接口让子系统更易用。</p>
+<p>假设有一个系统 A，提供了 a、b、c、d 四个接口。系统 B 完成某个业务功能，需要调用 A 系统的 a、b、d 接口。利用门面模式，我们提供一个<strong>包裹</strong> a、b、d 接口调用的<strong>门面接口 x</strong>，给系统 B 直接使用。</p>
+<blockquote>
+<p>如果接口的粒度过小，在接口的使用者开发一个业务功能时，就会导致需要调用 n 多细粒度的接口才能完成。调用者肯定会抱怨接口不好用。</p>
 </blockquote>
 <blockquote>
-<p>从本质上来说，世界正在“由硬变软”。</p>
+<p>如果接口粒度设计得太大，一个接口返回 n 多数据，要做 n 多事情，就会导致接口不够通用、可复用性不好。接口不可复用，那针对不同的调用者的业务需求，我们就需要开发不同的接口来满足，这就会导致系统的接口无限膨胀。</p>
 </blockquote>
+<h3 id="应用场景举例"><a href="#应用场景举例" class="headerlink" title="应用场景举例"></a>应用场景举例</h3><p>在 GoF 给出的定义中提到，“门面模式让子系统更加易用”。实际上，它除了解决易用性问题之外，还能解决其他很多方面的问题。</p>
+<p>这里的“子系统（subsystem）”可以有多种理解方式。它既可以是一个完整的系统，也可以是更细粒度的类或者模块。</p>
+<h4 id="解决易用性问题"><a href="#解决易用性问题" class="headerlink" title="解决易用性问题"></a>解决易用性问题</h4><p>门面模式可以用来封装系统的底层实现，隐藏系统的复杂性，提供一组更加简单易用、更高层的接口。</p>
+<p>比如，Linux 系统调用函数就可以看作一种“门面”。</p>
+<p>实际上，从隐藏实现复杂性，提供更易用接口这个意图来看，门面模式有点类似之前讲到的迪米特法则（最少知识原则）和接口隔离原则：两个有交互的系统，只暴露有限的必要的接口。除此之外，门面模式还有点类似之前提到封装、抽象的设计思想，提供更抽象的接口，封装底层实现细节。</p>
+<h4 id="解决性能问题"><a href="#解决性能问题" class="headerlink" title="解决性能问题"></a>解决性能问题</h4><p>通过将多个接口调用替换为一个门面接口调用，可以减少网络通信成本，提高 App 客户端的响应速度。</p>
 <blockquote>
-<p>工业时代遵循的逻辑是“<strong>占有大于一切</strong>”</p>
+<p>如果门面接口不多，我们完全可以将它跟非门面接口放到一块，也不需要特殊标记，当作普通接口来用即可。如果门面接口很多，我们可以在已有的接口之上，再重新抽象出一层，专门放置门面接口，从类、包的命名上跟原来的接口层做区分。如果门面接口特别多，并且很多都是跨多个子系统的，我们可以将门面接口放到一个新的子系统中。3. 解决分布式事务问题</p>
 </blockquote>
+<h4 id="解决分布式事务问题"><a href="#解决分布式事务问题" class="headerlink" title="解决分布式事务问题"></a>解决分布式事务问题</h4><blockquote>
+<p>在一个金融系统中，有两个业务领域模型，用户和钱包。这两个业务领域模型都对外暴露了一系列接口，比如用户的增删改查接口、钱包的增删改查接口。假设有这样一个业务场景：在用户注册的时候，我们不仅会创建用户（在数据库 User 表中），还会给用户创建一个钱包（在数据库的 Wallet 表中）。也就是说，用户注册需要支持事务——创建用户和钱包的两个操作，要么都成功，要么都失败，不能一个成功、一个失败。</p>
+</blockquote>
+<p>要支持两个接口调用在一个事务中执行，是比较难实现的，这涉及分布式事务问题。虽然我们可以通过引入分布式事务框架或者事后补偿的机制来解决，但代码实现都比较复杂。<br>而最简单的解决方案是，利用数据库事务，在一个事务中，执行创建用户和创建钱包这两个 SQL 操作。这就要求两个 SQL 操作要在一个接口中完成，所以，我们可以借鉴门面模式的思想，设计一个包裹这两个操作的新接口，让新接口在一个事务中执行两个 SQL 操作。</p>
+<h3 id="与适配器模式的区别"><a href="#与适配器模式的区别" class="headerlink" title="与适配器模式的区别"></a>与适配器模式的区别</h3><ul>
+<li>适配器是做接口转换，解决的是原接口和目标接口不匹配的问题。</li>
+<li>门面模式做接口整合，解决的是多接口调用带来的问题。</li>
+</ul>
+<h2 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h2><p>组合模式（Composite Design Pattern）跟我们之前讲的面向对象设计中的“组合关系（通过组合来组装两个类）”，完全是两码事。这里讲的“组合模式”，主要是用来处理<strong>树形结构</strong>数据。</p>
+<p>在 GoF 的《设计模式》一书中，组合模式是这样定义的：</p>
 <blockquote>
-<p>数字时代遵循的逻辑是“<strong>连接大于拥有</strong>”</p>
+<p>Compose objects into tree structure to represent part-whole hierarchies.Composite lets client treat individual objects and compositions of objects uniformly.</p>
 </blockquote>
+<p>翻译成中文就是：将一组对象组织（Compose）成树形结构，以表示一种“部分 - 整体”的层次结构。组合让客户端（指代码的使用者）可以<strong>统一</strong>单个对象和组合对象的<strong>处理</strong>逻辑。</p>
+<p>组合模式的设计思路，与其说是一种设计模式，倒不如说是对业务场景的一种数据结构和算法的抽象。其中，数据可以表示成树，业务需求可以通过在树上的递归遍历算法来实现。</p>
+<p>例如，OA 系统（办公自动化系统）开发中，可以“将一组对象（员工和部门）组织成树形结构，以表示一种‘部分 - 整体’的层次结构（部门与子部门的嵌套结构）。组合模式让客户端可以统一单个对象（员工）和组合对象（部门）的处理逻辑（递归遍历）。”</p>
+<p>再如，“将一组对象（文件和目录）组织成树形结构，以表示一种‘部分 - 整体’的层次结构（目录与子目录的嵌套结构）。组合模式让客户端可以统一单个对象（文件）和组合对象（目录）的处理逻辑（递归遍历）。”</p>
+<h2 id="享元模式"><a href="#享元模式" class="headerlink" title="享元模式"></a>享元模式</h2><p>“享元”就是被共享的单元。享元模式（Flyweight Design Pattern）的意图是<strong>复用对象，节省内存</strong>——前提是享元对象是<strong>不可变</strong>对象。</p>
+<p>具体来讲，当一个系统中存在大量重复对象的时候，如果这些重复的对象是不可变对象，我们就可以利用享元模式将对象设计成享元，在内存中只保留一份实例，供多处代码引用。这样可以减少内存中对象的数量，起到节省内存的目的。实际上，不仅仅相同对象可以设计成享元，对于相似对象，我们也可以将这些对象中相同的部分（字段）提取出来，设计成享元，让这些大量相似对象引用这些享元。</p>
 <blockquote>
-<p>数字时代的<strong>贸易核心是信息化调度</strong>，而非工业时代的物理输送体系。</p>
+<p>“不可变对象”指的是，一旦通过构造函数初始化完成之后，它的状态（对象的成员变量或者属性）就不会再被修改了。所以，不可变对象不能暴露任何修改内部状态的方法。之所以要求享元是不可变对象，那是因为它会被多处代码共享使用，避免一处代码对享元进行了修改，影响到其他使用它的代码。</p>
 </blockquote>
-<blockquote>
-<p>每个人都只是一个信息节点。</p>
+<h3 id="与单例、缓存、对象池的区别"><a href="#与单例、缓存、对象池的区别" class="headerlink" title="与单例、缓存、对象池的区别"></a>与单例、缓存、对象池的区别</h3><h4 id="享元模式与单例（多例）"><a href="#享元模式与单例（多例）" class="headerlink" title="享元模式与单例（多例）"></a>享元模式与单例（多例）</h4><p>在单例模式中，一个类只能创建一个对象，而在享元模式中，一个类可以创建多个对象，每个对象被多处代码引用共享。实际上，享元模式有点类似于之前讲到的单例的变体：多例。</p>
+<p>区别两种设计模式，不能光看代码实现，而是要看设计意图，也就是要解决的问题。尽管从代码实现上来看，享元模式和多例有很多相似之处，但从设计意图上来看，它们是完全不同的：</p>
+<ul>
+<li>应用享元模式是为了对象复用，节省内存；</li>
+<li>应用多例模式是为了限制对象的个数。</li>
+</ul>
+<h4 id="享元模式与缓存"><a href="#享元模式与缓存" class="headerlink" title="享元模式与缓存"></a>享元模式与缓存</h4><p>在享元模式的实现中，我们通过工厂类来“缓存”已经创建好的对象。这里的“缓存”实际上是“存储”的意思，跟我们平时所说的“数据库缓存”“CPU 缓存”“MemCache 缓存”是两回事。</p>
+<p>我们平时所讲的缓存，主要是为了提高访问效率，而非复用。</p>
+<h4 id="享元模式与对象池"><a href="#享元模式与对象池" class="headerlink" title="享元模式与对象池"></a>享元模式与对象池</h4><blockquote>
+<p>C++ 中，为了避免频繁地进行对象创建和释放，我们可以预先申请一片连续的内存空间，也就是这里说的对象池。每次创建对象时，我们从对象池中直接取出一个空闲对象来使用，对象使用完成之后，再放回到对象池中以供后续复用，而非直接释放掉。</p>
 </blockquote>
-<p>所以，信息时代，人的注意力具有很高价值。如何吸引更多人的注意力？讲好故事。信息时代，讲故事的能力很重要。</p>
-<h3 id="第一章-商业"><a href="#第一章-商业" class="headerlink" title="第一章 商业"></a>第一章 商业</h3><blockquote>
-<p>这是一个无边界的时代，每一个行业都在整合，都在交叉，都在相互渗透。如果原来你一直认为获利的产品或行业，在另外一些人的手里突然变成一种免费的增值服务，你又如何竞争、如何生存？</p>
-</blockquote>
-<blockquote>
-<p>中国正在形成新的商业形态，<strong>商业形态最大的变化是供应链的变化</strong>。</p>
-</blockquote>
-<blockquote>
-<p>传统狭长的供应链变成逆向的、扁平的，这就是以“网红经济”为代表的新供应链。 “网红经济”的本质是一种聚合消费者的艺术，意味着商业正在由“物以类聚”向“人以群分”过渡。</p>
-</blockquote>
-<p>终于知道前几年自媒体行业为什么那么赚钱了。</p>
-<blockquote>
-<p>传统狭长的供应链变成逆向的、扁平的，这就是以“网红经济”为代表的新供应链。<strong>“网红经济”的本质是一种聚合消费者的艺术，意味着商业正在由“物以类聚”向“人以群分”过渡</strong>。</p>
-</blockquote>
-<blockquote>
-<p>“精准匹配”是共享经济的本质。</p>
-</blockquote>
-<blockquote>
-<p>在个性化的需求下，即使是一件单品，传统工厂一开工可能就是10万件。但是在“淘工厂”平台上，却可以将一件单品从100件起做，原先由几十人承担上万件服饰生产的大流水线，转变为现在2～3人裁制10～20件衣服的小流水线。这就是快速反应的柔性化生产。<br>举个例子，很多网红喜欢做预售，他们做一场直播就可能订购上千件衣服，之后马上给工厂下订单，去掉物流的时间，工厂的生产时间也就3～4天，但是依然能够满足这种需求。从大订单模式走向小订单生产，就是未来工厂出奇制胜的关键。<br>而且这种模式也让那些处于淡季的工厂可以开动机器，避免了资源闲置和浪费，这也是共享经济的价值所在。<br>传统企业最大的特点是“计划性”，从面料供应商再到款式设计的公司，需要有计划性地去推进，强调系列性，需要不断宣传自己品牌的故事，靠这些去打动人。 </p>
-</blockquote>
-<blockquote>
-<p><strong>海量的中小品牌正在崛起</strong>，这才是中国真正的商业变化的大势所趋。</p>
-</blockquote>
-<p>这里面有创业机会。</p>
-<blockquote>
-<p>商业变革的逻辑其实就是整个社会发展的投影。<strong>公开化、共享化、平台化、定制化</strong>就是社会发展的大势所趋。</p>
-</blockquote>
-<blockquote>
-<p>“库存”和“折扣”是吞噬传统商业的两大黑洞。库存导致低效率，折扣导致低利润率。</p>
-</blockquote>
-<blockquote>
-<p>以前，现金流不如利润率重要。<strong>未来，现金流远比利润率重要</strong>。未来流经你这里的现金流越多，意味着你获得的利润就越多</p>
-</blockquote>
-<blockquote>
-<p>未来的社会主要有三种企业角色。<br>●负责国计民生的资源型企业（如国企、央企）。<br>●负责商品流通的平台型企业（如腾讯、阿里巴巴、百度等）。<br>●在各种细分领域里具有独特产品或深度服务的小公司（价值主体）。<br>除此之外，就是游离在各种平台上的个体，比如，网店店主、自媒体人、律师、设计师、会计师等（价值个体）。<br>如果以上这些都没有你的一席之地，那么你就应该思索一下自己的未来定位了。<br>在社会不断向“平台+个体”的结构转变的过程中，平台先淘汰掉了一部分人，如各级经销商、中介、经纪人、销售人员等“二道贩子”。<br>与此同时平台又需要很多新人，如技术、美工、客服、采购、策划等运营人员。 </p>
-</blockquote>
-<blockquote>
-<p>我们首先迫切地需要<strong>重塑文化</strong>，其次是<strong>重建信用</strong>。</p>
-</blockquote>
-<blockquote>
-<p>未来每个人都像U盘似地，即插即用，今天可以进入这个团队，明天可以进入那个团队，并形成网状组织，这种网状组织看似有组织、无纪律，但又具备完善的价值分享机制，可以自助式运转，可以随时产生聚变与裂变效应，发挥巨大效能。</p>
-</blockquote>
-<p>罗辑思维14年的一期节目《u盘化生存》就讲过了。另外我还想到RpgMaker吧里面，数量特别多的一类帖子是游戏制作人发帖寻找画师或者程序员。</p>
-<blockquote>
-<p><strong>工业抢空间，互联网抢时间</strong>，这是完全不同层次的思维。</p>
-</blockquote>
-<blockquote>
-<p>当资本得到它们预期的利润之后就会撤出，留下一个空虚的躯壳，所以很多公司成也风投，败也风投。当然，资本对所有的新兴产业都是这样，包括人工智能等。</p>
-</blockquote>
-<p>华为就是，不上市，不IPO。</p>
-<blockquote>
-<p>对于每一个人来说，必须明白两点： 一个是空间：你所处的上下游环节是什么？ 另一个是时间：你“收割”或“被收割”的时间到了吗？</p>
-</blockquote>
-<p>“农业-工业-互联网-资本-权力-民众”这个产业轮回的食物链回路很有意思。每一位置都有机会“收割”，也都会“被收割”。</p>
-<blockquote>
-<p>●线上的“信息流”和“货币流”是相辅相成的，它们构成了虚拟经济；<br>●线下的“产品流”和“人群流”是互相映衬的，它们组成了实体经济；<br>●线上的“虚拟经济”和线下的“实体经济”是交相辉映的，它们形成了经济主体。</p>
-</blockquote>
-<blockquote>
-<p>一阴一阳谓之道。线上的虚拟经济和线下的实体经济的关系与和谐程度，决定了经济的健康程度和发展态势。</p>
-</blockquote>
-<p>书的这部分（从讲E=mc^2开始到这里），突然变得玄学（神棍附体）。</p>
-<blockquote>
-<p>科技和金融分别是实体经济和虚拟经济的核心支撑点。<strong>科技的本质是生产力，金融的本质是生产关系</strong>。生产力决定生产关系，生产关系一定要适应生产力的发展，不然就会对生产力产生阻碍</p>
-</blockquote>
-<p>等着未来的脱虚向实、以虚促实。</p>
-<blockquote>
-<p>实际上，<strong>掌握节点比掌握趋势要重要得多</strong>，比如房价，都说长期来看是上涨的，关键问题是房价的局部会有回落，那就要看你对节点的拿捏是否精准。</p>
-</blockquote>
-<p>我认为：不关注节点，奉行长期主义，也不错。</p>
-<h3 id="第二章-社会"><a href="#第二章-社会" class="headerlink" title="第二章 社会"></a>第二章 社会</h3><blockquote>
-<p>唯一不变的就是变化。中国，没有永远的“北上广”。</p>
-</blockquote>
-<blockquote>
-<p>上学、放学、周末、寒假、暑假这种时间界限将变得越来越模糊了，<strong>最先学会自律的人将最先走向成功</strong>。先是自我认知，再是自律，最后是自信，这是教育过程中的人格形成路线。</p>
-</blockquote>
-<blockquote>
-<p>在人工智能时代，计算机的知识能让你随时取用，<strong>你要做的只是融会贯通，由一滴水看见大海，由一粒沙而感知世界</strong>。</p>
-</blockquote>
-<h3 id="第三章-人"><a href="#第三章-人" class="headerlink" title="第三章 人"></a>第三章 人</h3><blockquote>
-<p><strong>普通人成群化，精英个体化，王者孤独</strong><br>普通人喜欢成群结队。他们之间的结盟并不是因为利益和价值观，目的性不强，常常聚得快散得也快。<br>精英们则越来越个体化，他们总是小心翼翼地保持和每一个人的距离，随时可以和一个人走得很近，也经常和别人疏远，他们不会随便沾亲带故，谨慎处理和每一个人的关系，因为这样进可攻、退可守。<br>王者永远都是孤独的，尽管高处不胜寒，但他们自身已经比较圆满，所以并不需要被理解、被认同。他们的动力来自于希望和理想，然后按照自己的设定处事，心中无缺所以富有，被人所需所以贵气。</p>
-</blockquote>
-<blockquote>
-<p>普通人做事，精英做式，王者做局</p>
-</blockquote>
-<p>刘润那句名言是：普通人改变结果，高手改变原因，顶级高手改变模型。不过看来刘润说的顶级高手也不过是“精英”，只会改变模式。而真正的王者则是游戏规则的制定者。</p>
-<blockquote>
-<p>社会的基本组成从“企业+员工”迈向“平台+个人”。<br>时代不一样了，兴趣也能当饭吃了。<strong>热爱，才是互联网时代的第一生产力</strong>。</p>
-</blockquote>
-<p>部分正确。至少现在还不能拿兴趣当饭吃。</p>
-<blockquote>
-<p>人和人需要联合起来才能战胜自然，所以人和人的距离走得越来越近。而现在<strong>随着社会物质的极大丰富，人与人之间的距离正在疏远</strong>。</p>
-</blockquote>
-<blockquote>
-<p>老子曰：“大曰逝，逝曰远，远曰返”，意思是万物都是由小到大、由大到小循环往复、变化发展的，揭示了一种对立转化的规律。<br>老子还有句话：“鸡犬之声相闻，民至老死不相往来。”其实这句话可以理解为人和人相处的最高境界：即便近在咫尺，却也不会互相影响和干涉，彼此独立，和而不同。<br>君子之交淡如水。<strong>人与人之间最好的关系是欣赏彼此的长处，懂得对方的不容易，互相欣赏和关注，虽然不天天在一起，但是当你需要帮忙的时候，他能伸手；当他有需求的时候，你懂他想要什么</strong>，这是一种默契，也是人与人之间最好的关系方式。 </p>
-</blockquote>
-<h3 id="第四章-价值"><a href="#第四章-价值" class="headerlink" title="第四章 价值"></a>第四章 价值</h3><blockquote>
-<p>同梵高相比，毕加索显得更识时务。</p>
-</blockquote>
-<p>同特斯拉相比，爱迪生显得更识时务，一手缔造了通用电气公司。</p>
-<blockquote>
-<p>富人总是想着借鸡生蛋，用银行的钱来为自己积累财富，最终让自己走上致富之路。 其实负债也是一种能力。</p>
-</blockquote>
-<p>吴军讲，哈佛商学院主要教学生具备的能力之一是“骗钱”。也即说服他人，借鸡生蛋。</p>
-<blockquote>
-<p>这个世界上越牛的人，负债（欠的钱）越多。</p>
-</blockquote>
-<p>夸张，但有趣的观点。美国国债。</p>
-<blockquote>
-<p>财富的本质无非是两个字：“诚信”。</p>
-</blockquote>
-<p>为什么人们可以约定一张纸就是一般等价物？货币的本质：国家信用。</p>
-<blockquote>
-<p><strong>未来的财富形式一定是估值或市值</strong>，趋于虚拟和抽象。究其本质，是整个社会越来越共享化、公开化、公共化。</p>
-</blockquote>
-<blockquote>
-<p>要专注、专注、再专注。要充分认识自己，发掘自己，<strong>坚持做某个细分领域的第一名，哪怕是一个非常细小的领域</strong>，能做到了这一步，你就不再平凡。</p>
-</blockquote>
-<blockquote>
-<p>我们直接从“中国制造”一下子跃升为“<strong>中国模式</strong>”。以前我们一直在跟德国、日本、美国比拼产品，现在不用了，<strong>我们不比产品而改为比拼平台了</strong>。海纳百川，有容乃大，有能力的都来吧。我们提供一切基础设施，这是非常高超的一步棋，直接“弯道超车”。</p>
-</blockquote>
-<blockquote>
-<p>中国向海外输出的已经不再只是物美价廉的商品，而是各种应用模式，比如我们津津乐道的中国“新四大发明”——高铁、网购、共享单车和移动支付。</p>
-</blockquote>
-<blockquote>
-<p>“人单合一”的基本含义是：<strong>每个价值的创造者</strong>不再直面组织或岗位，而是应<strong>直接面对用户</strong>，创造用户价值，让人因用户而存在</p>
-</blockquote>
-<blockquote>
-<p>我们总是在强调“<strong>连接大于拥有</strong>”，更进一步来说是“<strong>触点大于连接</strong>”，建立连接的机会已经越来越多，但是只有“触点”才能引发价值交换。</p>
-</blockquote>
-<h3 id="第五章-大象无形——软实力输出"><a href="#第五章-大象无形——软实力输出" class="headerlink" title="第五章 大象无形——软实力输出"></a>第五章 大象无形——软实力输出</h3><blockquote>
-<p>我们已经生产出了大量的产品，只是由于经济制度原因，这些产品无法送到最需要它的人手里而已。所以说，<strong>当前世界最需要解决的不是“生产效率”问题，而是“分配效率”问题</strong>。</p>
-</blockquote>
-<blockquote>
-<p>要在把牛奶分配到最需要它的人手里去的同时，充分调动劳动者的劳动积极性，让劳动者和资本家双方形成良性互动。</p>
-</blockquote>
-<p>这个就是我搜索“经济危机 倒牛奶”时找到的。得到的“内容检索”很强。</p>
-<blockquote>
-<p>中国文化一定会将世界“切换”到一个全新的“操作系统”，而设计和开发这个全新操作系统所用的语言，就是中国的传统文化，它将帮助世界建立起全新的规则和制度。</p>
-</blockquote>
-<p>我说…中国的传统文化不是早就出现断层了吗？现在的很多国学只是传统文化皮囊下的的现代思想（得益于文言文的模糊表意）。我偶尔听思想隐士熊逸的讲书，抽丝剥茧之后，国学就是历代士人不停对古之圣人之言做出新的解释而已。</p>
-<h3 id="第六章-关于未来"><a href="#第六章-关于未来" class="headerlink" title="第六章 关于未来"></a>第六章 关于未来</h3><blockquote>
-<p>为语言的出现，让人类彼此有了协调和信任工具，所以人类的经验、智慧得到分享和传承，而且可以高效地协作。</p>
-</blockquote>
-<p>其实现代人类的祖先智人<strong>更重要的能力是“想象”和“虚构”</strong>。智人可以通过讲故事，团结更大规模的人数。而尼安德特人，虽然个体更强壮、智商也差不多（可能还要高一些），却只能组织几十人的组织，所以被智人干掉了。</p>
-<p>会讲故事，变得越来越重要。孙中山长于演讲，梁启超精于写作。最后孙中山赢得了更多支持。</p>
-<blockquote>
-<p>区块链技术的出现，将以数据为载体，将社会的信任成本降到最低。</p>
-</blockquote>
-<blockquote>
-<p>数据不能脱离服务器，而服务器的私有属性本质上决定了数据的最终控制权将属于服务器的控制者，也决定了数据很难被自由地流动和迁移。服务器是私有的，所以<strong>互联网的现状就极像资本主义的本质，不可避免地将走向寡头垄断</strong>。</p>
-</blockquote>
-<blockquote>
-<p>区块链作为历史上第一个真正的公有计算平台，有望实现数据、计算和存储的“共产主义”。</p>
-</blockquote>
+<p>虽然对象池、连接池、线程池、享元模式都是为了复用，但是，如果我们再细致地抠一抠“复用”这个字眼的话，对象池、连接池、线程池等池化技术中的“复用”和享元模式中的“复用”实际上是不同的概念：</p>
+<ul>
+<li>池化技术中的“复用”可以理解为“重复使用”，主要目的是<strong>节省时间</strong>（比如从数据库池中取一个连接，不需要重新创建）。在任意时刻，每一个对象、连接、线程，并不会被多处使用，而是被一个使用者<strong>独占</strong>，当使用完成之后，放回到池中，再由其他使用者重复利用。</li>
+<li>享元模式中的“复用”可以理解为“共享使用”，在整个生命周期中，都是被所有使用者<strong>共享</strong>的，主要目的是<strong>节省空间</strong>。</li>
+</ul>
 
       
     </div>
@@ -704,7 +566,9 @@
       
         <div class="post-tags">
           
-            <a href="/hexo/tags/阅读/" rel="tag"># 阅读</a>
+            <a href="/hexo/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/hexo/tags/设计模式/" rel="tag"># 设计模式</a>
           
         </div>
       
@@ -717,8 +581,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/hexo/2019/06/12/6月写作素材本/" rel="next" title="6月写作素材本">
-                <i class="fa fa-chevron-left"></i> 6月写作素材本
+              <a href="/hexo/2020/06/18/【设计模式】代理模式/" rel="next" title="【设计模式】代理模式">
+                <i class="fa fa-chevron-left"></i> 【设计模式】代理模式
               </a>
             
           </div>
@@ -726,10 +590,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/hexo/2019/06/16/【转】时装类网红模式的现状分析/" rel="prev" title="【转】时装类网红模式的现状分析">
-                【转】时装类网红模式的现状分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -986,7 +846,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#看书起因"><span class="nav-text">看书起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读完后的点评"><span class="nav-text">读完后的点评</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#62条笔记"><span class="nav-text">62条笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一章-商业"><span class="nav-text">第一章 商业</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二章-社会"><span class="nav-text">第二章 社会</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三章-人"><span class="nav-text">第三章 人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四章-价值"><span class="nav-text">第四章 价值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五章-大象无形——软实力输出"><span class="nav-text">第五章 大象无形——软实力输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第六章-关于未来"><span class="nav-text">第六章 关于未来</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#门面模式"><span class="nav-text">门面模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义与原理"><span class="nav-text">定义与原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景举例"><span class="nav-text">应用场景举例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决易用性问题"><span class="nav-text">解决易用性问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决性能问题"><span class="nav-text">解决性能问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决分布式事务问题"><span class="nav-text">解决分布式事务问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与适配器模式的区别"><span class="nav-text">与适配器模式的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组合模式"><span class="nav-text">组合模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#享元模式"><span class="nav-text">享元模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#与单例、缓存、对象池的区别"><span class="nav-text">与单例、缓存、对象池的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#享元模式与单例（多例）"><span class="nav-text">享元模式与单例（多例）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#享元模式与缓存"><span class="nav-text">享元模式与缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#享元模式与对象池"><span class="nav-text">享元模式与对象池</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
