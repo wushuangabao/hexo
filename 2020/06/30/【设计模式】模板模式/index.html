@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="原理与实现模板模式英文全称 Template Method Design Pattern。在 GoF 的《设计模式》一书中，它是这么定义的：  Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefi">
+  <meta name="description" content="摘要：介绍模板模式的原理、实现、作用，并将其与“回调”比较。">
 <meta name="keywords" content="学习,设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【设计模式】模板模式">
 <meta property="og:url" content="http://wushuangabao.github.io/hexo/2020/06/30/【设计模式】模板模式/index.html">
 <meta property="og:site_name" content="人间的我">
-<meta property="og:description" content="原理与实现模板模式英文全称 Template Method Design Pattern。在 GoF 的《设计模式》一书中，它是这么定义的：  Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefi">
+<meta property="og:description" content="摘要：介绍模板模式的原理、实现、作用，并将其与“回调”比较。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-30T08:36:58.012Z">
+<meta property="og:updated_time" content="2020-06-30T08:43:40.270Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【设计模式】模板模式">
-<meta name="twitter:description" content="原理与实现模板模式英文全称 Template Method Design Pattern。在 GoF 的《设计模式》一书中，它是这么定义的：  Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefi">
+<meta name="twitter:description" content="摘要：介绍模板模式的原理、实现、作用，并将其与“回调”比较。">
 
 
 
@@ -424,7 +424,7 @@
                 
               
 
-              <time title="创建时间：2020-06-30 15:41:22 / 修改时间：16:36:58" itemprop="dateCreated datePublished" datetime="2020-06-30T15:41:22+08:00">2020-06-30</time>
+              <time title="创建时间：2020-06-30 15:41:22 / 修改时间：16:43:40" itemprop="dateCreated datePublished" datetime="2020-06-30T15:41:22+08:00">2020-06-30</time>
             
 
             
@@ -481,7 +481,8 @@
       
 
       
-        <a id="more"></a>
+        <p>摘要：介绍模板模式的原理、实现、作用，并将其与“回调”比较。</p>
+<a id="more"></a>
 <h2 id="原理与实现"><a href="#原理与实现" class="headerlink" title="原理与实现"></a>原理与实现</h2><p>模板模式英文全称 Template Method Design Pattern。在 GoF 的《设计模式》一书中，它是这么定义的：</p>
 <blockquote>
 <p>Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm’s structure.</p>
@@ -501,7 +502,10 @@
 <p>还需要在配置文件 web.xml 中做如下配置（Tomcat、Jetty 等 Servlet 容器在启动的时候，会自动加载这个配置文件中的 URL 和 Servlet 之间的映射关系）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;</span><br><span class="line">    &lt;servlet-class&gt;com.xzg.cd.HelloServlet&lt;/servlet-class&gt;</span><br><span class="line">&lt;/servlet&gt;</span><br><span class="line"></span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br></pre></td></tr></table></figure></p>
 <p>当我们在浏览器中输入网址（比如，<a href="http://127.0.0.1:8080/hello" target="_blank" rel="noopener">http://127.0.0.1:8080/hello</a> ）的时候，Servlet 容器会接收到相应的请求，并且根据 URL 和 Servlet 之间的映射关系，找到相应的 Servlet（HelloServlet），然后执行它的 service() 方法。service() 方法定义在父类 HttpServlet 中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">public void service(ServletRequest req, ServletResponse res)</span><br><span class="line">    throws ServletException, IOException</span><br><span class="line">&#123;</span><br><span class="line">    HttpServletRequest  request;</span><br><span class="line">    HttpServletResponse response;</span><br><span class="line">    if (!(req instanceof HttpServletRequest &amp;&amp;</span><br><span class="line">            res instanceof HttpServletResponse)) &#123;</span><br><span class="line">        throw new ServletException(&quot;non-HTTP request or response&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    request = (HttpServletRequest) req;</span><br><span class="line">    response = (HttpServletResponse) res;</span><br><span class="line">    service(request, response);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">protected void service(HttpServletRequest req, HttpServletResponse resp)</span><br><span class="line">    throws ServletException, IOException</span><br><span class="line">&#123;</span><br><span class="line">    String method = req.getMethod();</span><br><span class="line">    if (method.equals(METHOD_GET)) &#123;</span><br><span class="line">        long lastModified = getLastModified(req);</span><br><span class="line">        if (lastModified == -1) &#123;</span><br><span class="line">            // servlet doesn&apos;t support if-modified-since, no reason</span><br><span class="line">            // to go through further expensive logic</span><br><span class="line">            doGet(req, resp);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            long ifModifiedSince = req.getDateHeader(HEADER_IFMODSINCE);</span><br><span class="line">            if (ifModifiedSince &lt; lastModified) &#123;</span><br><span class="line">                // If the servlet mod time is later, call doGet()</span><br><span class="line">                // Round down to the nearest second for a proper compare</span><br><span class="line">                // A ifModifiedSince of -1 will always be less</span><br><span class="line">                maybeSetLastModified(resp, lastModified);</span><br><span class="line">                doGet(req, resp);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                resp.setStatus(HttpServletResponse.SC_NOT_MODIFIED);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else if (method.equals(METHOD_HEAD)) &#123;</span><br><span class="line">        long lastModified = getLastModified(req);</span><br><span class="line">        maybeSetLastModified(resp, lastModified);</span><br><span class="line">        doHead(req, resp);</span><br><span class="line">    &#125; else if (method.equals(METHOD_POST)) &#123;</span><br><span class="line">        doPost(req, resp);</span><br><span class="line">    &#125; else if (method.equals(METHOD_PUT)) &#123;</span><br><span class="line">        doPut(req, resp);</span><br><span class="line">    &#125; else if (method.equals(METHOD_DELETE)) &#123;</span><br><span class="line">        doDelete(req, resp);</span><br><span class="line">    &#125; else if (method.equals(METHOD_OPTIONS)) &#123;</span><br><span class="line">        doOptions(req,resp);</span><br><span class="line">    &#125; else if (method.equals(METHOD_TRACE)) &#123;</span><br><span class="line">        doTrace(req,resp);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        String errMsg = lStrings.getString(&quot;http.method_not_implemented&quot;);</span><br><span class="line">        Object[] errArgs = new Object[1];</span><br><span class="line">        errArgs[0] = method;</span><br><span class="line">        errMsg = MessageFormat.format(errMsg, errArgs);</span><br><span class="line">        resp.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED, errMsg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>我们可以看出，HttpServlet 的 service() 方法就是一个模板方法，它实现了整个 HTTP 请求的执行流程，doGet()、doPost() 是模板中可以由子类来定制的部分。实际上，这就相当于 Servlet 框架提供了一个扩展点（doGet()、doPost() 方法），让框架用户在不修改 Servlet 框架源码的情况下，将业务代码通过扩展点镶嵌到框架中执行。</p>
-<h2 id="模板模式-VS-回调"><a href="#模板模式-VS-回调" class="headerlink" title="模板模式 VS 回调"></a>模板模式 VS 回调</h2><p>相对于普通的函数调用来说，回调是一种双向调用关系。A 类事先<strong>注册</strong>某个“回调函数” F 到 B 类（C语言中就是传递函数指针）。A 类在调用 B 类的 P 函数的时候，B 类反过来调用 A 类注册给它的 F 函数。<strong>A 调用 B，B 反过来又调用 A，这种调用机制就叫作“回调”。</strong></p>
+<h2 id="模板模式-VS-回调"><a href="#模板模式-VS-回调" class="headerlink" title="模板模式 VS 回调"></a>模板模式 VS 回调</h2><p>相对于普通的函数调用来说，回调（Callback）是一种双向调用关系。A 类事先<strong>注册</strong>某个“回调函数” F 到 B 类（C语言中就是传递函数指针）。A 类在调用 B 类的 P 函数的时候，B 类反过来调用 A 类注册给它的 F 函数。<strong>A 调用 B，B 反过来又调用 A，这种调用机制就叫作“回调”。</strong></p>
+<blockquote>
+<p>Hook 就是 Callback 的一种应用。Callback 更侧重语法机制的描述，Hook 更加侧重应用场景的描述。</p>
+</blockquote>
 <p>回调可以分为同步回调和异步回调（或者延迟回调）。同步回调指在函数返回之前执行回调函数；异步回调指的是在函数返回之后执行回调函数。</p>
 <p>从应用场景上来看，<strong>同步回调看起来更像模板模式</strong>（都是在一个大的算法骨架中，自由替换其中的某个步骤，起到代码复用和扩展的目的），<strong>异步回调看起来更像观察者模式</strong>。</p>
 <p>从代码实现上来看，回调和模板模式完全不同。回调基于<strong>组合关系</strong>来实现，把一个对象传递给另一个对象，是一种对象之间的关系；模板模式基于<strong>继承关系</strong>来实现，子类重写父类的抽象方法，是一种类之间的关系。</p>
@@ -511,6 +515,9 @@
 <li>回调可以使用匿名类来创建回调对象，可以不用事先定义类；而模板模式针对不同的实现都要定义不同的子类。</li>
 <li>如果某个模板类中定义了多个模板方法（抽象方法），那即便我们只用到其中的一个模板方法，子类也必须实现所有的抽象方法。而回调就更加灵活，我们只需要往用到的模板方法中注入回调对象即可。</li>
 </ul>
+<blockquote>
+<p>但是滥用回调，会使代码难以阅读（“回调地狱”）。所以复杂的场景还是适合用模板模式。</p>
+</blockquote>
 
       
     </div>
