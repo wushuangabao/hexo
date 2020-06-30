@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="从江湖中品味真正的人生我是比较喜欢读小说的，尤其是金庸的武侠——既能被它生动的情节所吸引，又能在掩卷之后思考，回味无穷。 在微信大V中，六神磊磊就是靠读金庸出名的，我评价他的风格是诙谐机智接地气，当然格调也够高；另外一本书《江湖外史》也是借评论金庸（还有古龙）小说中的人物说人情世故的，虽然也处处透射出生活智慧，但语言的质感很不同，整体保持洒脱之感。 何帆在教思考人生道路问题的几节课中，讲了许多自己">
-<meta name="keywords" content="阅读">
+  <meta name="description" content="原理与实现模板模式英文全称 Template Method Design Pattern。在 GoF 的《设计模式》一书中，它是这么定义的：  Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefi">
+<meta name="keywords" content="学习,设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="跟着何帆读王怜花《江湖外史》之笔记">
-<meta property="og:url" content="http://wushuangabao.github.io/hexo/2019/05/25/跟着何帆读王怜花《江湖外史》之笔记/index.html">
+<meta property="og:title" content="【设计模式】模板模式">
+<meta property="og:url" content="http://wushuangabao.github.io/hexo/2020/06/30/【设计模式】模板模式/index.html">
 <meta property="og:site_name" content="人间的我">
-<meta property="og:description" content="从江湖中品味真正的人生我是比较喜欢读小说的，尤其是金庸的武侠——既能被它生动的情节所吸引，又能在掩卷之后思考，回味无穷。 在微信大V中，六神磊磊就是靠读金庸出名的，我评价他的风格是诙谐机智接地气，当然格调也够高；另外一本书《江湖外史》也是借评论金庸（还有古龙）小说中的人物说人情世故的，虽然也处处透射出生活智慧，但语言的质感很不同，整体保持洒脱之感。 何帆在教思考人生道路问题的几节课中，讲了许多自己">
+<meta property="og:description" content="原理与实现模板模式英文全称 Template Method Design Pattern。在 GoF 的《设计模式》一书中，它是这么定义的：  Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefi">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-30T08:36:58.016Z">
+<meta property="og:updated_time" content="2020-06-30T08:36:58.012Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="跟着何帆读王怜花《江湖外史》之笔记">
-<meta name="twitter:description" content="从江湖中品味真正的人生我是比较喜欢读小说的，尤其是金庸的武侠——既能被它生动的情节所吸引，又能在掩卷之后思考，回味无穷。 在微信大V中，六神磊磊就是靠读金庸出名的，我评价他的风格是诙谐机智接地气，当然格调也够高；另外一本书《江湖外史》也是借评论金庸（还有古龙）小说中的人物说人情世故的，虽然也处处透射出生活智慧，但语言的质感很不同，整体保持洒脱之感。 何帆在教思考人生道路问题的几节课中，讲了许多自己">
+<meta name="twitter:title" content="【设计模式】模板模式">
+<meta name="twitter:description" content="原理与实现模板模式英文全称 Template Method Design Pattern。在 GoF 的《设计模式》一书中，它是这么定义的：  Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefi">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2019/05/25/跟着何帆读王怜花《江湖外史》之笔记/">
+  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2020/06/30/【设计模式】模板模式/">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>跟着何帆读王怜花《江湖外史》之笔记 | 人间的我</title>
+  <title>【设计模式】模板模式 | 人间的我</title>
   
 
 
@@ -381,7 +381,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2019/05/25/跟着何帆读王怜花《江湖外史》之笔记/">
+    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2020/06/30/【设计模式】模板模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="无双BaOY_WHA">
@@ -398,7 +398,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">跟着何帆读王怜花《江湖外史》之笔记
+          <h1 class="post-title" itemprop="name headline">【设计模式】模板模式
 
               
             
@@ -424,24 +424,12 @@
                 
               
 
-              <time title="创建时间：2019-05-25 12:39:51" itemprop="dateCreated datePublished" datetime="2019-05-25T12:39:51+08:00">2019-05-25</time>
+              <time title="创建时间：2020-06-30 15:41:22 / 修改时间：16:36:58" itemprop="dateCreated datePublished" datetime="2020-06-30T15:41:22+08:00">2020-06-30</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 16:36:58" itemprop="dateModified" datetime="2020-06-30T16:36:58+08:00">2020-06-30</time>
               
             
           </span>
@@ -458,7 +446,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/书中所得/" itemprop="url" rel="index"><span itemprop="name">书中所得</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/编程艺术/" itemprop="url" rel="index"><span itemprop="name">编程艺术</span></a></span>
 
                 
                 
@@ -493,35 +481,36 @@
       
 
       
-        <h2 id="从江湖中品味真正的人生"><a href="#从江湖中品味真正的人生" class="headerlink" title="从江湖中品味真正的人生"></a>从江湖中品味真正的人生</h2><p>我是比较喜欢读小说的，尤其是金庸的武侠——既能被它生动的情节所吸引，又能在掩卷之后思考，回味无穷。</p>
-<p>在微信大V中，六神磊磊就是靠读金庸出名的，我评价他的风格是诙谐机智接地气，当然格调也够高；另外一本书《江湖外史》也是借评论金庸（还有古龙）小说中的人物说人情世故的，虽然也处处透射出生活智慧，但语言的质感很不同，整体保持洒脱之感。</p>
-<p>何帆在教<strong>思考人生道路问题</strong>的几节课中，讲了许多自己读《江湖外史》的感悟。为什么思考人生会涉及到武侠呢？因为人生道路是一个复杂命题，<strong>人生感悟是一种“当地”知识（在特定时间、特定地点和特定的一群人共同分享的人生经验）</strong>。</p>
-<p>而在金古的江湖中，有无数的人，贡献着无数种活着的方式。</p>
-<a id="more"></a>
-<h2 id="何帆自己的高浓度总结"><a href="#何帆自己的高浓度总结" class="headerlink" title="何帆自己的高浓度总结"></a>何帆自己的高浓度总结</h2><p>五节课分别讲了五位江湖人物，每个人物都代表了一个人生道理，教我们如何面对生活。</p>
-<p>第一位是<strong>扫地僧</strong>。<strong>扫地僧可能是人生的最高境界，这是一种无为的求道、无名的存在</strong>。想要达到这样的境界，需要智慧，更需要胆量。无论何时，你的心中都应该有个扫地僧，虽不能至，心向往之。扫地僧教我们<strong>更多地关注自己的内心世界</strong>。如果你肯回过头，省察自己的内心，就能看到一个更为广阔的、只属于你的世界。</p>
-<p>第二位是<strong>韦小宝</strong>，人生的次优选择。韦小宝虽然不够高尚，但他是真实的。靠着本能求得生存、<strong>直面人生真相</strong>的韦小宝，是知识分子的解毒剂——太多的知识分子过于虚伪、过于矫情；韦小宝又是一个有趣、有灵性、有禅悟的人——他知道<strong>底线是不可碰触的，当面临人生的两难选择时，还有第三条道路：“大不了，老子不干了”</strong>。</p>
-<p>第三位是<strong>虚竹</strong>。虚竹的故事告诉我们：<strong>悲欣交集的人生才是真实的人生——既然生活是不可抗拒的，你的出身、你的天赋、你所处的时代，很多很多因素都不是你自己能够决定的，那么，我们就只能顺应生活</strong>。有一种境界叫才高于志、土木形骸，说白了，你要学会做减法。如果你知道自己真正想要什么，又知道其实自己想要的不多，那就能得到幸福。不妨换一种心态，像孩子们玩游戏一样，既投入又超脱地对待生活。</p>
-<p>第四位是<strong>令狐冲</strong>。令狐冲告诉我们：想要过一种特立独行的生活，就必须内心里有一个强大的自我。从表面上看，令狐冲过得自由、随意，但<strong>自由是要付出代价的——自由、随意的令狐冲虽然与世无争，但主流社会一定会视其为异端</strong>。如果你想过一种像令狐冲一样的生活，一定要清楚你的内心是否足够强大。为了适应可能出现的风险，你应该从现在就锻炼自己的“旷野”生存能力。</p>
-<p>第五位是<strong>赵敏</strong>。赵敏告诉我们，成熟的爱情是要用自己的“强”去爱，而不是用“弱”去爱。不要让爱情蒙蔽了眼睛，在爱情中失去自我，<strong>要学会在爱情中成长、发现自我。成熟的爱情不在于融为一体，而在于保持距离</strong>。爱情其实是我们自己的事情，跟我们所爱的人无关。伟大的爱情并不是因为仅仅有爱情，相反，是因为人们在爱情之中能够学会包容、学会理解、学会忍耐，学会成长。</p>
-<h2 id="《江湖外史》原文摘抄（更新中）"><a href="#《江湖外史》原文摘抄（更新中）" class="headerlink" title="《江湖外史》原文摘抄（更新中）"></a>《江湖外史》原文摘抄（更新中）</h2><ul>
-<li><p>这个无名老僧的智慧，胸襟，见识，修为，无为的求道，无名的存在，是金庸所要表现的最高境界。求道修远，不是仅仅为了生存，也不仅仅是为了荣耀，而是寻求一种的更高更远的精神。</p>
-</li>
-<li><p>就像那无名老僧，即便出任少林方丈甚或武林盟主（他完全有这能力），他也不会和扫地时有本质的区别。我必须说，人和人是不同的。<strong>如何让道路遇合自己的天性和心灵的要求，是一种大智慧。十丈红尘，功名利禄，经常使我们像萧远山和慕容博那样，买椟还珠</strong>。</p>
-</li>
-<li><p>古龙和金庸，给我们留下了许多难忘的人物形像。但<strong>若论人性的真实，韦小宝当是古金第一人</strong>。他的贪婪，狡诈，自私，无耻，是我们生而为人所固有的；他所做的那些奴颜婢膝，曲意逢迎，见风使舵，欺软怕硬的事，是我们常常要做的；而他的强颜欢笑和身不由己，更是我们几十年如一日的真实境遇。<strong>我猜想，金庸以韦小宝来金盆洗手，是经过深思熟虑的。他想说的是，虽然他知道理想人格应该是什么样的，但因为已洞悉人性和历史的奥秘，因此决定向这奥秘低头——但这不是失败的低头，而是那种如流水般随物赋形的低头</strong>。所以，在《鹿鼎记》中，气宇轩昂出类拔萃如陈近南，雄才大略文治武功如康熙，都不如萎琐又无知的韦小宝那样左右逢源如鱼得水。这不是金庸写郭靖和石破天时那种简单的反智倾向，而是读通历史和人生后的庖丁解牛。最后，当韦小宝身处不可调和的两难境地时，他想通了一个惟一的破解之道：“老子不干了。”</p>
-</li>
-<li><p>当此时，谁能料到他将有怎样的命运呢，谁能料到他竟是一代高僧玄慈和四大恶人叶二娘的私生子呢。当他们终于相认时，全书的高潮出现，那是摄人心魄的悲剧，有着原罪和挣扎，大欢喜和大灭寂。每次重读，都令我悲从中来，又觉人之勇敢。这是金庸宏伟构思的经典时刻，是金庸最大胆的想象，最缜密的思虑和最深情的书写。<strong>佛说生老病死四谛皆苦，然而金庸的虚竹说，虽然如此，生活本身依然是不可抗拒的；命运是可以有奇迹的。否则我们存在的理由本身将不复存在</strong>。虚竹的生，当然是苦，但生命的过程是真实的，而生命自有欢愉，有时甚或浪漫，谁又能料到梦姑“酒罢问君三语”所要问的“梦郎”就是那虚竹呢。<strong>身世虽然悲惨，但却真实；虽有苦痛，但是，在学习怎样死亡之前必须先学习怎样生活</strong>。一个人的一生自有命定的历程。如弘一法师，倘若没有先前的李叔同，何来后来的高僧弘一呢。悲欣交集，不错，悲欣交集才是完整的人生。在《天龙八部》的所有人物中，金庸给虚竹安排的是最好的结局。这是耐人寻味的。<strong>顺从命运的安排，在不由自主的破戒中坚守；接受命运的馈赠，在无可奈何的现实中承担</strong>——这是虚竹活着的方式。</p>
-</li>
-<li><p>刘伶最高妙的地方是他虽然才高八斗，却“未尝措意文章，终其世，凡著《酒德颂》一篇而已。”这是他胜过“竹林七贤”中另外几位的地方。他所处的那个时代已经窥见“唯有文章才能不朽”这一奥秘，<strong>以他之才，却“未尝措意文章”，一辈子只写了一篇《酒德颂》，呵呵，那是不求不朽的智慧和境界了</strong>。</p>
-</li>
-<li><p>在真实的刘伶或者虚构的莫大这样的人物身上，我印证了我对生活的一个朴素的见解——<strong>幸福就是做一个不求进取的天才，胡乱快活一世</strong>。这和巴博士（<em>巴曙松</em>）所说的“<strong>才高于志，土木形骸</strong>”应该是一个意思。如果你知道自己真正想要什么，又知道自己想要的不多，那就能得到幸福。</p>
-</li>
+        <a id="more"></a>
+<h2 id="原理与实现"><a href="#原理与实现" class="headerlink" title="原理与实现"></a>原理与实现</h2><p>模板模式英文全称 Template Method Design Pattern。在 GoF 的《设计模式》一书中，它是这么定义的：</p>
+<blockquote>
+<p>Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm’s structure.</p>
+</blockquote>
+<p>翻译成中文就是：模板方法模式在一个方法中定义一个算法骨架，并将某些步骤推迟到子类中实现。模板方法模式可以让子类在不改变算法整体结构的情况下，重新定义算法中的某些步骤。</p>
+<p>这里的“算法”，我们可以理解为广义上的“业务逻辑”，并不特指数据结构和算法中的“算法”。<strong>算法骨架就是“模板”</strong>，包含算法骨架的方法就是“模板方法”，这也是模板方法模式名字的由来。</p>
+<p>一个简单的代码实现示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">public abstract class AbstractClass &#123;</span><br><span class="line">  public final void templateMethod() &#123; //定义为 final，是为了避免子类重写它。</span><br><span class="line">    //...</span><br><span class="line">    method1();</span><br><span class="line">    //...</span><br><span class="line">    method2();</span><br><span class="line">    //...</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  protected abstract void method1(); //定义为 abstract，是为了强迫子类去实现。</span><br><span class="line">  protected abstract void method2();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class ConcreteClass1 extends AbstractClass &#123;</span><br><span class="line">  @Override</span><br><span class="line">  protected void method1() &#123;</span><br><span class="line">    //...</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  @Override</span><br><span class="line">  protected void method2() &#123;</span><br><span class="line">    //...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class ConcreteClass2 extends AbstractClass &#123;</span><br><span class="line">  @Override</span><br><span class="line">  protected void method1() &#123;</span><br><span class="line">    //...</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  @Override</span><br><span class="line">  protected void method2() &#123;</span><br><span class="line">    //...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">AbstractClass demo = ConcreteClass1();</span><br><span class="line">demo.templateMethod();</span><br></pre></td></tr></table></figure></p>
+<h2 id="模板模式的作用"><a href="#模板模式的作用" class="headerlink" title="模板模式的作用"></a>模板模式的作用</h2><h3 id="复用"><a href="#复用" class="headerlink" title="复用"></a>复用</h3><p>模板模式把一个算法中<strong>不变的流程</strong>抽象到父类的模板方法 templateMethod() 中，将可变的部分 method1()、method2() 留给子类 ContreteClass1 和 ContreteClass2 来实现。</p>
+<p>所有的子类都可以复用父类中模板方法定义的流程代码。</p>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p>这里所说的扩展，并不是指代码的扩展性，而是指<strong>框架</strong>的扩展性，有点类似<strong>控制反转</strong>（可以在本站搜索关键词“控制反转”）。</p>
+<p>基于这个作用，模板模式常用在框架的开发中，让框架用户可以在不修改框架源码的情况下，定制化框架的功能。</p>
+<blockquote>
+<p>控制反转就是：在没有使用框架之前，程序员自己控制整个程序的执行；在使用框架之后，整个程序的执行流程通过框架来控制，流程的控制权从程序员“反转”给了框架。</p>
+</blockquote>
+<h4 id="以Java-Servlet为例"><a href="#以Java-Servlet为例" class="headerlink" title="以Java Servlet为例"></a>以Java Servlet为例</h4><p>Java Web 项目常用的开发框架是 SpringMVC。利用它，我们只需要关注业务代码的编写，底层的原理几乎不会涉及。</p>
+<p>如果抛开这些高级框架来开发 Web 项目，必然会用到 Servlet。实际上，使用比较底层的 Servlet 来开发 Web 项目也不难。只需要定义一个继承 HttpServlet 的类，并且重写其中的 doGet() 或 doPost() 方法，来分别处理 get 和 post 请求。<br>具体的代码示例如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class HelloServlet extends HttpServlet &#123;</span><br><span class="line">  @Override</span><br><span class="line">  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">    this.doPost(req, resp);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  @Override</span><br><span class="line">  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">    resp.getWriter().write(&quot;Hello World.&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>还需要在配置文件 web.xml 中做如下配置（Tomcat、Jetty 等 Servlet 容器在启动的时候，会自动加载这个配置文件中的 URL 和 Servlet 之间的映射关系）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;</span><br><span class="line">    &lt;servlet-class&gt;com.xzg.cd.HelloServlet&lt;/servlet-class&gt;</span><br><span class="line">&lt;/servlet&gt;</span><br><span class="line"></span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<p>当我们在浏览器中输入网址（比如，<a href="http://127.0.0.1:8080/hello" target="_blank" rel="noopener">http://127.0.0.1:8080/hello</a> ）的时候，Servlet 容器会接收到相应的请求，并且根据 URL 和 Servlet 之间的映射关系，找到相应的 Servlet（HelloServlet），然后执行它的 service() 方法。service() 方法定义在父类 HttpServlet 中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">public void service(ServletRequest req, ServletResponse res)</span><br><span class="line">    throws ServletException, IOException</span><br><span class="line">&#123;</span><br><span class="line">    HttpServletRequest  request;</span><br><span class="line">    HttpServletResponse response;</span><br><span class="line">    if (!(req instanceof HttpServletRequest &amp;&amp;</span><br><span class="line">            res instanceof HttpServletResponse)) &#123;</span><br><span class="line">        throw new ServletException(&quot;non-HTTP request or response&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    request = (HttpServletRequest) req;</span><br><span class="line">    response = (HttpServletResponse) res;</span><br><span class="line">    service(request, response);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">protected void service(HttpServletRequest req, HttpServletResponse resp)</span><br><span class="line">    throws ServletException, IOException</span><br><span class="line">&#123;</span><br><span class="line">    String method = req.getMethod();</span><br><span class="line">    if (method.equals(METHOD_GET)) &#123;</span><br><span class="line">        long lastModified = getLastModified(req);</span><br><span class="line">        if (lastModified == -1) &#123;</span><br><span class="line">            // servlet doesn&apos;t support if-modified-since, no reason</span><br><span class="line">            // to go through further expensive logic</span><br><span class="line">            doGet(req, resp);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            long ifModifiedSince = req.getDateHeader(HEADER_IFMODSINCE);</span><br><span class="line">            if (ifModifiedSince &lt; lastModified) &#123;</span><br><span class="line">                // If the servlet mod time is later, call doGet()</span><br><span class="line">                // Round down to the nearest second for a proper compare</span><br><span class="line">                // A ifModifiedSince of -1 will always be less</span><br><span class="line">                maybeSetLastModified(resp, lastModified);</span><br><span class="line">                doGet(req, resp);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                resp.setStatus(HttpServletResponse.SC_NOT_MODIFIED);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else if (method.equals(METHOD_HEAD)) &#123;</span><br><span class="line">        long lastModified = getLastModified(req);</span><br><span class="line">        maybeSetLastModified(resp, lastModified);</span><br><span class="line">        doHead(req, resp);</span><br><span class="line">    &#125; else if (method.equals(METHOD_POST)) &#123;</span><br><span class="line">        doPost(req, resp);</span><br><span class="line">    &#125; else if (method.equals(METHOD_PUT)) &#123;</span><br><span class="line">        doPut(req, resp);</span><br><span class="line">    &#125; else if (method.equals(METHOD_DELETE)) &#123;</span><br><span class="line">        doDelete(req, resp);</span><br><span class="line">    &#125; else if (method.equals(METHOD_OPTIONS)) &#123;</span><br><span class="line">        doOptions(req,resp);</span><br><span class="line">    &#125; else if (method.equals(METHOD_TRACE)) &#123;</span><br><span class="line">        doTrace(req,resp);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        String errMsg = lStrings.getString(&quot;http.method_not_implemented&quot;);</span><br><span class="line">        Object[] errArgs = new Object[1];</span><br><span class="line">        errArgs[0] = method;</span><br><span class="line">        errMsg = MessageFormat.format(errMsg, errArgs);</span><br><span class="line">        resp.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED, errMsg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们可以看出，HttpServlet 的 service() 方法就是一个模板方法，它实现了整个 HTTP 请求的执行流程，doGet()、doPost() 是模板中可以由子类来定制的部分。实际上，这就相当于 Servlet 框架提供了一个扩展点（doGet()、doPost() 方法），让框架用户在不修改 Servlet 框架源码的情况下，将业务代码通过扩展点镶嵌到框架中执行。</p>
+<h2 id="模板模式-VS-回调"><a href="#模板模式-VS-回调" class="headerlink" title="模板模式 VS 回调"></a>模板模式 VS 回调</h2><p>相对于普通的函数调用来说，回调是一种双向调用关系。A 类事先<strong>注册</strong>某个“回调函数” F 到 B 类（C语言中就是传递函数指针）。A 类在调用 B 类的 P 函数的时候，B 类反过来调用 A 类注册给它的 F 函数。<strong>A 调用 B，B 反过来又调用 A，这种调用机制就叫作“回调”。</strong></p>
+<p>回调可以分为同步回调和异步回调（或者延迟回调）。同步回调指在函数返回之前执行回调函数；异步回调指的是在函数返回之后执行回调函数。</p>
+<p>从应用场景上来看，<strong>同步回调看起来更像模板模式</strong>（都是在一个大的算法骨架中，自由替换其中的某个步骤，起到代码复用和扩展的目的），<strong>异步回调看起来更像观察者模式</strong>。</p>
+<p>从代码实现上来看，回调和模板模式完全不同。回调基于<strong>组合关系</strong>来实现，把一个对象传递给另一个对象，是一种对象之间的关系；模板模式基于<strong>继承关系</strong>来实现，子类重写父类的抽象方法，是一种类之间的关系。</p>
+<p>组合优于继承，这里也不例外。在代码实现上，回调相对于模板模式更加灵活，主要体现在下面几点：</p>
+<ul>
+<li>像 Java 这种只支持单继承的语言，基于模板模式编写的子类，已经继承了一个父类，不再具有继承的能力。</li>
+<li>回调可以使用匿名类来创建回调对象，可以不用事先定义类；而模板模式针对不同的实现都要定义不同的子类。</li>
+<li>如果某个模板类中定义了多个模板方法（抽象方法），那即便我们只用到其中的一个模板方法，子类也必须实现所有的抽象方法。而回调就更加灵活，我们只需要往用到的模板方法中注入回调对象即可。</li>
 </ul>
-<h2 id="备忘（记录一些有用的话）"><a href="#备忘（记录一些有用的话）" class="headerlink" title="备忘（记录一些有用的话）"></a>备忘（记录一些有用的话）</h2><p>才高于志、土木形骸，这都是做减法的人生。当然了，更高的境界是既能做加法，又能做减法，该做加法的时候做加法，该做减法的时候做减法，那么，我们又怎样才能做到这一点呢？</p>
-<p>有一个方法，就是用做游戏的态度去度过你的一生。当我们平常讲游戏人生的时候，我们其实误读了游戏，也误读了人生。</p>
-<p>请你不妨想象一下在玩过家家游戏的孩子。孩子在做游戏的时候是非常认真，非常投入的。他们是用自己的全心去感受，去融入。可是，他们知道自己是在做游戏。当他们给布娃娃打针的时候，难道不知道布娃娃根本感觉不到疼？当他们拿玩具枪玩射击游戏的时候，难道他们不知道玩具枪里装的根本就不是弹药？</p>
-<p>孩子们都知道，去关心游戏的真假是没有意义的，真正有意义的是游戏好玩不好玩。所谓的游戏人生，在我的理解，就是像孩子们玩游戏一样去体验人生，很多时候，成年人干的事情也跟孩子一样，就是个游戏，看穿了都是虚假的，但这不重要，重要的是你认可不认可游戏的规则，你是不是觉得这种游戏有意思，你真正追求的东西并不在游戏里面，而在游戏之外，你要想清楚，那个在游戏之外的东西究竟是什么。</p>
 
       
     </div>
@@ -545,7 +534,9 @@
       
         <div class="post-tags">
           
-            <a href="/hexo/tags/阅读/" rel="tag"># 阅读</a>
+            <a href="/hexo/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/hexo/tags/设计模式/" rel="tag"># 设计模式</a>
           
         </div>
       
@@ -558,8 +549,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/hexo/2019/05/22/大学前三年的简短回忆/" rel="next" title="大学前三年的简短回忆">
-                <i class="fa fa-chevron-left"></i> 大学前三年的简短回忆
+              <a href="/hexo/2020/06/29/【设计模式】观察者模式/" rel="next" title="【设计模式】观察者模式">
+                <i class="fa fa-chevron-left"></i> 【设计模式】观察者模式
               </a>
             
           </div>
@@ -567,10 +558,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/hexo/2019/05/25/创造：驱动人生的引擎/" rel="prev" title="创造：驱动人生的引擎">
-                创造：驱动人生的引擎 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -827,7 +814,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#从江湖中品味真正的人生"><span class="nav-text">从江湖中品味真正的人生</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#何帆自己的高浓度总结"><span class="nav-text">何帆自己的高浓度总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#《江湖外史》原文摘抄（更新中）"><span class="nav-text">《江湖外史》原文摘抄（更新中）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备忘（记录一些有用的话）"><span class="nav-text">备忘（记录一些有用的话）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理与实现"><span class="nav-text">原理与实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板模式的作用"><span class="nav-text">模板模式的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复用"><span class="nav-text">复用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展"><span class="nav-text">扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#以Java-Servlet为例"><span class="nav-text">以Java Servlet为例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板模式-VS-回调"><span class="nav-text">模板模式 VS 回调</span></a></li></ol></div>
             
 
           </div>

@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="人间的我">
 <meta property="og:description" content="函数式编程把一些功能或逻辑代码通过函数拼装起来。代码中处理的数据，就是所谓的“状态”。函数式编程要求我们写出无状态的代码。但是天下并不存在没有状态、没有数据的代码。 我们很熟悉的面向对象编程（Object-oriented programming, OOP）有三大特性：封装、继承和多态。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-29T12:56:18.773Z">
+<meta property="og:updated_time" content="2020-06-30T08:36:58.012Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【编程范式】面向对象编程">
 <meta name="twitter:description" content="函数式编程把一些功能或逻辑代码通过函数拼装起来。代码中处理的数据，就是所谓的“状态”。函数式编程要求我们写出无状态的代码。但是天下并不存在没有状态、没有数据的代码。 我们很熟悉的面向对象编程（Object-oriented programming, OOP）有三大特性：封装、继承和多态。">
@@ -441,7 +441,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-29 20:56:18" itemprop="dateModified" datetime="2020-06-29T20:56:18+08:00">2020-06-29</time>
+                <time title="修改时间：2020-06-30 16:36:58" itemprop="dateModified" datetime="2020-06-30T16:36:58+08:00">2020-06-30</time>
               
             
           </span>
@@ -537,7 +537,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class lock_guard &#123;</span><br><span class="line">private: </span><br><span class="line">    mutex &amp;_m;</span><br><span class="line">public:</span><br><span class="line">    lock_guard(mutex &amp;m):_m(m) &#123; _m.lock(); &#125;</span><br><span class="line">    ~lock_guard() &#123; _m.unlock(); &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>然后就可以这样写了：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mutex m;</span><br><span class="line">void foo() &#123;</span><br><span class="line">    lock_guard guard(m);</span><br><span class="line">    Func();</span><br><span class="line">    if ( ! everythingOk() ) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125; </span><br><span class="line">    ...</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这是 C++ 中的一个利用了面向对象的技术，叫 RALL（直译：资源获取就是初始化）。这个模式叫做<strong>代理模式</strong>，我们可以把一些控制资源分配和释放的逻辑交给这些代理类，然后只需要关注业务逻辑代码了。在业务逻辑代码中，减少了与业务逻辑不相关的程序控制代码。</p>
+<p>这是 C++ 中的一个利用了面向对象的技术，叫 RAII（直译：资源获取就是初始化）。这个模式叫做<strong>代理模式</strong>，我们可以把一些控制资源分配和释放的逻辑交给这些代理类，然后只需要关注业务逻辑代码了。在业务逻辑代码中，减少了与业务逻辑不相关的程序控制代码。</p>
 <h2 id="IoC-控制反转"><a href="#IoC-控制反转" class="headerlink" title="IoC 控制反转"></a>IoC 控制反转</h2><p>在上面的示例中：</p>
 <ul>
 <li>我们使用接口抽象了具体的实现类。</li>
@@ -691,7 +691,7 @@
                 
                   <a href="/hexo/archives/">
                 
-                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-count">63</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
