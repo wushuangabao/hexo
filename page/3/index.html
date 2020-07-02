@@ -380,6 +380,376 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2019/08/30/【编译原理之美】作用域和生存期/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="无双BaOY_WHA">
+      <meta itemprop="description" content="服装工程专业，非科班新手程序员。">
+      <meta itemprop="image" content="/hexo/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="人间的我">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/hexo/2019/08/30/【编译原理之美】作用域和生存期/" class="post-title-link" itemprop="url">【编译原理之美】作用域和生存期</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-30 13:45:30" itemprop="dateCreated datePublished" datetime="2019-08-30T13:45:30+08:00">2019-08-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-07-02 16:44:58" itemprop="dateModified" datetime="2020-07-02T16:44:58+08:00">2020-07-02</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/编程艺术/" itemprop="url" rel="index"><span itemprop="name">编程艺术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>使用 Antlr 工具，我们实现了简单的脚本解释器。<br>当然，还有一些更高级的功能也能实现，比如函数功能、面向对象功能。<br>只是我们还要克服一些挑战，如：</p>
+<ul>
+<li>如果要实现函数功能，要升级变量管理机制；</li>
+<li>引入作用域机制，来保证变量的引用指向正确的变量定义；</li>
+<li>变量存储，不能再把变量和它的值简单的存储到一个 HashMap 里。要管理它的生存期，减少对内存的占用。</li>
+</ul>
+<p>本文将借实现<strong>块级作用域</strong>和<strong>函数功能</strong>，带你讨论作用域和生存期及其实现机制，并升级变量管理机制。</p>
+<p>深入理解作用域和生存期，了解它们在编译期和运行期的机制之后，可以回答一些实际问题：</p>
+<ul>
+<li>闭包的机理到底是什么？</li>
+<li>为什么需要栈和堆两种机制来管理内存？</li>
+<li>一个静态的内部类和普通的内部类有什么区别？</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/hexo/2019/08/30/【编译原理之美】作用域和生存期/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2019/08/29/JavaScript-中的-this/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="无双BaOY_WHA">
+      <meta itemprop="description" content="服装工程专业，非科班新手程序员。">
+      <meta itemprop="image" content="/hexo/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="人间的我">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/hexo/2019/08/29/JavaScript-中的-this/" class="post-title-link" itemprop="url">JavaScript 中的 this</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-29 17:43:51" itemprop="dateCreated datePublished" datetime="2019-08-29T17:43:51+08:00">2019-08-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-07-02 16:44:58" itemprop="dateModified" datetime="2020-07-02T16:44:58+08:00">2020-07-02</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/编程艺术/" itemprop="url" rel="index"><span itemprop="name">编程艺术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="执行上下文中的-this"><a href="#执行上下文中的-this" class="headerlink" title="执行上下文中的 this"></a>执行上下文中的 this</h2>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/hexo/2019/08/29/JavaScript-中的-this/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2019/08/20/【编程范式】编程的本质/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -442,7 +812,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 21:58:37" itemprop="dateModified" datetime="2020-06-30T21:58:37+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-02 16:44:58" itemprop="dateModified" datetime="2020-07-02T16:44:58+08:00">2020-07-02</time>
               
             
           </span>
@@ -621,7 +991,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 21:58:37" itemprop="dateModified" datetime="2020-06-30T21:58:37+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-02 16:44:58" itemprop="dateModified" datetime="2020-07-02T16:44:58+08:00">2020-07-02</time>
               
             
           </span>
@@ -800,7 +1170,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 21:58:37" itemprop="dateModified" datetime="2020-06-30T21:58:37+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-02 16:44:58" itemprop="dateModified" datetime="2020-07-02T16:44:58+08:00">2020-07-02</time>
               
             
           </span>
@@ -979,7 +1349,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 21:58:37" itemprop="dateModified" datetime="2020-06-30T21:58:37+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-02 16:44:58" itemprop="dateModified" datetime="2020-07-02T16:44:58+08:00">2020-07-02</time>
               
             
           </span>
@@ -1159,7 +1529,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 21:58:37" itemprop="dateModified" datetime="2020-06-30T21:58:37+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-02 16:44:58" itemprop="dateModified" datetime="2020-07-02T16:44:58+08:00">2020-07-02</time>
               
             
           </span>
@@ -1338,7 +1708,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 21:58:37" itemprop="dateModified" datetime="2020-06-30T21:58:37+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-02 16:44:58" itemprop="dateModified" datetime="2020-07-02T16:44:58+08:00">2020-07-02</time>
               
             
           </span>
@@ -1518,7 +1888,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 21:58:37" itemprop="dateModified" datetime="2020-06-30T21:58:37+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-02 16:44:58" itemprop="dateModified" datetime="2020-07-02T16:44:58+08:00">2020-07-02</time>
               
             
           </span>
@@ -1697,7 +2067,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 21:58:37" itemprop="dateModified" datetime="2020-06-30T21:58:37+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-02 16:44:58" itemprop="dateModified" datetime="2020-07-02T16:44:58+08:00">2020-07-02</time>
               
             
           </span>
@@ -1877,7 +2247,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 21:58:37" itemprop="dateModified" datetime="2020-06-30T21:58:37+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-02 16:44:58" itemprop="dateModified" datetime="2020-07-02T16:44:58+08:00">2020-07-02</time>
               
             
           </span>
@@ -2057,7 +2427,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 21:58:37" itemprop="dateModified" datetime="2020-06-30T21:58:37+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-02 16:44:58" itemprop="dateModified" datetime="2020-07-02T16:44:58+08:00">2020-07-02</time>
               
             
           </span>
@@ -2236,7 +2606,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 21:58:37" itemprop="dateModified" datetime="2020-06-30T21:58:37+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-02 16:44:58" itemprop="dateModified" datetime="2020-07-02T16:44:58+08:00">2020-07-02</time>
               
             
           </span>
@@ -2416,7 +2786,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 21:58:37" itemprop="dateModified" datetime="2020-06-30T21:58:37+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-02 16:44:58" itemprop="dateModified" datetime="2020-07-02T16:44:58+08:00">2020-07-02</time>
               
             
           </span>
@@ -2588,7 +2958,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 21:58:37" itemprop="dateModified" datetime="2020-06-30T21:58:37+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-02 16:44:58" itemprop="dateModified" datetime="2020-07-02T16:44:58+08:00">2020-07-02</time>
               
             
           </span>
@@ -2691,368 +3061,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2019/06/26/许岑：如何有效训练你的研究能力？/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="无双BaOY_WHA">
-      <meta itemprop="description" content="服装工程专业，非科班新手程序员。">
-      <meta itemprop="image" content="/hexo/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="人间的我">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/hexo/2019/06/26/许岑：如何有效训练你的研究能力？/" class="post-title-link" itemprop="url">许岑：如何有效训练你的研究能力？</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-26 19:56:48" itemprop="dateCreated datePublished" datetime="2019-06-26T19:56:48+08:00">2019-06-26</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 21:58:37" itemprop="dateModified" datetime="2020-06-30T21:58:37+08:00">2020-06-30</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/高屋建瓴/" itemprop="url" rel="index"><span itemprop="name">高屋建瓴</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>许岑对于提升研究能力的建议如下。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/hexo/2019/06/26/许岑：如何有效训练你的研究能力？/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2019/06/25/JS-中的-apply-call-bind/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="无双BaOY_WHA">
-      <meta itemprop="description" content="服装工程专业，非科班新手程序员。">
-      <meta itemprop="image" content="/hexo/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="人间的我">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/hexo/2019/06/25/JS-中的-apply-call-bind/" class="post-title-link" itemprop="url">JS 中的 apply, call, bind</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-25 21:27:13" itemprop="dateCreated datePublished" datetime="2019-06-25T21:27:13+08:00">2019-06-25</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 21:58:37" itemprop="dateModified" datetime="2020-06-30T21:58:37+08:00">2020-06-30</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/编程艺术/" itemprop="url" rel="index"><span itemprop="name">编程艺术</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>目标： </p>
-<ul>
-<li>理解 JS 中 apply, call, bind 特点</li>
-<li>了解 JS 中 apply, call, bind 运用案例</li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/hexo/2019/06/25/JS-中的-apply-call-bind/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3101,7 +3109,7 @@
                 
                   <a href="/hexo/archives/">
                 
-                    <span class="site-state-item-count">63</span>
+                    <span class="site-state-item-count">65</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
