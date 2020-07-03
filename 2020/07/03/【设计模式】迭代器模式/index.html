@@ -96,18 +96,21 @@
 
 
 
-  <meta name="description" content="外婆的道歉信弗雷德里克•巴克曼 加的一个读书会 QQ 群推荐阅读的，跑步的时候听了前几章，意料之外的好。阅读总共花了8小时。">
-<meta name="keywords" content="阅读">
+  <meta name="description" content="摘要：介绍迭代器模式的原理与实现，以及迭代时增删元素引发不可预期问题的解决方案。">
+<meta name="keywords" content="学习,设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《外婆的道歉信》微信读书笔记">
-<meta property="og:url" content="http://wushuangabao.github.io/hexo/2019/06/30/《外婆的道歉信》微信读书笔记/index.html">
+<meta property="og:title" content="【设计模式】迭代器模式">
+<meta property="og:url" content="http://wushuangabao.github.io/hexo/2020/07/03/【设计模式】迭代器模式/index.html">
 <meta property="og:site_name" content="人间的我">
-<meta property="og:description" content="外婆的道歉信弗雷德里克•巴克曼 加的一个读书会 QQ 群推荐阅读的，跑步的时候听了前几章，意料之外的好。阅读总共花了8小时。">
+<meta property="og:description" content="摘要：介绍迭代器模式的原理与实现，以及迭代时增删元素引发不可预期问题的解决方案。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-07-03T09:22:35.347Z">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/j5BRZUlgKbUG5yYXn162*dGfZNglzIzc12LwGY7HqzPB1*Eh8DruS62oXwm1nsYDjUnpYyd6p*3B3yKoJDVgkg!!/b&bo=EwL5AAAAAAADB8o!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/S1G4*2hi*D5aPIJug2nMawOEvunedLWDB8l0DPc63qldnHsAP6UVlIsONA521.QBqC8maNuavSuIzQ4UPDuLCQmzNP0bnECyO4uEH73AbcM!/b&bo=GQIvAQAAAAADFwc!&rf=viewer_4">
+<meta property="og:updated_time" content="2020-07-03T09:22:35.351Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《外婆的道歉信》微信读书笔记">
-<meta name="twitter:description" content="外婆的道歉信弗雷德里克•巴克曼 加的一个读书会 QQ 群推荐阅读的，跑步的时候听了前几章，意料之外的好。阅读总共花了8小时。">
+<meta name="twitter:title" content="【设计模式】迭代器模式">
+<meta name="twitter:description" content="摘要：介绍迭代器模式的原理与实现，以及迭代时增删元素引发不可预期问题的解决方案。">
+<meta name="twitter:image" content="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/j5BRZUlgKbUG5yYXn162*dGfZNglzIzc12LwGY7HqzPB1*Eh8DruS62oXwm1nsYDjUnpYyd6p*3B3yKoJDVgkg!!/b&bo=EwL5AAAAAAADB8o!&rf=viewer_4">
 
 
 
@@ -115,7 +118,7 @@
 
   
   
-  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2019/06/30/《外婆的道歉信》微信读书笔记/">
+  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2020/07/03/【设计模式】迭代器模式/">
 
 
 
@@ -125,7 +128,7 @@
   };
 </script>
 
-  <title>《外婆的道歉信》微信读书笔记 | 人间的我</title>
+  <title>【设计模式】迭代器模式 | 人间的我</title>
   
 
 
@@ -381,7 +384,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2019/06/30/《外婆的道歉信》微信读书笔记/">
+    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2020/07/03/【设计模式】迭代器模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="无双BaOY_WHA">
@@ -398,7 +401,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">《外婆的道歉信》微信读书笔记
+          <h1 class="post-title" itemprop="name headline">【设计模式】迭代器模式
 
               
             
@@ -424,24 +427,12 @@
                 
               
 
-              <time title="创建时间：2019-06-30 12:26:55" itemprop="dateCreated datePublished" datetime="2019-06-30T12:26:55+08:00">2019-06-30</time>
+              <time title="创建时间：2020-07-03 17:20:55 / 修改时间：17:22:35" itemprop="dateCreated datePublished" datetime="2020-07-03T17:20:55+08:00">2020-07-03</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-07-03 17:22:35" itemprop="dateModified" datetime="2020-07-03T17:22:35+08:00">2020-07-03</time>
               
             
           </span>
@@ -458,7 +449,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/书中所得/" itemprop="url" rel="index"><span itemprop="name">书中所得</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/编程艺术/" itemprop="url" rel="index"><span itemprop="name">编程艺术</span></a></span>
 
                 
                 
@@ -493,86 +484,37 @@
       
 
       
-        <p><strong>外婆的道歉信</strong><br>弗雷德里克•巴克曼</p>
-<p>加的一个读书会 QQ 群推荐阅读的，跑步的时候听了前几章，意料之外的好。<br>阅读总共花了8小时。</p>
+        <p>摘要：介绍迭代器模式的原理与实现，以及迭代时增删元素引发不可预期问题的解决方案。</p>
 <a id="more"></a>
-<h2 id="点评"><a href="#点评" class="headerlink" title="点评"></a>点评</h2><p>★★★★★</p>
-<h3 id="每个七岁的小孩都该拥有一位超级英雄"><a href="#每个七岁的小孩都该拥有一位超级英雄" class="headerlink" title="每个七岁的小孩都该拥有一位超级英雄"></a>每个七岁的小孩都该拥有一位超级英雄</h3><p>罗辑思维有一期节目《父亲悖论》里讲到过，“父亲”这个身份包括了五个成分，分别是：<strong>供养、护佑、规训、传道、胜利</strong>。</p>
-<p>五条标准，其实割裂成了两部分。前三条，和妈妈承担的责任类似，其实指的是要当“好妈妈式的爸爸”。而后两条，就是传道和胜利功能，也就是我们希望的那种“坚强、胜利的父亲”。 </p>
-<p>我想，“坚强、胜利”这样的品质是孩子所崇拜的吧，就像崇拜一个英雄。</p>
-<p>这本书中，扮演“超级英雄”角色的是外婆。人们都爱她，唯独她自己的女儿恨她，这也是因为“英雄”心中总会先考虑多数人，所以无法兼顾做一个“好妈妈”。</p>
-<h3 id="守护与救赎，魔法与童真"><a href="#守护与救赎，魔法与童真" class="headerlink" title="守护与救赎，魔法与童真"></a>守护与救赎，魔法与童真</h3><p>这是一个有关守护与救赎的故事。</p>
-<p>“超级英雄”外婆守护着 Elsa 以及房子里的人们，之后又将“守护”的使命传承了下去。新的守护者促成了人们相互原谅，人们获得救赎。</p>
-<p>我对这本书的评价很高，主要有以下两个原因：</p>
-<ol>
-<li><p>语言风格像极了J.K.罗琳，字里行间透露出无厘头的幽默感，充满了<strong>魔力</strong>。人物刻画也因此有血有肉，充满个性（当然，大量细节描写和作者的精巧构思也功不可没）。书中 Elsa 对于《哈利波特》如数家珍，当然还有漫威系列……作者本人也是个老顽童吧。</p>
-</li>
-<li><p>以 Elsa 这个聪明的女孩为主角，然后以纯洁天真的口吻道出许多哲理。不禁令人联想起圣埃克絮佩里的神作《小王子》——它们都是必须抱着哪怕仅剩的一点<strong>童真</strong>去认真体会的故事，体会那<strong>治愈</strong>心灵的温情。</p>
-</li>
-</ol>
-<p>以上两个特点结合在了一起，给人一种独特的体验。</p>
-<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>这本书因为有 1/3 左右是听的，而且读得比较快，所以笔记不多。<br>不过认真做笔记的话真的会太多了，而且说不定会剧透。</p>
-<p>1．烟草</p>
-<blockquote>
-<p>只因为爱莎这个七岁小孩没有表现得特别蠢，就好像她有什么精神问题，或是在故意卖弄。</p>
-</blockquote>
-<p>我的心得是，人得学会装傻。引用网络上的一段话：<br>孔子发现了糊涂，取名中庸；<br>老子发现了糊涂，取名无为；<br>庄子发现了糊涂，取名逍遥；<br>墨子发现了糊涂，取名非攻；<br>如来发现了糊涂，取名忘我。</p>
-<p>3．咖啡</p>
-<blockquote>
-<p>这些会议显然非常无聊。首先，每个人会就上一次会议时争论的东西再吵一遍，然后大家查看各自的日程，就下一次会议何时召开争执一番，之后会议就结束了。</p>
-</blockquote>
-<p>这大概就是民主的弊端了。</p>
-<p>5．百合花</p>
-<blockquote>
-<p>老师们错了，爱莎没有注意力问题。她只是将注意力集中到了正确的事情上。外婆说，脑子迟钝的人总是说脑子灵敏的人有注意力问题。“蠢货们不明白，在他们想清楚一件事之前，聪明人早就想明白并开始想下一件事了。所以蠢货总是感到害怕，有攻击性。没有什么比一个聪明姑娘更让他们害怕的了。”</p>
-</blockquote>
-<p>7．皮革</p>
-<blockquote>
-<p>因为所有事物都将失去魔力。</p>
-</blockquote>
-<p>13．红酒</p>
-<blockquote>
-<p>不是所有的怪物一开始都是怪物。有些因为悲伤才变成了怪物。</p>
-</blockquote>
-<p>也不是所有的怪物看起来都像怪物。想起了《爱，死亡，机器人》里的某一集。<br>其实很早之前，手冢治虫的漫画《火鸟》中就有一个故事：一个人受重伤康复后，把怪物看成美丽的女孩、把人看成怪物。《沙耶之歌》游戏也是从这里得到的灵感。</p>
-<p>14．轮胎</p>
-<blockquote>
-<p>在太平的日子里，其他医生就算死都不想被人看见他们和外婆待在一块儿，但当世界分崩离析时，他们会像一支军队般追随她。因为超乎寻常的悲剧造就非同一般的英雄。</p>
-</blockquote>
-<p>20．服装店</p>
-<blockquote>
-<p>童年的时候所有事情都呈现最好的模样，然后就开始走下坡路……</p>
-</blockquote>
-<blockquote>
-<p>但她不想让他失望，所以保持了安静。因为保持安静的时候，你基本上不会让人失望。所有即将八岁的孩子都知道。</p>
-</blockquote>
-<p>那个时候，亲戚们对我的评价就是“文静”。尴尬。</p>
-<p>32．玻璃</p>
-<blockquote>
-<p>生命真正的陷阱在于几乎没有人是彻头彻尾的混蛋，也几乎没有人从未做过混蛋事。生命的难处就在于尽可能多地待在“不是混蛋”这一侧。</p>
-</blockquote>
-<blockquote>
-<p>“人希望被爱，”布里特-玛丽引用道，“若没有，那么被崇拜，没有被崇拜，那么被畏惧，没有被畏惧，那么被仇恨和蔑视。人想给他人注入某种感情。灵魂害怕真空，不顾一切代价，它向往接触。”</p>
-</blockquote>
-<p>这里是引用《格拉斯医生》，呼应前文“不是所有的怪物一开始都是怪物，有些是因为悲伤才变成了怪物”。<br>之前为了说明同一个道理，也引用过尼采的那句“与恶龙缠斗过久，自身亦成为恶龙。凝视深渊过久，深渊将回以凝视。”<br>书中还引用过许多其他书、电影中的台词，Elsa 是喜欢看书的孩子。</p>
-<blockquote>
-<p>布里特-玛丽还在候诊室中。一个人。如果她现在离开，也许没人会记得她曾经来过。她就这件事思索了片刻，然后掸去桌沿上看不见的什么东西，拉直裙子上的一条皱褶，站起身，离开了。</p>
-</blockquote>
-<p>为了对抗孤独倾尽全力，却还是以离去收场。在这本书中是个悲剧人物，后来作者的第三部作品是以她为主角写的。</p>
-<p>33．婴儿</p>
-<blockquote>
-<p>有些人不需要说话也能成为朋友。</p>
-</blockquote>
-<p>《高分少女》里面的女主角就是，从头到尾没有一句台词，但男主却能懂她的意思，还喜欢和她一起玩游戏。</p>
-<blockquote>
-<p>马塞尔合手，难过并快乐地点点头，就好像吃了一个很大的冰激凌但同时意识到已经吃完了。</p>
-</blockquote>
-<p>幸福容易消逝，珍惜时光吧。</p>
-<p>34．外婆</p>
-<blockquote>
-<p>“那你们为什么在一起？”<br>“因为我们接受彼此本来的样子，大概吧？”<br>“而你和妈妈想要改变对方？”<br>他靠近，亲了一下她的前额。“我有时候担心你太聪明了，亲爱的。”</p>
-</blockquote>
-<p>父亲与 Elsa 的对话，第一句中的“你们”指父亲与他现在的妻子。<br>爱是克制，不是控制。求偶不是找一个最爱的人，而是找一个让自己变得更好的人。</p>
+<h2 id="原理与实现"><a href="#原理与实现" class="headerlink" title="原理与实现"></a>原理与实现</h2><p>迭代器模式（Iterator Design Pattern），也叫作游标模式（Cursor Design Pattern），用来<strong>遍历集合对象</strong>。不过，很多编程语言都将迭代器作为一个基础的类库，直接提供出来了。在平时开发中，特别是业务开发，我们直接使用即可，很少会自己去实现一个迭代器。</p>
+<p>“集合对象”也可以叫“容器”、“聚合对象”，实际上就是包含一组对象的对象，比如数组、链表、树、图、跳表。迭代器模式将集合对象的遍历操作从集合类中拆分出来，放到迭代器类中，让两者的职责更加单一。</p>
+<p><img src="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/j5BRZUlgKbUG5yYXn162*dGfZNglzIzc12LwGY7HqzPB1*Eh8DruS62oXwm1nsYDjUnpYyd6p*3B3yKoJDVgkg!!/b&amp;bo=EwL5AAAAAAADB8o!&amp;rf=viewer_4" alt="迭代器类图"></p>
+<p>举个例子，针对 ArrayList 和 LinkedList 两个线性容器，设计实现对应的迭代器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">// 接口定义</span><br><span class="line">public interface Iterator&lt;E&gt; &#123;</span><br><span class="line">  boolean hasNext();</span><br><span class="line">  void next();</span><br><span class="line">  E currentItem();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 接口实现</span><br><span class="line">public class ArrayIterator&lt;E&gt; implements Iterator&lt;E&gt; &#123;</span><br><span class="line">  private int cursor;</span><br><span class="line">  private ArrayList&lt;E&gt; arrayList;</span><br><span class="line"></span><br><span class="line">  public ArrayIterator(ArrayList&lt;E&gt; arrayList) &#123;</span><br><span class="line">    this.cursor = 0;</span><br><span class="line">    this.arrayList = arrayList;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Override</span><br><span class="line">  public boolean hasNext() &#123;</span><br><span class="line">    return cursor != arrayList.size(); //注意这里，cursor在指向最后一个元素的时候，hasNext()仍旧返回true。</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Override</span><br><span class="line">  public void next() &#123;</span><br><span class="line">    cursor++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Override</span><br><span class="line">  public E currentItem() &#123;</span><br><span class="line">    if (cursor &gt;= arrayList.size()) &#123;</span><br><span class="line">      throw new NoSuchElementException();</span><br><span class="line">    &#125;</span><br><span class="line">    return arrayList.get(cursor);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Demo &#123;</span><br><span class="line">  public static void main(String[] args) &#123;</span><br><span class="line">    ArrayList&lt;String&gt; names = new ArrayList&lt;&gt;();</span><br><span class="line">    names.add(&quot;xzg&quot;);</span><br><span class="line">    names.add(&quot;wang&quot;);</span><br><span class="line">    names.add(&quot;zheng&quot;);</span><br><span class="line">    </span><br><span class="line">    Iterator&lt;String&gt; iterator = new ArrayIterator(names);</span><br><span class="line">    while (iterator.hasNext()) &#123;</span><br><span class="line">      System.out.println(iterator.currentItem());</span><br><span class="line">      iterator.next();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面的代码实现中，我们需要将待遍历的容器对象，通过构造函数传递给迭代器类。<br>实际上，为了封装迭代器的创建细节，我们可以在容器中定义一个 iterator() 方法，来创建对应的迭代器。为了能实现基于接口而非实现编程，我们还需要将这个方法定义在 List 接口中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public interface List&lt;E&gt; &#123;</span><br><span class="line">  Iterator iterator();</span><br><span class="line">  //...省略其他接口函数...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class ArrayList&lt;E&gt; implements List&lt;E&gt; &#123;</span><br><span class="line">  //...</span><br><span class="line">  public Iterator iterator() &#123;</span><br><span class="line">    return new ArrayIterator(this);</span><br><span class="line">  &#125;</span><br><span class="line">  //...省略其他代码</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Demo &#123;</span><br><span class="line">  public static void main(String[] args) &#123;</span><br><span class="line">    List&lt;String&gt; names = new ArrayList&lt;&gt;();</span><br><span class="line">    names.add(&quot;xzg&quot;);</span><br><span class="line">    names.add(&quot;wang&quot;);</span><br><span class="line">    names.add(&quot;zheng&quot;);</span><br><span class="line">    </span><br><span class="line">    Iterator&lt;String&gt; iterator = names.iterator();</span><br><span class="line">    while (iterator.hasNext()) &#123;</span><br><span class="line">      System.out.println(iterator.currentItem());</span><br><span class="line">      iterator.next();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于 LinkedIterator，它的代码结构跟 ArrayIterator 完全相同。总结为三句话：</p>
+<ul>
+<li>迭代器中需要定义 hasNext()、currentItem()、next() 三个最基本的方法。</li>
+<li>待遍历的容器对象通过依赖注入传递到迭代器类中。</li>
+<li>容器通过 iterator() 方法来创建迭代器。</li>
+</ul>
+<p><img src="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/S1G4*2hi*D5aPIJug2nMawOEvunedLWDB8l0DPc63qldnHsAP6UVlIsONA521.QBqC8maNuavSuIzQ4UPDuLCQmzNP0bnECyO4uEH73AbcM!/b&amp;bo=GQIvAQAAAAADFwc!&amp;rf=viewer_4" alt="细化后的迭代器类图"></p>
+<h2 id="迭代器模式的优势"><a href="#迭代器模式的优势" class="headerlink" title="迭代器模式的优势"></a>迭代器模式的优势</h2><p>一般来讲，遍历集合数据有三种方法：for 循环、foreach 循环、iterator 迭代器。其中 foreach 循环的底层也是基于迭代器来实现的。</p>
+<p>相对于 for 循环遍历，利用迭代器来遍历有下面三个优势：</p>
+<ul>
+<li>迭代器模式封装集合内部的复杂数据结构，开发者不需要了解如何遍历，直接使用容器提供的迭代器即可；</li>
+<li>迭代器模式将集合对象的遍历操作从集合类中拆分出来，放到迭代器类中，让两者的职责更加单一；</li>
+<li>迭代器模式让添加新的遍历算法更加容易，更符合开闭原则。除此之外，因为迭代器都实现自相同的接口，在开发中，基于接口而非实现编程，替换迭代器也变得更加容易。</li>
+</ul>
+<h2 id="遍历的同时，增删集合元素"><a href="#遍历的同时，增删集合元素" class="headerlink" title="遍历的同时，增删集合元素"></a>遍历的同时，增删集合元素</h2><p>在通过迭代器来遍历集合元素的同时，增加或者删除集合中的元素，有可能会导致某个元素被重复遍历或遍历不到。不过，并不是所有情况下都会遍历出错，所以，这种行为称为结果<strong>不可预期行为</strong>，也就是说，运行结果到底是对还是错，要视情况而定。</p>
+<p>“不可预期”比直接出错更加可怕，一些隐藏很深、很难 debug 的 bug 就是这么产生的。有两种比较干脆利索的解决方案：一种是遍历的时候不允许增删元素，另一种是增删元素之后让遍历报错。第一种解决方案比较难实现，因为很难确定迭代器使用结束的时间点。第二种解决方案更加合理，Java 语言就是采用的这种解决方案。</p>
+<h3 id="实现支持“快照”功能的迭代器"><a href="#实现支持“快照”功能的迭代器" class="headerlink" title="实现支持“快照”功能的迭代器"></a>实现支持“快照”功能的迭代器</h3><p>所谓“快照”，指我们为容器创建迭代器的时候，相当于给容器拍了一张快照（Snapshot）。之后即便我们增删容器中的元素，快照中的元素并不会做相应的改动。这样就避免了在使用迭代器遍历的过程中，增删容器中的元素，导致的不可预期的结果或者报错。</p>
+<h4 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h4><p>在迭代器类中定义一个成员变量 snapshot 来存储快照。每当创建迭代器的时候，都拷贝一份容器中的元素到快照中，后续的遍历操作都基于这个迭代器自己持有的快照来进行。</p>
+<p>这个解决方案虽然简单，但代价也有点高。每次创建迭代器的时候，都要拷贝一份数据到快照中，会增加内存的消耗。如果一个容器同时有多个迭代器在遍历元素，就会导致数据在内存中重复存储多份。</p>
+<h4 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h4><p>在容器中，为每个元素保存两个时间戳，一个是添加时间戳 addTimestamp，一个是删除时间戳 delTimestamp。当元素被加入到集合中的时候，我们将 addTimestamp 设置为当前时间，将 delTimestamp 设置成最大长整型值（Long.MAX_VALUE）。当元素被删除时，我们将 delTimestamp 更新为当前时间，表示已经被删除（只是标记删除，并非真正删除）。</p>
+<p>同时，每个迭代器也保存一个迭代器创建时间戳 snapshotTimestamp，也就是迭代器对应的快照的创建时间戳。当使用迭代器来遍历容器的时候，只有满足 addTimestamp&lt;snapshotTimestamp&lt;delTimestamp 的元素，才是属于这个迭代器的快照。</p>
+<p>这样就在不拷贝容器的情况下，在容器本身上借助时间戳实现了快照功能。</p>
 
       
     </div>
@@ -596,7 +538,9 @@
       
         <div class="post-tags">
           
-            <a href="/hexo/tags/阅读/" rel="tag"># 阅读</a>
+            <a href="/hexo/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/hexo/tags/设计模式/" rel="tag"># 设计模式</a>
           
         </div>
       
@@ -609,8 +553,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/hexo/2019/06/26/许岑：如何有效训练你的研究能力？/" rel="next" title="许岑：如何有效训练你的研究能力？">
-                <i class="fa fa-chevron-left"></i> 许岑：如何有效训练你的研究能力？
+              <a href="/hexo/2020/07/02/【设计模式】状态模式/" rel="next" title="【设计模式】状态模式">
+                <i class="fa fa-chevron-left"></i> 【设计模式】状态模式
               </a>
             
           </div>
@@ -618,10 +562,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/hexo/2019/07/03/珍爱-APP-直播间见闻录/" rel="prev" title="珍爱 APP 直播间见闻录">
-                珍爱 APP 直播间见闻录 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -878,7 +818,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#点评"><span class="nav-text">点评</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#每个七岁的小孩都该拥有一位超级英雄"><span class="nav-text">每个七岁的小孩都该拥有一位超级英雄</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#守护与救赎，魔法与童真"><span class="nav-text">守护与救赎，魔法与童真</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#笔记"><span class="nav-text">笔记</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理与实现"><span class="nav-text">原理与实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代器模式的优势"><span class="nav-text">迭代器模式的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历的同时，增删集合元素"><span class="nav-text">遍历的同时，增删集合元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现支持“快照”功能的迭代器"><span class="nav-text">实现支持“快照”功能的迭代器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方案一"><span class="nav-text">方案一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方案二"><span class="nav-text">方案二</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
