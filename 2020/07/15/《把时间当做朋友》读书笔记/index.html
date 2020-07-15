@@ -96,17 +96,18 @@
 
 
 
-  <meta name="description" content="摘要：介绍职责链模式的原理，链表和数组这两种实现方式，以及在敏感词过滤中的应用。">
+  <meta name="description" content="这本书是在高铁上读完的，读它的起因是在得到的“每天听本书”听到后觉得这书不错。作者李笑来在新东方做过多年英语老师（看来应该是教考研英语……），他发现很多学生会陷入虚假的勤奋状态——比如宁愿背几百篇范文，也不愿意琢磨一下好作文怎么写。 下文基本都是划线笔记，夹杂了我的一两句评论。">
+<meta name="keywords" content="方法,阅读">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【设计模式】职责链模式">
-<meta property="og:url" content="http://wushuangabao.github.io/hexo/2020/07/02/【设计模式】职责链模式/index.html">
+<meta property="og:title" content="《把时间当做朋友》读书笔记">
+<meta property="og:url" content="http://wushuangabao.github.io/hexo/2020/07/15/《把时间当做朋友》读书笔记/index.html">
 <meta property="og:site_name" content="人间的我">
-<meta property="og:description" content="摘要：介绍职责链模式的原理，链表和数组这两种实现方式，以及在敏感词过滤中的应用。">
+<meta property="og:description" content="这本书是在高铁上读完的，读它的起因是在得到的“每天听本书”听到后觉得这书不错。作者李笑来在新东方做过多年英语老师（看来应该是教考研英语……），他发现很多学生会陷入虚假的勤奋状态——比如宁愿背几百篇范文，也不愿意琢磨一下好作文怎么写。 下文基本都是划线笔记，夹杂了我的一两句评论。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-07-15T13:44:30.946Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【设计模式】职责链模式">
-<meta name="twitter:description" content="摘要：介绍职责链模式的原理，链表和数组这两种实现方式，以及在敏感词过滤中的应用。">
+<meta name="twitter:title" content="《把时间当做朋友》读书笔记">
+<meta name="twitter:description" content="这本书是在高铁上读完的，读它的起因是在得到的“每天听本书”听到后觉得这书不错。作者李笑来在新东方做过多年英语老师（看来应该是教考研英语……），他发现很多学生会陷入虚假的勤奋状态——比如宁愿背几百篇范文，也不愿意琢磨一下好作文怎么写。 下文基本都是划线笔记，夹杂了我的一两句评论。">
 
 
 
@@ -114,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2020/07/02/【设计模式】职责链模式/">
+  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2020/07/15/《把时间当做朋友》读书笔记/">
 
 
 
@@ -124,7 +125,7 @@
   };
 </script>
 
-  <title>【设计模式】职责链模式 | 人间的我</title>
+  <title>《把时间当做朋友》读书笔记 | 人间的我</title>
   
 
 
@@ -380,7 +381,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2020/07/02/【设计模式】职责链模式/">
+    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2020/07/15/《把时间当做朋友》读书笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="无双BaOY_WHA">
@@ -397,7 +398,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【设计模式】职责链模式
+          <h1 class="post-title" itemprop="name headline">《把时间当做朋友》读书笔记
 
               
             
@@ -423,28 +424,34 @@
                 
               
 
-              <time title="创建时间：2020-07-02 16:42:48" itemprop="dateCreated datePublished" datetime="2020-07-02T16:42:48+08:00">2020-07-02</time>
+              <time title="创建时间：2020-07-15 20:03:25 / 修改时间：21:44:30" itemprop="dateCreated datePublished" datetime="2020-07-15T20:03:25+08:00">2020-07-15</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-07-15 21:44:30" itemprop="dateModified" datetime="2020-07-15T21:44:30+08:00">2020-07-15</time>
               
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/书中所得/" itemprop="url" rel="index"><span itemprop="name">书中所得</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -474,35 +481,65 @@
       
 
       
-        <p>摘要：介绍职责链模式的原理，链表和数组这两种实现方式，以及在敏感词过滤中的应用。</p>
+        <p>这本书是在高铁上读完的，读它的起因是在得到的“每天听本书”听到后觉得这书不错。作者李笑来在新东方做过多年英语老师（看来应该是教考研英语……），他发现很多学生会陷入虚假的勤奋状态——比如宁愿背几百篇范文，也不愿意琢磨一下好作文怎么写。</p>
+<p>下文基本都是划线笔记，夹杂了我的一两句评论。</p>
 <a id="more"></a>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>Chain Of Responsibility Design Pattern。在 GoF 的《设计模式》中，它是这么定义的：</p>
+<p>我们必须挣扎着经常整理已经输入大脑的信息，尽量让他们有序地排列起来——最基本的方法，就是<strong>记笔记</strong>。如果，我们忘了去记笔记，那些信息最终会转存为无序的，难以直接调出的“潜意识”。</p>
+<p>我的资质一般并不影响，至少并不完全影响我的思考能力。其实，如果肯仔细观察，就很容易会了解：智商和思考能力好像并不完全关联。<br>26岁不小心发现自己竟然不会思考之后，我就一直在挣扎——每天都在挣扎。于是，我的资质一般并不妨碍我的思考结果有道理。</p>
 <blockquote>
-<p>Avoid coupling the sender of a request to its receiver by giving more than one object a chance to handle the request. Chain the receiving objects and pass the request along the chain until an object handles it.</p>
+<p>老喻提到过“思考率”的概念。智商高的人不一定是勤于思考的；而那些成功者都善于抓住关键的时间点，来进行深度思考。</p>
 </blockquote>
-<p>翻译成中文就是：将请求的发送和接收解耦，让多个接收对象都有机会处理这个请求。将这些接收对象串成一条链，并沿着这条链传递这个请求，直到链上的某个接收对象能够处理它为止。</p>
-<p>在实际的开发中，也存在对这个模式的变体，那就是请求不会中途终止传递，而是会被所有的处理器都处理一遍。</p>
-<p>在职责链模式中，多个处理器（也就是刚刚定义中说的“接收对象”）依次处理同一个请求。一个请求先经过 A 处理器处理，然后再把请求传递给 B 处理器，B 处理器处理完后再传递给 C 处理器，以此类推，形成一个链条。链条上的每个处理器各自承担各自的处理职责，所以叫作职责链模式。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>职责链模式有多种实现方式，我们这里介绍两种比较常用的。</p>
-<h3 id="使用链表来存储处理器"><a href="#使用链表来存储处理器" class="headerlink" title="使用链表来存储处理器"></a>使用链表来存储处理器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">public abstract class Handler &#123;</span><br><span class="line">  protected Handler successor = null;</span><br><span class="line"></span><br><span class="line">  public void setSuccessor(Handler successor) &#123;</span><br><span class="line">    this.successor = successor;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public abstract void handle();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class HandlerA extends Handler &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public void handle() &#123;</span><br><span class="line">    boolean handled = false;</span><br><span class="line">    //...</span><br><span class="line">    if (!handled &amp;&amp; successor != null) &#123;</span><br><span class="line">      successor.handle();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class HandlerB extends Handler &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public void handle() &#123;</span><br><span class="line">    boolean handled = false;</span><br><span class="line">    //...</span><br><span class="line">    if (!handled &amp;&amp; successor != null) &#123;</span><br><span class="line">      successor.handle();</span><br><span class="line">    &#125; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class HandlerChain &#123;</span><br><span class="line">  private Handler head = null;</span><br><span class="line">  private Handler tail = null;</span><br><span class="line"></span><br><span class="line">  public void addHandler(Handler handler) &#123;</span><br><span class="line">    handler.setSuccessor(null);</span><br><span class="line"></span><br><span class="line">    if (head == null) &#123;</span><br><span class="line">      head = handler;</span><br><span class="line">      tail = handler;</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    tail.setSuccessor(handler);</span><br><span class="line">    tail = handler;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public void handle() &#123;</span><br><span class="line">    if (head != null) &#123;</span><br><span class="line">      head.handle();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 使用举例</span><br><span class="line">public class Application &#123;</span><br><span class="line">  public static void main(String[] args) &#123;</span><br><span class="line">    HandlerChain chain = new HandlerChain();</span><br><span class="line">    chain.addHandler(new HandlerA());</span><br><span class="line">    chain.addHandler(new HandlerB());</span><br><span class="line">    chain.handle();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中，Handler 是所有处理器类的抽象父类，handle() 是抽象方法。每个具体的处理器类（HandlerA、HandlerB）的 handle() 函数的代码结构类似，如果它能处理该请求，就不继续往下传递；如果不能处理，则交由后面的处理器来处理（也就是调用 successor.handle()）。HandlerChain 是处理器链，从数据结构的角度来看，它就是一个记录了链头、链尾的链表。</p>
-<p>实际上，上面的代码实现不够优雅。处理器类的 handle() 函数，不仅包含自己的业务逻辑，还包含对下一个处理器的调用，也就是代码中的 successor.handle()。一个不熟悉这种代码结构的程序员，在添加新的处理器类的时候，很有可能忘记在 handle() 函数中调用 successor.handle()，这就会导致代码出现 bug。</p>
-<p>针对这个问题，我们对代码进行重构，利用模板模式，将调用 successor.handle() 的逻辑从具体的处理器类中剥离出来，放到抽象父类中。这样具体的处理器类只需要实现自己的业务逻辑就可以了。重构之后的代码如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">public abstract class Handler &#123;</span><br><span class="line">  protected Handler successor = null;</span><br><span class="line"></span><br><span class="line">  public void setSuccessor(Handler successor) &#123;</span><br><span class="line">    this.successor = successor;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public final void handle() &#123;</span><br><span class="line">    boolean handled = doHandle();</span><br><span class="line">    if (successor != null &amp;&amp; !handled) &#123;</span><br><span class="line">      successor.handle();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  protected abstract boolean doHandle();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class HandlerA extends Handler &#123;</span><br><span class="line">  @Override</span><br><span class="line">  protected boolean doHandle() &#123;</span><br><span class="line">    boolean handled = false;</span><br><span class="line">    //...</span><br><span class="line">    return handled;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class HandlerB extends Handler &#123;</span><br><span class="line">  @Override</span><br><span class="line">  protected boolean doHandle() &#123;</span><br><span class="line">    boolean handled = false;</span><br><span class="line">    //...</span><br><span class="line">    return handled;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// HandlerChain和Application代码不变</span><br></pre></td></tr></table></figure>
-<h3 id="使用数组来存储处理器"><a href="#使用数组来存储处理器" class="headerlink" title="使用数组来存储处理器"></a>使用数组来存储处理器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">public interface IHandler &#123;</span><br><span class="line">  boolean handle();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class HandlerA implements IHandler &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public boolean handle() &#123;</span><br><span class="line">    boolean handled = false;</span><br><span class="line">    //...</span><br><span class="line">    return handled;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class HandlerB implements IHandler &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public boolean handle() &#123;</span><br><span class="line">    boolean handled = false;</span><br><span class="line">    //...</span><br><span class="line">    return handled;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class HandlerChain &#123;</span><br><span class="line">  private List&lt;IHandler&gt; handlers = new ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  public void addHandler(IHandler handler) &#123;</span><br><span class="line">    this.handlers.add(handler);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public void handle() &#123;</span><br><span class="line">    for (IHandler handler : handlers) &#123;</span><br><span class="line">      boolean handled = handler.handle();</span><br><span class="line">      if (handled) &#123;</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 使用举例</span><br><span class="line">public class Application &#123;</span><br><span class="line">  public static void main(String[] args) &#123;</span><br><span class="line">    HandlerChain chain = new HandlerChain();</span><br><span class="line">    chain.addHandler(new HandlerA());</span><br><span class="line">    chain.addHandler(new HandlerB());</span><br><span class="line">    chain.handle();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这种实现方式更加简单。HandlerChain 类用数组而非链表来保存所有的处理器，并且需要在 HandlerChain 的 handle() 函数中，依次调用每个处理器的 handle() 函数。</p>
-<h2 id="应用举例"><a href="#应用举例" class="headerlink" title="应用举例"></a>应用举例</h2><p>对于支持 UGC（User Generated Content，用户生成内容）的应用（比如论坛）来说，用户生成的内容（比如，在论坛中发表的帖子）可能会包含一些敏感词（比如涉黄、广告、反动等词汇）。针对这个应用场景，我们就可以利用职责链模式来过滤这些敏感词。</p>
-<p>对于包含敏感词的内容，我们有两种处理方式，一种是直接禁止发布，另一种是给敏感词打马赛克（比如，用 *** 替换敏感词）之后再发布。第一种处理方式符合 GoF 给出的职责链模式的定义，第二种处理方式是职责链模式的变体。</p>
-<p>这里只给出第一种实现方式的代码示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">public interface SensitiveWordFilter &#123;</span><br><span class="line">  boolean doFilter(Content content);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class SexyWordFilter implements SensitiveWordFilter &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public boolean doFilter(Content content) &#123;</span><br><span class="line">    boolean legal = true;</span><br><span class="line">    //...</span><br><span class="line">    return legal;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// PoliticalWordFilter、AdsWordFilter类代码结构与SexyWordFilter类似</span><br><span class="line"></span><br><span class="line">public class SensitiveWordFilterChain &#123;</span><br><span class="line">  private List&lt;SensitiveWordFilter&gt; filters = new ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  public void addFilter(SensitiveWordFilter filter) &#123;</span><br><span class="line">    this.filters.add(filter);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // return true if content doesn&apos;t contain sensitive words.</span><br><span class="line">  public boolean filter(Content content) &#123;</span><br><span class="line">    for (SensitiveWordFilter filter : filters) &#123;</span><br><span class="line">      if (!filter.doFilter(content)) &#123;</span><br><span class="line">        return false;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class ApplicationDemo &#123;</span><br><span class="line">  public static void main(String[] args) &#123;</span><br><span class="line">    SensitiveWordFilterChain filterChain = new SensitiveWordFilterChain();</span><br><span class="line">    filterChain.addFilter(new AdsWordFilter());</span><br><span class="line">    filterChain.addFilter(new SexyWordFilter());</span><br><span class="line">    filterChain.addFilter(new PoliticalWordFilter());</span><br><span class="line"></span><br><span class="line">    boolean legal = filterChain.filter(new Content());</span><br><span class="line">    if (!legal) &#123;</span><br><span class="line">      // 不发表</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      // 发表</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里职责链模式的作用，与策略模式的作用类似：</p>
-<ol>
-<li>将大块代码逻辑拆分成函数，将大类拆分成小类，降低代码的复杂性。把各个敏感词过滤函数继续拆分出来，设计成独立的类，简化了 SensitiveWordFilter 类。</li>
-<li>让代码满足开闭原则，提高代码的扩展性。当我们要扩展新的过滤算法的时候，只需要新添加一个 Filter 类，并且通过 addFilter() 函数将它添加到 FilterChain 中即可，其他代码完全不需要修改。</li>
-</ol>
+<p>我说的只是写作能力中的最基本的一种：写出简捷、有效、朴素、准确、具体的说明性说理性文章的能力。我们的教育，把语文和文学过分紧密联系起来，乃至于忘了文字本身最重要的意义是什么。<strong>文学</strong>只是<strong>文字</strong>应用的众多领域中的一个而已，甚至都不见得是最重要的领域。也许很多人是不愿意接受的，但这可能是事实。</p>
+<p>今天的本科教育基于种种原因，或明显的，或隐晦的，或有意的，或无意的，使大多数毕业生在毕业的时候依然不具备基本的自学能力不说，甚至可能连本专业都没学好。最要命的是，本科教育不仅没能让相当数量的学生学好本专业的同时，甚至令他们对自己的专业产生了憎恨。</p>
+<p>除了“试错”、“观察”、“阅读”之外，“思考”，准确地说，“正确地思考”，才是获取真正意义上的知识的主要手段。</p>
+<p>“不到长城非好汉”之类的说法，在文字（以及图片、视频等其他信息记录媒体）如此发达的今天多少颇有些莫名其妙。在这样的时代里，“阅读”突破了个体的“体验”或者单纯的“试错”的种种局限。“体验”往往只能局限于自己，而“试错”局限于自己的阅历。然而，通过“阅读”，我们可以得知他人的“体验”和“试错”结果（即所谓的“经验”）。</p>
 <blockquote>
-<p>这里的扩展性是指，在不修改<strong>框架源码</strong>的情况下，基于职责链模式提供的扩展点，来扩展新的功能。换句话说，是在框架个代码的范围内实现了开闭原则。</p>
+<p>现在还有一种比“阅读”更直观的获取他人经验的方式——看视频。比如玩王者荣耀等游戏，通过看游戏视频，最好再配合解说，就比一个人瞎玩可以知道更多技巧（——当然自己勤加练习也不可或缺）。还有各种化妆、健身、编程教学视频。</p>
 </blockquote>
-<p>此外职责链模式还有一个好处，就是配置过滤算法更加灵活，可以只选择使用某几个过滤算法。例如，Servlet Filter、Spring Interceptor 这两个 Java 开发中常用的组件。</p>
+<p>同时做两件事儿的诀窍在于，1)其中一件事儿最好是机械的，少点技术含量的；2)另外一件事儿不是特别需要大量脑力支持的；3)两件事儿都应该是确实有效用因而<strong>值得</strong>时间投资的。</p>
+<p>事实上，花时间去进行脑力活动是最值得的。所谓的脑力活动往往可以粗略地分为这样几个部分：输入信息（阅读、观察），处理信息（思考），输出信息（记录、写作、创作、分享、教授）。<br>大多数情况下，思考往往是一个被动的过程（尽管通常人们认为更应该是一个主动的过程）——<strong>思考需要刺激</strong>，而最好的刺激，就是不停地输入信息。所以，在做一件机械的事情的时候——生活中有很多机械的事情是非做不可的——想办法做一些输入的行为吧。</p>
+<p>与懒惰抗争、停止遗忘、坚持改变的工具，就是<strong>纸笔</strong>。</p>
+<p>心智开启从意识到可以自律开始，而心智发展的过程就是克服懒惰的过程。常听说，“最可怕的敌人就是你自己”，这句话如果有道理的话，那个“最可怕的敌人”实际上应该指的是“你那无法控制的<strong>懒惰</strong>”。孙悟空可以七十二变，懒惰比 孙悟空厉害，可以化身无数。它有着各种各样的面具，诱惑你抛弃你的朋友，时间。</p>
+<p>既然“管理时间”是不可能的，那么解决方法就只能是，想尽一切办法真正<strong>了解</strong>自己，真正了解时间、<strong>精确地感知</strong>时间；而后再想尽一切办法<strong>使自己以及自己的行为与时间“合拍”，就是我的说法——“与时间做朋友”。</strong></p>
+<p>一个人拥有活跃的大脑原本是好事，但是，在很多的时候，也可能是坏事——就像你前面看到的那样。你的大脑非常活跃，并且你的注意力最容易接受它的指令；所以，甚至在你自己都没有意识到的情况下，它在不停地操控你的注意力。然后，你就这样轻易地被你的大脑所左右。<br>你可能要挣扎很久才能真正明白这个道理：你的大脑<strong>并不是</strong>你，你的大脑是（属于）“你的”大脑。尽管你用它思考，好像它在指导你的行为，但是，你要明白你不应该隶属于你的大脑，而应该是你拥有你的大脑，并且应该是你可以控制你的大脑。</p>
+<blockquote>
+<p>《盗火》说关闭几个脑区可以获得“心流”。</p>
+</blockquote>
+<p>方法固然重要，但是比起“用功”来说，几乎可以忽略不计。</p>
+<p>如果仔细观察就会发现，几乎所有那些不停地抱怨“上司的愚蠢”的人只有一个共同特征：他们只不过是在用“上司很愚蠢”做为自己偷懒的借口而已——他们的可笑与可悲他们自己并不知道：既然上司那么愚蠢，他们又为什么要用自己宝贵的生命中的大部分时间为那个愚蠢的上司打工呢？那些少数能够提出建设性意见的人，是不会抱怨“上司很愚蠢”的，因为，他们要么想办法帮助上司解决问题，要么就在爱莫能助的时候选择离开公司，自行其是。</p>
+<p>制作一个“任务列表”，其实谁都会；分清楚“重要”与“次要”，或者“紧急”与“非紧急”其实没有谁不会。<br>因“不知道学习有什么用”而拒绝学习的人，会在接下来的日子里虚度光阴无数，哪怕他们天天“科学地”制定计划，编制“任务列表”。而与之相反，因“不知道学习有什么用”而选择努力学习的人，每时每刻都充满了收获，并且会在将来的某一天获得更多的“意外”收获，哪怕他们可能显得“漫无目的”——真的就是天壤之别。</p>
+<blockquote>
+<p>事实 → 想法 → 情绪或行动。同样的事实，不同的想法，结果大大不同。</p>
+</blockquote>
+<p>后来，我明白了，我终于明白了。很多学生“既勤奋又懒惰”的怪异现象来自于 他们对“时间压力”感受。<strong>“没有时间了”，或者“时间不够了”的感受和恐惧，使得他们超乎寻常地勤奋，哪怕是虚假地“勤奋”，恨不能废寝忘食。</strong></p>
+<p>我教得最好的是作文。我很少在课堂上讲语法、词汇、修辞之类的东西，因为那是学生可以自学，或者很容易自学的东西。我更喜欢讲思维方法，因为这才是关键所在。只有<strong>想清楚</strong>了，才可能写清楚。想不清楚，甚至连写出来的必要都没有。</p>
+<p>苏格拉底揭示所谓的思考过程不过是“提问和回答”——估计那时候印刷品并不丰富。而千百年之后的培根说得更加全面：“读书使人完整，讨论使人完备，写作使人完善”。</p>
+<blockquote>
+<p>培根的原话是“Reading makes a full man, conference a ready man, and writing an exact man.”</p>
+</blockquote>
+<p>过去我读过的许多时间管理书籍里的方法肯定是、至少应该是有用的——就好像是巧匠手中的工具，不可能没用。武侠小说里的那些江湖高手，手拿一根树枝也一样可以横扫天下；可是对一个手无缚鸡之力的人来说，给他干将也罢、莫邪也罢，又有什么用处呢？</p>
+<p>基于种种原因，生活中总是只有<strong>少数人</strong>是大多数人想要结交的朋友。但是同样基于种种原因，大多数人并不知道那些少数的人是如何理解他们大多数人的行为的。刚才小强说他那个<strong>“真正的朋友”从来都不“抢”他的玩具，而是“换”</strong>。注意这两个词。<br>所以说，往往只有优秀的人才拥有有效的人脉。并且正因为这些人随时随地都可能要回避“不公平交换”的企图，他们才更加注重自身的质量，知道不给他人制造麻烦、独善其身是美德。<br>而那些不优秀的人往往并不知道这样貌似简单的道理，他们甚至没有意识到自己的状况只能使得自己扮演“索取者”的角色；进而把自己的每一次“交换”都变成“不公平交换”，最终更可能使交换落空——因为谁都不喜欢“不公平交换”。</p>
+<p>整体上来看，人脉当然很重要。不过，针对某个个体来说的话，更重要的是他所拥有的<strong>资源</strong>。有些资源很难瞬间获得，比如金钱、地位、名誉，尤其在这些资源的获得更多地依赖出身和运气的现实世界里。然而有些资源却可以很容易从零开始，比如一个人的才华与学识。才华也好学识也罢，是可以通过努力必然获得的东西。一个人心智能力一旦正常开启，就会发现自己在这个信息唾手可得的世界里，只要正常地努力，并且有耐心和时间做朋友，很容易成为至少一个领域的专家。努力并不像传说中的那么艰苦，只不过是“每天至少专心学习工作六个小时”；<strong>耐心</strong>却远比大多数人想象得巨大，“要与时间相伴短则至少五年，长则二十年” 。</p>
+<p>在布鲁诺眼里，当时的教会已经不配作为上帝的仆人，传播上帝的旨意，所以，布鲁诺不惜自己被烧死，也要与教会死磕到底。我个人显然没有布鲁诺那样的境界，所谓的“成功”也并非可以当作神圣不可侵犯的“信仰”。然而，我对“成功学”啰唆这么多，来自于与布鲁诺差不多的心境。</p>
+<blockquote>
+<p>有点反鸡汤的意思。作者不重视“成功方法”，因为那些东西“只是工具”、“容易习得”。重要的是先完成思维方式的转变（就像武侠小说里的内功）。</p>
+</blockquote>
+<p>讲到这里，你应该明白为什么以前你读过很多时间管理书籍，却最终竟然一无所获的原因了吧？之所以你觉得那些书没什么作用，其实不见得是那些书上写的道理不正确（当然，不排除那些书里面大多数确实是垃圾——精品永远是少数）。问题出在你自己身上——你竟然每一次都给自己定下100分的目标！就算书上的方法是正确的，你实践的方法显然是不合理的。</p>
+<p>很多人的计划之所以不能坚持完成，是因为他们的计划实际上是“超人计划”——“不可能完成之任务”。我经常看到学生的计划上写着“每天背两百个单词”、“每天写五篇英语作文”什么的。这样的强度，对起步的人来讲，只不过是“貌似可行”而已。在一个所有人都匆匆忙忙的世界里，想放慢节奏实在是一件非常难的事情。但是，应该记住的是：凡是<strong>值得</strong>做的事情，都值得<strong>慢慢</strong>做——做很久很久。</p>
+<p>“证明自己”本身没有任何错误，但是，很多人实际上是挣扎着想“证明自己给别人看”。殊不知，“证明自己给别人看”恰恰是最浪费生命的一种行为。因为，如果你是出色的，不需要你去证明你是出色的，别人自然会看到；如果你是平庸的，不需要你证明你是平庸的，别人还是同样会看到。如果你是出色的，却仍然要刻意证明，可能会招致没必要的麻烦，比如引来小人的嫉妒——天下最可怕的事情之一；如果你是平庸的，估计你不会想向别人证明你有多么地平庸，事实上，你更可能会想尽一切办法证明自己其实并不平庸，那么，别人看到的就是一个小丑而已。</p>
+<p>因为不再使用 “优点”、“缺点”这种明显含有褒贬含义的词，取而代之的是完全中性的“特点”，所以很容易做到心平气和地对待自己的各种特点的同时，也可以心平气和地对待他人的各种特点。并且，这方法背后有更深的思考。因为很多的时候，所谓的“优点”和“缺点”是相对的。</p>
+<blockquote>
+<p>从不同的视角看同一个“特点”，看到的可能是优点，也可能是缺点。就像INTJ性格类型的优点是独立、自信而冷静、理性、性格坚强、气质神秘，换一下说辞就变成了缺点——冷漠、高傲而自我、低情商、内心封闭、特立独行。</p>
+</blockquote>
+<p>拿出纸笔、列一列，然后问问自己，“我的时间究竟可以<strong>标价</strong>多少？”——这就是一个人决心不再浪费时间的最有效的起点和动力。只有爱惜才可能产生节约的动力。另外，我们刚刚学到的一个很重要的思考方式是：要想办法从理解上把抽象事物转变为<strong>具体</strong>事物——这样才能更好地理解抽象事物。</p>
+<p>多数事情都需要提前准备，也都可以提前准备。认识到这一点本身就几乎是一切改变的起点。</p>
+<p>所以，不要无谓地相信什么“突然闪现的灵感”的存在。灵感这东西就算存在，也不会是平白无故出现的，肯定是有来历的。只不过是我们经常说的“量变到质变”的那一瞬间突然绽放的铁树之花。可能出于同样的感受，李敖曾戏谑道“妓女不能靠性欲才接客，作家不应该靠灵感才写作”。</p>
+<p>我一直认为，在学习、工作上，一个人在某方面的能力究竟有多大，几乎直接取决于此人能在那方面过<strong>提前多久</strong>进行准备。很少有人真正提前足够的时间去做准备。只要观察一下任何一所大学四年级的学生群体就轻松可以找到无数前仆后继的失败样本，以及永远是少量的成功样本。</p>
+<blockquote>
+<p>至少对同一个人来说，复习两个月去考研和复习六个月的差别巨大。另外，内向的人尤其须要在答辩前做大量准备，亲测有效。</p>
+</blockquote>
+<p>我在写作课上，反复强调最重要的一件事是“You’d better know exactly what you want”其实也是这个意思。耐心不是凭空来的，是需要<strong>了解</strong>支撑的。但是这里出现了一个死循环：了解本身也是需要<strong>耐心</strong>的，没有耐心的人是没耐心深入了解任何事情的，于是，最终他们对任何事情都没有耐心。</p>
+<p><em>来自 Neat Reader ，保存于 2019-09-13 15:07:56</em></p>
 
       
     </div>
@@ -524,6 +561,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/hexo/tags/方法/" rel="tag"># 方法</a>
+          
+            <a href="/hexo/tags/阅读/" rel="tag"># 阅读</a>
+          
+        </div>
+      
 
       
       
@@ -533,8 +578,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/hexo/2020/07/01/【设计模式】策略模式/" rel="next" title="【设计模式】策略模式">
-                <i class="fa fa-chevron-left"></i> 【设计模式】策略模式
+              <a href="/hexo/2020/07/07/2020浙江高考作文/" rel="next" title="2020浙江高考作文">
+                <i class="fa fa-chevron-left"></i> 2020浙江高考作文
               </a>
             
           </div>
@@ -542,10 +587,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/hexo/2020/07/02/【设计模式】状态模式/" rel="prev" title="【设计模式】状态模式">
-                【设计模式】状态模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -589,17 +630,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -791,23 +823,6 @@
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用链表来存储处理器"><span class="nav-text">使用链表来存储处理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用数组来存储处理器"><span class="nav-text">使用数组来存储处理器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用举例"><span class="nav-text">应用举例</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
