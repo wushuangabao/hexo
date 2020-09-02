@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/hexo/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/hexo/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/hexo/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/hexo/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/hexo/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/hexo/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/hexo/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="《游戏编程模式》 Robert Nystrom 尼斯卓姆 部分微信读书笔记，摘录如下：">
+<meta name="keywords" content="阅读,设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《游戏编程模式》读书笔记">
+<meta property="og:url" content="http://wushuangabao.github.io/hexo/2020/09/02/《游戏编程模式》读书笔记/index.html">
+<meta property="og:site_name" content="人间的我">
+<meta property="og:description" content="《游戏编程模式》 Robert Nystrom 尼斯卓姆 部分微信读书笔记，摘录如下：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-09-02T05:57:14.292Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《游戏编程模式》读书笔记">
+<meta name="twitter:description" content="《游戏编程模式》 Robert Nystrom 尼斯卓姆 部分微信读书笔记，摘录如下：">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2020/09/02/《游戏编程模式》读书笔记/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>《游戏编程模式》读书笔记 | 人间的我</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/hexo/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">人间的我</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">大多数人在体能和意志上训练不足，却在思维和情感上训练过度。</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/wushuangabao" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2020/09/02/《游戏编程模式》读书笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="无双BaOY_WHA">
+      <meta itemprop="description" content="服装工程专业，非科班新手程序员。">
+      <meta itemprop="image" content="/hexo/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="人间的我">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《游戏编程模式》读书笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-09-02 10:15:05 / 修改时间：13:57:14" itemprop="dateCreated datePublished" datetime="2020-09-02T10:15:05+08:00">2020-09-02</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/书中所得/" itemprop="url" rel="index"><span itemprop="name">书中所得</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/书中所得/编程艺术/" itemprop="url" rel="index"><span itemprop="name">编程艺术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>《游戏编程模式》</p>
+<p>Robert Nystrom 尼斯卓姆</p>
+<p>部分微信读书笔记，摘录如下：</p>
+<a id="more"></a>
+<h2 id="第1篇-概述"><a href="#第1篇-概述" class="headerlink" title="第1篇 概述"></a>第1篇 概述</h2><blockquote>
+<p>你必须要考虑<strong>程序的哪一部分应该要解耦</strong>然后<strong>在这些地方引入抽象</strong>。同样地，你要确定<strong>在哪里做一些扩展</strong>以便将来很容易应对变化。<br>人们对此非常兴奋。他们设想着，未来的开发者（或者是他们自己）进入代码库，发现代码库开放、强大，只等着被加些扩展。他们想象一个游戏引擎便可统治一切。<br>但是，事情就在这里开始变得棘手。当你添加了一个抽象层或者支持可扩展的地方，你<strong>猜想</strong>到你以后会需要这种<strong>灵活性</strong>，于是你便为你的游戏<strong>增加</strong>了代码和<strong>复杂性</strong>，这需要时间来开发、调试和维护。<br>如果你猜对了，那么你之前的辛苦就没白费，而且也无须再对代码进行任何修改。但是<strong>猜测未来是很难的</strong>，并且当模块最终没起到作用时，很快它就变得有害。毕竟，你必须处理这些多出来的代码。</p>
+</blockquote>
+<p><strong>解耦</strong>意味着在你进行扩展时仅需理解少量代码，然而<strong>抽象</strong>却增加了理解代码的难度。<br>种种事先准备，可能确实是先见之明，也可能只是徒增麻烦。</p>
+<blockquote>
+<p>我们能肯定地假设永远不会有超过256个敌人吗？好极了，我们可以将ID打包成一个单字节。在这里我们只会在一个具体类型上调用方法吗？好，我们就静态调度或者对它内联。所有的实体都是同一个类吗？太好了，我们可以将它们做成一个很棒的连续排列（第17章）。<br>这并不意味着它的灵活性很差！它可以让我们<strong>快速</strong>地进行游戏更新，开发速度是让游戏变得有趣的关键性因素。</p>
+</blockquote>
+<p>游戏开发注重速度，很多时候写代码都<strong>不需要考虑太多</strong>，能实现功能就行。<br>这也是我工作几个月时间的体会——其他老程序员都对我写的代码的可扩展性不屑一顾，叫我只需要按照游戏功能的逻辑，写得越<strong>简单</strong>越好。</p>
+<blockquote>
+<p>编写架构良好的代码需要仔细的思考，这是需要时间的。更多的是，在项目的生命周期内<strong>维护一个良好的架构需要很大的努力</strong>。你必须把你的代码库看作一个好的露营者在寻找营地一样：总是试着寻找比眼下更好的扎营点。<br>当你准备要长期和那份代码打交道时，这样是好的。但是，就像我之前提到的，游戏设计需要大量的试验和探索，特别是在早期，编写一些你知道迟早要扔掉的代码是很稀松平常的。</p>
+</blockquote>
+<blockquote>
+<p>原型（把那些仅仅在功能上满足一个设计问题的代码融合在一起）是一个完全正确的编程实践。然而，特别提醒下，如果你编写一次性的代码，那么<strong>你必须要确保能将之扔掉</strong>。</p>
+</blockquote>
+<p>要确保这些使用一次性代码的人们明白这种一次性代码看起来<strong>能够运行</strong>，但是它却<strong>不可维护，必须被重写</strong>。<br>可怕的是有些游戏公司的一次性代码堆积如山，看得我头皮发麻…</p>
+<blockquote>
+<p>开发中我们有几个因素需要考虑。<br>1．我们想获得一个良好的架构，这样在项目的生命周期中便会更容易理解代码。<br>2．我们希望获得快速的运行时性能。<br>3．我们希望快速完成今天的功能。</p>
+<blockquote>
+<p>我认为一个有趣的地方是<strong>这些都是关于某种速度</strong>：我们的长期开发速度，游戏的执行速度，以及我们短期内的开发速度。</p>
+</blockquote>
+<p>这些目标至少部分是相冲突的。<br>1．好的架构从长远来看，改进了生产力，但维护一个良好的架构就意味着每一个变化都需要更多的努力来保持代码的干净。<br>2．最快编写的代码实现却很少是运行最快的。相反，优化需要消耗工程时间。一旦完成，也会使代码库僵化：高度优化过的代码缺乏灵活性，很难改变。<br>3．完成今日的工作并担心明天的一切总伴随着压力。但是，如果我们尽可能快的完成功能，我们的代码库就会充满了补丁、bug和不一致的混乱，会一点点地消磨掉我们未来的生产力。<br><strong>这里没有简单的答案，只有权衡。</strong>从我收到的电子邮件中，看得出来，这让很多人头疼。特别是对于想做一个游戏的新手们来说，听到这样说挺恐吓人的，“<strong>没有正确答案，只是错误口味不同</strong>”。</p>
+</blockquote>
+<blockquote>
+<p>最近，我觉得如果有任何方法来缓解这些限制，那便是简单性了。在今天我所写的代码中，我非常努力地尝试着编写<strong>最干净、最直接</strong>的函数来解决问题。这种代码在你阅读之后，就会明白它究竟做了什么，并且不敢想象还有其他可能的解决方案。</p>
+</blockquote>
+<p>这里说的简单性，貌似就是“可读性”。而且尽量不与别的功能耦合。</p>
+<p>（本篇总结：）</p>
+<blockquote>
+<p>1．抽象和解耦能够使得你的程序开发变得更快和更简单。但不要浪费时间来做这件事，除非你确信存在问题的代码需要这种灵活性。<br>2．在你的开发周期中要对性能进行思考和设计，但是要推迟那些降低灵活性的、底层的、详尽的优化，能晚则晚。<br>3．尽快地探索你的游戏的设计空间，但是不要走得太快留下一个烂摊子给自己。毕竟你将不得不面对它。<br>4．如果你将要删除代码，那么不要浪费时间将它整理得很整洁。摇滚明星把酒店房间弄得很乱是因为他们知道第二天就要结账走人。<br>5．但是，最重要的是，若要做一些有趣的玩意，那就乐在其中地做吧。</p>
+<blockquote>
+<p>相信我，在游戏发布前的两个月并不是你开始担心“游戏的FPS只有1帧”问题的时候。</p>
+</blockquote>
+</blockquote>
+<p>对于游戏程序开发的总结很到位。<br>看到最后一句我笑了。</p>
+<h2 id="第2篇-再探设计模式"><a href="#第2篇-再探设计模式" class="headerlink" title="第2篇 再探设计模式"></a>第2篇 再探设计模式</h2><p>享元模式、观察者模式、单例模式、状态模式，这几章略过。</p>
+<h3 id="第2章-命令模式"><a href="#第2章-命令模式" class="headerlink" title="第2章 命令模式"></a>第2章 命令模式</h3><blockquote>
+<p>命令就是一个对象化（实例化）的方法调用（A command is a reified method call）。</p>
+</blockquote>
+<blockquote>
+<p>命令就是面向对象化的回调（Commands are an object-oriented replacement forcallbacks）。</p>
+</blockquote>
+<blockquote>
+<p>反射是一个对象化的类型系统。</p>
+</blockquote>
+<blockquote>
+<p>一些代码（输入处理或者AI）生成命令并将它们放置于命令流中，一些代码（发送者或者角色自身）执行命令并且调用它们。<br>通过中间的队列，我们将生产者端和消费者端解耦。</p>
+</blockquote>
+<blockquote>
+<p>如果一个命令对象可以做（do）一些事情，那么就应该可以很轻松地撤销（undo）它们。</p>
+</blockquote>
+<blockquote>
+<p>重做在游戏中并不常见，但<strong>回放</strong>却很常见。一个很简单的实现方法就是记录每一帧的游戏状态以便能够回放，但是这样会使用大量的内存。</p>
+</blockquote>
+<p>“忍者必须死3”一场比赛的回放只有差不多几十kB大小……估计是记录了玩家的操作命令队列，而不是游戏状态队列。</p>
+<h3 id="第5章-原型模式"><a href="#第5章-原型模式" class="headerlink" title="第5章 原型模式"></a>第5章 原型模式</h3><blockquote>
+<p>每一个怪物类只要包含孵化函数指针即可。</p>
+</blockquote>
+<p><code>Monster* (*SpawnCallback)();</code>定义了一个“返回值类型是Monster*、无参数的函数”的指针。</p>
+<blockquote>
+<p>前面两种解决方案都强调我们需要定义一个类型参数化的生成器类。在C++里面，Class并不是头等公民。如果你使用像Javascript、Python和Ruby这样的把Class当作是头等公民的动态语言时，Class可以当作函数参数进行传递，那么你会得到更优雅的解决方案。</p>
+</blockquote>
+<blockquote>
+<p>今天的大部分游戏，代码仅仅是一个驱动游戏的引擎，游戏的玩法被全部定义在数据中。<br>这样非常好，但是<strong>简单地把内容都放到数据文件里面并不能解决大项目难于组织的问题</strong>。而且，还有可能把问题搞得更复杂。我们使用编程语言的原因是因为它们可以管理复杂性。<br>为了不在10个地方去复制和粘贴代码，我们把它们封装成一个函数然后通过函数名来调用。为了不在多个类里复制粘贴代码，我们可以把它们放到一个单独的类里面，然后从它继承或者组合。<br>当你的游戏数据到达一定规模的时候，你会开始想要一些类似的特性。<strong>数据建模</strong>是一个很深的主题，这里我不会详细展开。但是，我希望可以抛砖引玉，让你可以在自己的游戏里面：使用原型和委托来重用数据。</p>
+</blockquote>
+<p>“数据驱动”把业务逻辑和控制逻辑分离，cocos creator的设计理念就是数据驱动。这里说到了数据规模过大的问题和解决方向——数据建模。</p>
+<h2 id="第3篇-序列型模式"><a href="#第3篇-序列型模式" class="headerlink" title="第3篇 序列型模式"></a>第3篇 序列型模式</h2><p>第10章更新方法模式略过。</p>
+<h3 id="第8章-双缓冲"><a href="#第8章-双缓冲" class="headerlink" title="第8章 双缓冲"></a>第8章 双缓冲</h3><blockquote>
+<p>双缓冲模式所解决的核心问题就是<strong>对状态同时进行修改与访问</strong>的冲突。<br>造成此问题的原因通常有两个，我们已经通过上述图形示例描述了第一种情况——状态直接被另一个线程或中断的代码所直接访问。<br>而另一种情况同样很常见：进行状态修改的代码访问到了其正在修改的那个状态。这会在很多地方发生：尤其是实体的AI和物理部分，在它与其他实体进行交互时会发生这样的情况，双缓冲模式往往能在此情形下奏效。</p>
+</blockquote>
+<p>第二种情况解决的是这样一个问题：对象在某帧中“更新的顺序”会对“它们的交互结果”产生影响，因为前一个对象更新时，后一个对象还没更新。但我们希望它们同时更新。</p>
+<h3 id="第9章-游戏循环"><a href="#第9章-游戏循环" class="headerlink" title="第9章 游戏循环"></a>第9章 游戏循环</h3><blockquote>
+<p>在每帧的开始，我们基于<strong>实际流逝的时间</strong>更新变量lag。这一变量表示了游戏时钟相对现实时间落后的差量。<br>接着我们使用一个内部循环来更新游戏，每次以<strong>固定时长</strong>进行，直到它追赶上现实时间。<strong>一旦赶上现实时间，我们开始渲染</strong>并进行下一次游戏循环。</p>
+</blockquote>
+<p>保证了在核心逻辑更新时，每一帧的时间都是固定的。</p>
+<h2 id="第4篇-行为型模式"><a href="#第4篇-行为型模式" class="headerlink" title="第4篇 行为型模式"></a>第4篇 行为型模式</h2><h3 id="第11章-字节码"><a href="#第11章-字节码" class="headerlink" title="第11章 字节码"></a>第11章 字节码</h3><blockquote>
+<p>大部分广泛使用的编程语言没有基于解释器模式也正因于此。它太慢了，并且占用了大量的内存。</p>
+</blockquote>
+<blockquote>
+<p>这个模式是GoF解释器模式的姊妹版。它们都会为你提供一种用数据来组合行为的方法。<br>事实上，你经常会将两个模式一起使用。你用来生成字节码的工具通常会有一个内部对象树来表达代码。这正是解释器模式能做的事情。<br>为了将它编译成字节码，你需要递归遍历整棵树，正如你在解释器模式中解析它那样。唯一的不同是你并不是直接执行一段代码而是将它们输出成字节码指令并在以后执行它们。</p>
+</blockquote>
+<p>解释器模式和字节码模式，都是为了让数据来驱动行为。区别在于字节码模式 的数据 事先要转换为字节码。</p>
+<h3 id="第12章-子类沙盒"><a href="#第12章-子类沙盒" class="headerlink" title="第12章 子类沙盒"></a>第12章 子类沙盒</h3><blockquote>
+<p>“使用基类提供的操作集合来定义子类中的行为。”</p>
+</blockquote>
+<blockquote>
+<p>当你发现你的设计里像本例一样充满大量子类的时候，这通常意味着使用数据驱动方法可能更适合。你需要尝试找到一种<strong>使用数据来定义行为</strong>的方法，而不是用大量的重复代码来定义不同的行为。</p>
+</blockquote>
+<blockquote>
+<p>模板函数模式正好与本模式相反。在这两个模式中，你都使用<strong>一系列操作原语</strong>来实现一个函数。使用子类沙盒模式时，函数在继承类中，原语操作则在基类中。使用模板函数时，基类定义函数骨架，而原语操作被继承类实现。</p>
+</blockquote>
+<p>子类沙盒模式，一步步“操作”的定义在父类，组合“操作”的“算法骨架”在子类；模板模式，“算法骨架”在父类，而算法中的某些“操作”（步骤）在子类中实现。</p>
+<blockquote>
+<p>你可以将这个模式看作是在外观模式上的一个变种。外观模式将许多不同的系统隐藏在了一个简化的API之下。在子类沙盒模式中，基类对于子类来说充当着隐藏游戏引擎实现细节的角色。</p>
+</blockquote>
+<p>外观模式就是门面模式，它把子系统的一组接口包装成高层接口，让子系统更易用。</p>
+<h3 id="第13章-类型对象"><a href="#第13章-类型对象" class="headerlink" title="第13章 类型对象"></a>第13章 类型对象</h3><p>（前文用种族举了个应用案例..）</p>
+<blockquote>
+<p>虚函数表就是我们的种族对象，指向虚函数表的指针就是怪物对其种族的引用。C++类是类型对象模式在C上的应用，由编译器自动处理。</p>
+</blockquote>
+<h2 id="第5篇-解耦型模式"><a href="#第5篇-解耦型模式" class="headerlink" title="第5篇 解耦型模式"></a>第5篇 解耦型模式</h2><p>组件模式、事件队列，这两章略过。</p>
+<h3 id="第16章-服务定位器"><a href="#第16章-服务定位器" class="headerlink" title="第16章 服务定位器"></a>第16章 服务定位器</h3><blockquote>
+<p>就好像让一百个陌生人知道你家的地址，而仅仅是因为需要他们投递信件。这不仅有些隐私问题，而且当你搬家时你必须告诉每个人你的新地址，这实在是太痛苦了。<br>这里有个更好的解决办法：电话簿。每一个想要联系我们的人能够通过查找名字来得到我们当前的地址。当我们搬家时，我们告诉电话公司，他们更新电话簿，这样每个人都能得到新的地址了。</p>
+</blockquote>
+<p>前者指使用静态类或单例，后者是使用定位器。定位器（Locator）使用依赖注入，将一个服务的“是什么”（具体实现类型）和“在什么地方”（我们如何得到它的实例）与需要使用这个服务的代码解耦了。</p>
+<p>（服务定位器模式要慎用…）</p>
+<blockquote>
+<p>与其给需要使用的地方提供一个全局机制来访问一个对象，不如首先考虑将这个对象传递进去。这极其简单易用，而且将耦合变得直观。这可以满足绝大部分需求。<br>但是，有时手动地将一个对象传来传去显得毫无理由或者使得代码难以阅读。</p>
+</blockquote>
+<p>感觉使用全局对象的优点就是易于阅读代码。有时候读代码，跟踪着一个环境参数穿越了10层函数，才找到源头，很蛋疼。</p>
+<h2 id="第6篇-优化型模式"><a href="#第6篇-优化型模式" class="headerlink" title="第6篇 优化型模式"></a>第6篇 优化型模式</h2><blockquote>
+<p><strong>数据局部性</strong>向你介绍了现代计算机的存储层次以及如何利用它的优势。<strong>脏标记模式</strong>帮助你避免不必要的计算，而<strong>对象池</strong>帮助你避免不必要的内存分配。<strong>空间分区</strong>会加速虚拟世界和其中元素的空间布局。</p>
+</blockquote>
+<h3 id="第17章-数据局部性"><a href="#第17章-数据局部性" class="headerlink" title="第17章 数据局部性"></a>第17章 数据局部性</h3><blockquote>
+<p>对刚访问数据的邻近数据进行访问的术语叫做<strong>访问局部性</strong>（locality of reference）。</p>
+</blockquote>
+<p>这里要有计算机组成原理的知识。这个模式利用了CPU的缓存机制来加快内存的访问速度。<br>利用的方法之一，就是多用连续存储的数据结构——数组。文中还介绍了包装数据、冷热分解的方法。</p>
+<blockquote>
+<p>在C++中，使用接口则意味着要通过指针或引用来访问对象。而使用指针进行访问也就是要在内存里来回地跳转，这就会引发本设计模式在极力规避的<strong>缓存未命中</strong>现象。<br>为了做到缓存友好，你可能需要牺牲一些之前所做的抽象化。你越是在程序的数据局部性上下工夫，你就越要牺牲继承、接口以及这些手段所带来的好处。这里并没有高招，只有利弊权衡的挑战。而乐趣便在这里。</p>
+</blockquote>
+<p>（前文举了粒子系统的案例..）</p>
+<blockquote>
+<p>为所有的粒子执行if判断将会引发CPU的<strong>分支预测失准</strong>和<strong>流水线停顿</strong>。……这也是为什么你有时也会看到开发者们<strong>在关键代码中避开控制流语句</strong>的原因。</p>
+</blockquote>
+<p>解决方法是对粒子的数据进行有序存储，使被激活的粒子连续排列在最前端。</p>
+<h3 id="第18章-脏标记模式"><a href="#第18章-脏标记模式" class="headerlink" title="第18章 脏标记模式"></a>第18章 脏标记模式</h3><blockquote>
+<p>一组原始数据随时间变化。一组衍生数据经过一些代价昂贵的操作由这些数据确定。一个脏标记跟踪这个衍生数据是否和原始数据同步。它在原始数据改变时被设置。如果它被设置了，那么当需要衍生数据时，它们就会被重新计算并且标记被清除。否则就使用缓存的数据。</p>
+</blockquote>
+<p>这个的主要作用是性能优化。从原始数据到衍生数据的计算代价太大时，可以通过标记和缓存来跳过一些衍生计算。</p>
+<blockquote>
+<p>这种模式在游戏外的领域也是常见的，比如在Angular这种BS（browser-side）框架中。它利用脏标记来跟踪浏览器中有变动并需要提交到服务端的数据。</p>
+</blockquote>
+<p>这个技术叫做VDOM（虚拟DOM），即用JavaScript模拟HTML页面的DOM（文档对象模型）结构。<br>浏览器进行DOM操作是非常昂贵的。因为修改DOM是浏览器开放给开发者的API，调用它就会触发浏览器的重绘机制。<br>VDOM在JS层对比DOM的变化，精细地修改内容，不修改的地方不去修改，可以提高浏览器重绘性能。</p>
+<h3 id="第19章-对象池"><a href="#第19章-对象池" class="headerlink" title="第19章 对象池"></a>第19章 对象池</h3><blockquote>
+<p>对于内存管理器而言，我们仅分配一大块内存直到游戏结束才释放它，对于内存池的使用者而言，我们可以按照自己的意愿来分配和释放对象。</p>
+</blockquote>
+<p>目的是避免内存碎片和提升内存分配的速度。</p>
+<blockquote>
+<p>定义一个保持着可重用对象集合的对象池类。其中的每个对象支持对其“使用（in use）”状态的访问，以确定这一对象目前是否“存活（alive）”。在对象池初始化时，它预先创建整个对象的集合（通常为一块连续堆区域），并将它们都置为“未使用（not in use）”状态。</p>
+</blockquote>
+<p>前段时间在项目里看到一个奇怪的数据结构<code>IDTable</code>，是一个静态数组，里面的元素只不过用来存储ID，却有3种状态。当时叫不出它的名字，现在终于知道叫“对象池”了……<br>那个<code>IDTable::Add</code>方法里做了比较耗时的操作，原来是为了保证数据的连续存储，反而能提升运行效率。</p>
+<h3 id="第20章-空间分区"><a href="#第20章-空间分区" class="headerlink" title="第20章 空间分区"></a>第20章 空间分区</h3><blockquote>
+<p>对于一组对象而言，每一个对象在空间都有一个位置。将对象存储在一个根据对象的位置来组织的数据结构中，该数据结构可以让你高效地查询位于或靠近某处的对象。当对象的位置变化时，应更新该空间数据结构以便可以继续这样查找对象。</p>
+</blockquote>
+<p>这个的目的是提高“查找地图上某个单位附近的其他单位”的效率。这个模式以空间换取速度，而且一旦单位的位置改变，处理起来很复杂。<br>排序以后可以使用二分查找，检索“所有单位的两两之间距离”的复杂度从O(n²)降到了O(nlogn)。书上还说用类似“鸽巢排序”的算法可以将复杂度降到O(n)……待研究。</p>
+<p>最后作者列举了“游戏中最常见的一些空间分区结构”（当我看到这些就决定放弃使用这个模式了……）：</p>
+<blockquote>
+<p>下一步你应该要去了解一些常见的结构。尽管它们的名字吓人，但却出奇的简单明了。<br>常见的有：网格[Grid（spatial_index）]、四叉树、二叉空间分割、k-dimensional树、层次包围盒。<br>每一个空间数据结构基本都是从一个现有已知的一维数据结构扩展到多维，了解它们的线性结构会帮助你判断它们是否适合于解决你的问题：<br>网格是一个连续的桶排序。<br>二叉空间分割，k-d树，以及层次包围盒都是二叉查找树。<br>四叉树和八叉树都是Trie树。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/hexo/tags/阅读/" rel="tag"># 阅读</a>
+          
+            <a href="/hexo/tags/设计模式/" rel="tag"># 设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/hexo/2020/08/29/【计组原理】程序装载/" rel="next" title="【计组原理】程序装载">
+                <i class="fa fa-chevron-left"></i> 【计组原理】程序装载
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/hexo/images/header.jpg" alt="无双BaOY_WHA">
+            
+              <p class="site-author-name" itemprop="name">无双BaOY_WHA</p>
+              <div class="site-description motion-element" itemprop="description">服装工程专业，非科班新手程序员。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/hexo/archives/">
+                
+                    <span class="site-state-item-count">73</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/hexo/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/hexo/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/wushuangabao" title="GitHub &rarr; https://github.com/wushuangabao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:445395697@qq.com" title="E-Mail &rarr; mailto:445395697@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/u/3801041566" title="Weibo &rarr; https://weibo.com/u/3801041566" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://space.bilibili.com/20467999" title="Bilibili &rarr; https://space.bilibili.com/20467999" rel="noopener" target="_blank"><i class="fa fa-fw fa-youtube-square"></i>Bilibili</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1篇-概述"><span class="nav-text">第1篇 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第2篇-再探设计模式"><span class="nav-text">第2篇 再探设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第2章-命令模式"><span class="nav-text">第2章 命令模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第5章-原型模式"><span class="nav-text">第5章 原型模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第3篇-序列型模式"><span class="nav-text">第3篇 序列型模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第8章-双缓冲"><span class="nav-text">第8章 双缓冲</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第9章-游戏循环"><span class="nav-text">第9章 游戏循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第4篇-行为型模式"><span class="nav-text">第4篇 行为型模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第11章-字节码"><span class="nav-text">第11章 字节码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第12章-子类沙盒"><span class="nav-text">第12章 子类沙盒</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第13章-类型对象"><span class="nav-text">第13章 类型对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第5篇-解耦型模式"><span class="nav-text">第5篇 解耦型模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第16章-服务定位器"><span class="nav-text">第16章 服务定位器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第6篇-优化型模式"><span class="nav-text">第6篇 优化型模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第17章-数据局部性"><span class="nav-text">第17章 数据局部性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第18章-脏标记模式"><span class="nav-text">第18章 脏标记模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第19章-对象池"><span class="nav-text">第19章 对象池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第20章-空间分区"><span class="nav-text">第20章 空间分区</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">无双BaOY_WHA</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/hexo/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/hexo/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/hexo/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/hexo/js/utils.js?v=7.1.1"></script>
+
+  <script src="/hexo/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/hexo/js/affix.js?v=7.1.1"></script>
+
+  <script src="/hexo/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/hexo/js/scrollspy.js?v=7.1.1"></script>
+<script src="/hexo/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/hexo/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/hexo/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
