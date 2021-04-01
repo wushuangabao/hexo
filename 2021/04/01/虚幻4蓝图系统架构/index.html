@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/hexo/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/hexo/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/hexo/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/hexo/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/hexo/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/hexo/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/hexo/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文是对《大象无形：虚幻引擎》第13章《蓝图》的记录。">
+<meta name="keywords" content="学习,UE4,C&#x2F;C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚幻4蓝图系统架构">
+<meta property="og:url" content="http://wushuangabao.github.io/hexo/2021/04/01/虚幻4蓝图系统架构/index.html">
+<meta property="og:site_name" content="人间的我">
+<meta property="og:description" content="本文是对《大象无形：虚幻引擎》第13章《蓝图》的记录。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-04-01T10:52:01.257Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="虚幻4蓝图系统架构">
+<meta name="twitter:description" content="本文是对《大象无形：虚幻引擎》第13章《蓝图》的记录。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2021/04/01/虚幻4蓝图系统架构/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>虚幻4蓝图系统架构 | 人间的我</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/hexo/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">人间的我</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">大多数人在体能和意志上训练不足，却在思维和情感上训练过度。</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/wushuangabao" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2021/04/01/虚幻4蓝图系统架构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="无双BaOY_WHA">
+      <meta itemprop="description" content="服装工程专业，非科班新手程序员。">
+      <meta itemprop="image" content="/hexo/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="人间的我">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">虚幻4蓝图系统架构
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-04-01 16:01:55 / 修改时间：18:52:01" itemprop="dateCreated datePublished" datetime="2021-04-01T16:01:55+08:00">2021-04-01</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/游戏引擎/" itemprop="url" rel="index"><span itemprop="name">游戏引擎</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文是对《大象无形：虚幻引擎》第13章《蓝图》的记录。</p>
+<a id="more"></a>
+<h2 id="蓝图架构简述"><a href="#蓝图架构简述" class="headerlink" title="蓝图架构简述"></a>蓝图架构简述</h2><p>蓝图是虚幻引擎提供的面向对象的可视化编程系统。小型蓝图的编译速度远远快过C++的编译速度，而且UE在发布最终版本的时候会将蓝图编译为C++从而提升其执行效率，因此选择C++的理由可能只剩下C++本身更大范围的API，以及蓝图系统在内容较多时不如C++直观的原因。</p>
+<p>蓝图系统是一套依托于UE现有UClass、UProperty、UFunction框架，根植于Unreal Script字节码编译器系统的一套可视化编程系统。蓝图最终编译结果依然会转化为UClass、UProperty、UFunction信息。其中指令代码将会存储于UFunction的信息中。</p>
+<p>蓝图系统实际上是由三个部分组成的：</p>
+<ul>
+<li>蓝图编辑系统</li>
+<li>蓝图本身</li>
+<li>蓝图编译后的字节码</li>
+</ul>
+<p>最终编译完成的<strong>蓝图字节码</strong>将不会包含<strong>蓝图本身的节点信息</strong>。这部分信息是在<code>UEdGraph</code>数据结构中存储的，这也是一种优化。</p>
+<h2 id="前端：蓝图存储与编辑"><a href="#前端：蓝图存储与编辑" class="headerlink" title="前端：蓝图存储与编辑"></a>前端：蓝图存储与编辑</h2><p><code>UEdGraph</code>有三个重要数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class UEdGraph : public UObject</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	/** The schema that this graph obeys */</span><br><span class="line">	TSubclassOf&lt;class UEdGraphSchema&gt;  Schema;</span><br><span class="line"></span><br><span class="line">	/** Set of all nodes in this graph */</span><br><span class="line">	TArray&lt;class UEdGraphNode*&gt; Nodes;</span><br><span class="line"></span><br><span class="line">	/** Child graphs that are a part of this graph; the separation is purely visual */</span><br><span class="line">	TArray&lt;class UEdGraph*&gt; SubGraphs;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Schema"><a href="#Schema" class="headerlink" title="Schema"></a>Schema</h3><p>Schema的意思是语法，它规定当前蓝图能够产生什么样的节点等信息。当定义了自己的Schema之后，通过重载对应的函数即可实现语法的规定。常用的重载函数有：</p>
+<ul>
+<li><code>GetContextMenuActions</code>定义当前蓝图编辑器中右键菜单的菜单项。通过向<code>FGraphContextMenuBuilder</code>中填充内容可以定制右键菜单。</li>
+<li>Drop系列函数，从外部拖放一个资源对象进入蓝图时触发。包括拖放到蓝图中、节点上和Pin上。</li>
+</ul>
+<h3 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h3><p>蓝图的编辑器实质上是一个Slate控件，即<code>SGraphEditor</code>。可以这样理解，<code>UEdGraph</code>存储蓝图的“数据”资料，<code>SGraphEditor</code>通过解析数据生成对应的“显示控件”并处理交互。类似于MVC架构中的View部分。</p>
+<p>在<code>SNew</code>实例化<code>SGraphEditor</code>的时候，传入一个<code>UEdGraph*</code>类型的参数<code>GraphToEdit</code>，即可指定当前编辑器正在编辑的蓝图。</p>
+<h2 id="后端：蓝图的编译"><a href="#后端：蓝图的编译" class="headerlink" title="后端：蓝图的编译"></a>后端：蓝图的编译</h2><blockquote>
+<p>只有<strong>包含具体逻辑</strong>的蓝图才<strong>需要编译</strong>为蓝图字节码，有一些蓝图仅仅只需要自身数据就可以了。</p>
+</blockquote>
+<p>蓝图<code>UBlueprint</code>编译完成产生的结果，应当是一个包含完整信息的<code>UClass</code>对象，而不是对应的类的对象。</p>
+<blockquote>
+<p>UClass继承自UStruct。UStruct只包含成员变量的反射信息，支持高速的构造和析构；而UClass则更加重量级，需要对成员函数进行反射。<br>在UClass中有成员变量<code>FuncMap</code>，用于存储当前UClass包含的成员函数信息。同一个类的所有对象共有同样的成员函数，因此成员函数的信息存储于<strong>类数据</strong>中，而非存储在每个对象中。</p>
+</blockquote>
+<h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><p>一个蓝图会经历以下过程，最终产生出UClass：</p>
+<ol>
+<li>类型清空，清空当前类的内容。每个蓝图生成的类，即<code>UBlueprintGeneratedClass</code>，都会被复用（并非被删除后创建新的实例）。对应函数为<code>CleanAndSanitizeClass</code>。</li>
+<li>创建类成员变量。根据蓝图中的<code>NewVariables</code>数组与其他位置定义的类成员变量，创建<code>UProperties</code>。对应的函数为<code>CreateClassVariablesFromBlueprint</code>。</li>
+<li>处理事件蓝图。调用<code>CreateAndProcessUberGraph</code>函数，将所有的事件蓝图复制到一张超大蓝图里面，此时每个节点都有机会去展开自己（例如宏节点）。同时每个事件蓝图都会创建一个<code>FKismetFunctionContext</code>对象与之对应。</li>
+<li>处理函数蓝图。普通的函数蓝图通过<code>ProcessOneFunctionGraph</code>函数进行处理。此时每个函数蓝图会被复制到一个暂时的蓝图里面，同时节点有机会被展开。同样，每个函数蓝图都会有一个<code>FKismetFunctionContext</code>与之对应。</li>
+<li>预编译函数。<code>PrecompileFunction</code>函数对函数进行预编译。其完成了这样的内容：<ol>
+<li>“修剪”蓝图，只有连接的节点才会被保留，无用的节点会被删掉；</li>
+<li>运行现在还剩下的节点句柄的<code>RegisterNets</code>函数。</li>
+<li>填充函数的骨架，包括参数和局部变量的信息。但是里面还没有脚本代码。</li>
+</ol>
+</li>
+<li>组合和链接类。此时编译器已经获得了当前类的所有属性与函数的信息，可以开始组合和链接类了。包括填充变量链表、填充变量的大小、填充函数表等。这一步本质上产生了一个类的头文件以及一个类默认对象（CDO），但是缺少类的最终标记以及元数据。</li>
+<li>编译函数。这一步还没产生实际的虚拟机码。包括以下步骤：<ol>
+<li>调用每个节点句柄的Compile函数，从而生成一个<code>FKismetCompiledStatement</code>对象。</li>
+<li>调用<code>AppendStatementForNode</code>函数。</li>
+</ol>
+</li>
+<li>完成类编译。填充类的标记和元数据，并从父类中继承需要的标记和元数据。进行一系列的最终检测，确保类被正确编译。</li>
+<li>后端产生最终代码。后端逐函数地转换节点状态集合为最终代码。如果使用<code>FKismetCompilerVMBackend</code>，则产生虚拟机字节码，使用<code>FKismetCppBackend</code>则产生C++代码。</li>
+<li>复制类默认值对象属性。借助一个特殊函数<code>CopyPropertiesForUnrelatedObjects</code>将老的类默认对象的值复制到新的对象中。因为这个转换是通过基于Tag的序列化完成的，因此只要名字没变，值就会被转换过来。而组件则会被重新实例化，并被适当地修复。</li>
+<li>重新实例化。由于新的类的大小可能会改变，参数也有可能增减，编译器需要对原来的那个类的所有对象进行重新实例化。首先借助<code>TObjectInterator</code>来找到正在编译的类的所有实例，生成一个新的类，然后通过<code>CopyPropertiesForUnrelatedObjects</code>将老实例的值更新到新的实例。</li>
+</ol>
+<p>在这个过程中涉及的术语如下:</p>
+<ul>
+<li><code>FKismetCompilerContext</code> 完成实际编译工作的类。每次编译都会创建一个新的对象。这个类存储了正在被编译的蓝图和类的引用。</li>
+<li><code>FKismetFunctionContext</code> 包含编译一个单独函数的信息，持有对应蓝图（不一定是函数蓝图）的引用、属性的引用以及生成的UFunction的引用。</li>
+<li><code>FNodeHandlingFunctor</code> 单例类，也是辅助类。用于处理编译过程中的一类节点的类。包含一系列的函数，用于注册连接线以及生成编译后的Statement信息。</li>
+<li><code>FKismetCompiledStatement</code> 一个编译器的独立工作单元。编译器把节点转换为一系列已经编译好的表达式，最终后端会将表达式转换为字节操作码。案例：变量赋值、Goto、Call。</li>
+<li><code>FKismetTerm</code> 蓝图中的一个端子（literal、const或者vaiable的引用）。每个数据链接点都对应一个这个东西。你可以在<code>NodeHandlingFunctor</code>中创建你自己的端子，用来捕获变量或者传递结果。</li>
+</ul>
+<h3 id="多编译器适配"><a href="#多编译器适配" class="headerlink" title="多编译器适配"></a>多编译器适配</h3><p>对于每一个对当前蓝图进行编译的请求（通过调用<code>FKismet2CompilerModule::CompileBlueprint</code>函数），会询问当前所有的Compiler，调用它们的<code>CanCompile</code>函数，询问是否可以编译当前蓝图。</p>
+<p>如果某个类实现了<code>IKismetCompilerInterface</code>接口，那么就可以通过以下代码来在Kismet编译器中注册Compiler。虚幻引擎自己的系统UMG编辑器就是通过这样的方式注册自己为一个编译器的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IKismetCompilerInterface&amp; KismetCompilerModule = FModuleManager::LoadModuleChecked&lt;IKismetCompilerInterface&gt;(&quot;KismetCompiler &quot;);</span><br><span class="line">KismetCompilerModule.GetCompilers().Add(this);</span><br></pre></td></tr></table></figure></p>
+<h3 id="编译上下文"><a href="#编译上下文" class="headerlink" title="编译上下文"></a>编译上下文</h3><h3 id="整理与归并"><a href="#整理与归并" class="headerlink" title="整理与归并"></a>整理与归并</h3><h3 id="节点处理"><a href="#节点处理" class="headerlink" title="节点处理"></a>节点处理</h3><h3 id="后话：VM虚拟机调用"><a href="#后话：VM虚拟机调用" class="headerlink" title="后话：VM虚拟机调用"></a>后话：VM虚拟机调用</h3><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><h2 id="蓝图虚拟机"><a href="#蓝图虚拟机" class="headerlink" title="蓝图虚拟机"></a>蓝图虚拟机</h2><h3 id="便笺纸与白领的故事"><a href="#便笺纸与白领的故事" class="headerlink" title="便笺纸与白领的故事"></a>便笺纸与白领的故事</h3><h3 id="虚幻引擎的实现"><a href="#虚幻引擎的实现" class="headerlink" title="虚幻引擎的实现"></a>虚幻引擎的实现</h3><h3 id="C-函数注册到蓝图"><a href="#C-函数注册到蓝图" class="headerlink" title="C++函数注册到蓝图"></a>C++函数注册到蓝图</h3><h2 id="蓝图系统小结"><a href="#蓝图系统小结" class="headerlink" title="蓝图系统小结"></a>蓝图系统小结</h2>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/hexo/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/hexo/tags/UE4/" rel="tag"># UE4</a>
+          
+            <a href="/hexo/tags/C-C/" rel="tag"># C/C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/hexo/2021/03/31/虚幻4渲染架构/" rel="next" title="虚幻4渲染架构">
+                <i class="fa fa-chevron-left"></i> 虚幻4渲染架构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/hexo/images/header.jpg" alt="无双BaOY_WHA">
+            
+              <p class="site-author-name" itemprop="name">无双BaOY_WHA</p>
+              <div class="site-description motion-element" itemprop="description">服装工程专业，非科班新手程序员。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/hexo/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/hexo/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/hexo/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/wushuangabao" title="GitHub &rarr; https://github.com/wushuangabao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:445395697@qq.com" title="E-Mail &rarr; mailto:445395697@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/u/3801041566" title="Weibo &rarr; https://weibo.com/u/3801041566" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://space.bilibili.com/20467999" title="Bilibili &rarr; https://space.bilibili.com/20467999" rel="noopener" target="_blank"><i class="fa fa-fw fa-youtube-square"></i>Bilibili</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#蓝图架构简述"><span class="nav-text">蓝图架构简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端：蓝图存储与编辑"><span class="nav-text">前端：蓝图存储与编辑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Schema"><span class="nav-text">Schema</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑器"><span class="nav-text">编辑器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后端：蓝图的编译"><span class="nav-text">后端：蓝图的编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译过程"><span class="nav-text">编译过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多编译器适配"><span class="nav-text">多编译器适配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译上下文"><span class="nav-text">编译上下文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整理与归并"><span class="nav-text">整理与归并</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点处理"><span class="nav-text">节点处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后话：VM虚拟机调用"><span class="nav-text">后话：VM虚拟机调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#蓝图虚拟机"><span class="nav-text">蓝图虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#便笺纸与白领的故事"><span class="nav-text">便笺纸与白领的故事</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚幻引擎的实现"><span class="nav-text">虚幻引擎的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-函数注册到蓝图"><span class="nav-text">C++函数注册到蓝图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#蓝图系统小结"><span class="nav-text">蓝图系统小结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">无双BaOY_WHA</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/hexo/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/hexo/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/hexo/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/hexo/js/utils.js?v=7.1.1"></script>
+
+  <script src="/hexo/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/hexo/js/affix.js?v=7.1.1"></script>
+
+  <script src="/hexo/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/hexo/js/scrollspy.js?v=7.1.1"></script>
+<script src="/hexo/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/hexo/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/hexo/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
