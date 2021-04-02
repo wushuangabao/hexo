@@ -104,10 +104,14 @@
 <meta property="og:site_name" content="人间的我">
 <meta property="og:description" content="本文是对《大象无形：虚幻引擎》第13章《蓝图》的记录。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-04-01T10:52:01.257Z">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrECqkEOwWylcyCiNISzUoq0CJLFxSY2kY1HLDDqDpB.SlHR8uzOriKlju3wOPPsOAJEt3FTEHvRPuV3*ey2n1glk!/b&bo=agPaAQAAAAADF4A!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrEOjm*j9UD58dDKAqGFHN2GrMMwjKloRAs8jsBdJAKIYaoj6uPopruAIHFb3*8YN*tBaDZCQMGLiiD44GmXf.o68!/b&bo=agPSAQAAAAADF4g!&rf=viewer_4">
+<meta property="og:image" content="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrECd8h2XWFeUIS3Fhe8ifEMMCi67toOpNAxTbZqvtbRxDTy.4Ay4ld1Eu1VEN7HRMqPrLRwyRhRisxgjWxXd4jy4!/b&bo=ZgOqAQAAAAADF*w!&rf=viewer_4">
+<meta property="og:updated_time" content="2021-04-02T06:35:45.932Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚幻4蓝图系统架构">
 <meta name="twitter:description" content="本文是对《大象无形：虚幻引擎》第13章《蓝图》的记录。">
+<meta name="twitter:image" content="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrECqkEOwWylcyCiNISzUoq0CJLFxSY2kY1HLDDqDpB.SlHR8uzOriKlju3wOPPsOAJEt3FTEHvRPuV3*ey2n1glk!/b&bo=agPaAQAAAAADF4A!&rf=viewer_4">
 
 
 
@@ -424,12 +428,24 @@
                 
               
 
-              <time title="创建时间：2021-04-01 16:01:55 / 修改时间：18:52:01" itemprop="dateCreated datePublished" datetime="2021-04-01T16:01:55+08:00">2021-04-01</time>
+              <time title="创建时间：2021-04-01 16:01:55" itemprop="dateCreated datePublished" datetime="2021-04-01T16:01:55+08:00">2021-04-01</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-04-02 14:35:45" itemprop="dateModified" datetime="2021-04-02T14:35:45+08:00">2021-04-02</time>
               
             
           </span>
@@ -540,7 +556,96 @@
 </ul>
 <h3 id="多编译器适配"><a href="#多编译器适配" class="headerlink" title="多编译器适配"></a>多编译器适配</h3><p>对于每一个对当前蓝图进行编译的请求（通过调用<code>FKismet2CompilerModule::CompileBlueprint</code>函数），会询问当前所有的Compiler，调用它们的<code>CanCompile</code>函数，询问是否可以编译当前蓝图。</p>
 <p>如果某个类实现了<code>IKismetCompilerInterface</code>接口，那么就可以通过以下代码来在Kismet编译器中注册Compiler。虚幻引擎自己的系统UMG编辑器就是通过这样的方式注册自己为一个编译器的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IKismetCompilerInterface&amp; KismetCompilerModule = FModuleManager::LoadModuleChecked&lt;IKismetCompilerInterface&gt;(&quot;KismetCompiler &quot;);</span><br><span class="line">KismetCompilerModule.GetCompilers().Add(this);</span><br></pre></td></tr></table></figure></p>
-<h3 id="编译上下文"><a href="#编译上下文" class="headerlink" title="编译上下文"></a>编译上下文</h3><h3 id="整理与归并"><a href="#整理与归并" class="headerlink" title="整理与归并"></a>整理与归并</h3><h3 id="节点处理"><a href="#节点处理" class="headerlink" title="节点处理"></a>节点处理</h3><h3 id="后话：VM虚拟机调用"><a href="#后话：VM虚拟机调用" class="headerlink" title="后话：VM虚拟机调用"></a>后话：VM虚拟机调用</h3><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><h2 id="蓝图虚拟机"><a href="#蓝图虚拟机" class="headerlink" title="蓝图虚拟机"></a>蓝图虚拟机</h2><h3 id="便笺纸与白领的故事"><a href="#便笺纸与白领的故事" class="headerlink" title="便笺纸与白领的故事"></a>便笺纸与白领的故事</h3><h3 id="虚幻引擎的实现"><a href="#虚幻引擎的实现" class="headerlink" title="虚幻引擎的实现"></a>虚幻引擎的实现</h3><h3 id="C-函数注册到蓝图"><a href="#C-函数注册到蓝图" class="headerlink" title="C++函数注册到蓝图"></a>C++函数注册到蓝图</h3><h2 id="蓝图系统小结"><a href="#蓝图系统小结" class="headerlink" title="蓝图系统小结"></a>蓝图系统小结</h2>
+<h3 id="编译上下文"><a href="#编译上下文" class="headerlink" title="编译上下文"></a>编译上下文</h3><p>这里讨论的蓝图主要是我们平时使用的代码蓝图，也就是不讨论状态机、动画蓝图和UMG蓝图。如果发现<code>KismetCompiler</code>能够编译当前蓝图，虚幻引擎会创建一个Kismet编译器上下文，即<code>FKismetCompilerContext</code>结构。这个结构会负责编译当前的蓝图。<br>存在多种类型的CompilerContext，持有编译“一段”内容所需要的信息。接下来就会讲解主要上下文之间的关系。</p>
+<h3 id="整理与归并"><a href="#整理与归并" class="headerlink" title="整理与归并"></a>整理与归并</h3><p>下图展示了蓝图编译过程中，从蓝图<code>UBlueprint</code>结构到编译上下文<code>FKismetCompileContext</code>的主要过程。其中非箭头线表示持有关系，箭头表示步骤。这个过程主要是将蓝图的数据结构进行整理、简化，转化为线性的调用链表，方便接下来逐节点地编译。</p>
+<p><img src="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrECqkEOwWylcyCiNISzUoq0CJLFxSY2kY1HLDDqDpB.SlHR8uzOriKlju3wOPPsOAJEt3FTEHvRPuV3*ey2n1glk!/b&amp;bo=agPaAQAAAAADF4A!&amp;rf=viewer_4" alt="从蓝图到编译上下文"></p>
+<ol>
+<li>首先把新变量添加到成员变量数组中。</li>
+<li>把事件蓝图展开为一个超大的蓝图（<code>UberGraph</code>）。这个过程会展开收缩的节点，然后整理为一个一个的函数蓝图。其中一个事件实质上被看做一个单独函数处理。</li>
+<li>单个超大蓝图持有多个子函数蓝图，对每一个子函数蓝图分配一个函数编译上下文。</li>
+<li>将转换完的函数编译上下文收入到“函数编译上下文列表”（FunctionList）中。</li>
+<li>从函数到具体节点：得到一个“线性执行表”。这个表里面存在着一个个以<code>UEdGraphNode</code>表示的节点。</li>
+<li>这些节点会被编译系统转化为合适的编译信息。在编译每个节点时，寻找对应的<code>NodeHandler</code>来完成编译。</li>
+</ol>
+<h3 id="节点处理"><a href="#节点处理" class="headerlink" title="节点处理"></a>节点处理</h3><p>自此，编译过程开始进入逐节点的处理阶段。比较主要的节点句柄包括：</p>
+<ul>
+<li>FKCHandler_CallFunction 处理函数调用节点。</li>
+<li>FKCHandler_EventEntry 处理事件入口节点。</li>
+<li>FKCHandler_MathExpression 处理数学表达式。</li>
+<li>FKCHandler_Passthru 处理返回值节点。</li>
+<li>FKCHandler_VariableSet 处理变量设置值节点。</li>
+</ul>
+<p>当你展开所有节点之后，蓝图的主要节点都可以被归并到这些节点中去。<br>对于每个节点，虚幻引擎都会通过<code>AppendStatementForNode</code>给其挂上<code>FBlueprintCompiledStatement</code>，如下图所示。</p>
+<p><img src="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrEOjm*j9UD58dDKAqGFHN2GrMMwjKloRAs8jsBdJAKIYaoj6uPopruAIHFb3*8YN*tBaDZCQMGLiiD44GmXf.o68!/b&amp;bo=agPSAQAAAAADF4g!&amp;rf=viewer_4" alt="从编译上下文到脚本字节码"></p>
+<blockquote>
+<p>实际上，<code>FBlueprintCompiledStatement</code>结构是一个“头”+“信息”的结构。如果你曾经学过汇编语言或者机器指令，那么你可以理解为：一个Statement就像是一个定长指令，包含开头的一个操作码与后面的操作参数。指令本身定长（即 <code>FBlueprintCompiledStatement</code>结构大小固定），但操作码不同，填充不同字段。</p>
+</blockquote>
+<blockquote>
+<p><code>FBlueprintCompiledStatement</code>存储的一个重要信息是类型枚举<code>EKismetCompiledStatementType</code>，这个枚举指示了数十种操作，包括<code>KCST_CallFunction</code>（对应C++代码的<code>TargetObject-&gt;FunctionToCall(wiring)</code>）、<code>KCST_Assignment</code>对应C++代码的<code>TargetObject-&gt;TargetProperty = [wiring]</code>）等。</p>
+</blockquote>
+<p>逐节点地创建了Statement之后，开始最终的后端编译。如果是使用UnrealScript的脚本字节码虚拟机，此时会调用<code>FScriptBuilderBase</code>的<code>GenerateCodeForStatement</code>函数，对每个Statement生成对应的字节码。</p>
+<h4 id="对象指针的存储"><a href="#对象指针的存储" class="headerlink" title="对象指针的存储"></a>对象指针的存储</h4><p>蓝图字节码在编译时，如果遇到对象指针，会直接存储指针值本身。<br>这就涉及一个很严重的问题：序列化结束后，对象在内存中的位置会发生改变，原有的存储于字节码中的指针值会失效。</p>
+<p>虚幻引擎采用的方案是在存储之前再次遍历字节码数组，依次取出字节码过滤，遇到对象指针值时，替换为<code>ImportTable</code>或者<code>ExportTable</code>中的索引值。在反序列化时同样会重新遍历，并修正指针的值。</p>
+<h3 id="后话：VM虚拟机调用"><a href="#后话：VM虚拟机调用" class="headerlink" title="后话：VM虚拟机调用"></a>后话：VM虚拟机调用</h3><blockquote>
+<p>经过编译生成的Script字节码最终是如何被实际调用的呢？</p>
+</blockquote>
+<p>编译完成的Script会被放在<code>UFunction</code>对应的Script数组中。同时当前UFunction的<code>FUNC_Native</code>标记不会被设置。因此在UFunction的Bind阶段（也就是将UFunction与所属类对接的时候），将会设置自身的Func指针指向<code>UObject</code>类的<code>ProcessInternal</code>函数，而非当前UFunction所属的<code>UClass</code>类中的C++函数表<code>NativeFunctionLookupTable</code>中对应的函数，如下图所示。</p>
+<p><img src="http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrECd8h2XWFeUIS3Fhe8ifEMMCi67toOpNAxTbZqvtbRxDTy.4Ay4ld1Eu1VEN7HRMqPrLRwyRhRisxgjWxXd4jy4!/b&amp;bo=ZgOqAQAAAAADF*w!&amp;rf=viewer_4" alt="UFunction和UClass的关系示意图"></p>
+<p>在调用<code>UFunction::Invoke</code>函数时，<code>UObject:ProcessInternal</code>函数会被“当作”一个成员函数调用，去执行当前UFunction包含的脚本字节码。</p>
+<p>有一个<code>GNatives</code>数组，里面是和VM操作码对应的执行函数。以操作码为数组下标，取出来就是一个对应的执行函数，直接填充参数然后执行即可获取执行结果。这给人的感觉更像是一种解释器，而非一个最终编译为汇编机器码的执行前编译虚拟机。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>虚幻引擎的逻辑蓝图是一个涉及颇多方面的系统。从非常适合编辑的<code>UEdGraph</code>结构开始，逐步归并整理，以产生<code>UClass</code>结构。然后对逻辑相关的部分进行处理之后，不断向适合顺序执行结构靠拢，最终被Backend发射成为最终的字节码。</p>
+<p>其实从实用主义的角度而言，知道如何向蓝图暴露函数、蓝图如何调用C++层的函数就已经能够使用蓝图完成大部分的开发工作了。如果有需要，希望用C++调用蓝图函数的知识也并不复杂。<br>那么为何非要了解蓝图的编译和工作方式呢？那是因为笔者希望读者能拥有扩展虚幻引擎本身的能力，针对项目的需求，扩展蓝图自身的节点，甚至<strong>创造自己的蓝图系统</strong>以应对特殊的需求（比如剧情分支树等）。<br>另外，笔者也希望读者拥有对虚幻引擎自身工作机制的好奇心，以及对虚幻引擎本身进行研究的勇气。虚幻引擎的源码就在你的眼前，去了解它吧！</p>
+<h2 id="蓝图虚拟机"><a href="#蓝图虚拟机" class="headerlink" title="蓝图虚拟机"></a>蓝图虚拟机</h2><p>虚幻引擎内置的、用于执行蓝图编译后的字节码的虚拟机继承自UE3时代的Unreal Script虚拟机。<br>这是一套基于字节码和栈的虚拟机，同时具有自身的优化、妥协与设计，让本身就复杂的系统更加复杂。</p>
+<h3 id="虚幻引擎的实现"><a href="#虚幻引擎的实现" class="headerlink" title="虚幻引擎的实现"></a>虚幻引擎的实现</h3><table>
+<thead>
+<tr>
+<th>真实虚拟机</th>
+<th>虚幻引擎</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>执行系统</td>
+<td>FFrame</td>
+</tr>
+<tr>
+<td>编译器</td>
+<td>FKismetCompilerContext等多个类</td>
+</tr>
+<tr>
+<td>字节码数组</td>
+<td>Ustruct::Script</td>
+</tr>
+<tr>
+<td>字节码解释表</td>
+<td>GNatives数组</td>
+</tr>
+<tr>
+<td>字节码执行函数</td>
+<td>注册到GNatives中的函数</td>
+</tr>
+<tr>
+<td>暂存栈</td>
+<td>无完全一致对应</td>
+</tr>
+</tbody>
+</table>
+<p><code>FFrame</code>最重要的成员函数，是一系列获取字节码并执行的Step函数，和一系列从字节码中读取数据的Read函数。</p>
+<h3 id="C-函数注册到蓝图"><a href="#C-函数注册到蓝图" class="headerlink" title="C++函数注册到蓝图"></a>C++函数注册到蓝图</h3><p>当使用<code>UFUNCTION</code>宏定义了一个可以被虚拟机调用的函数时，UHT会自动帮助你生成一个看上去像这样的函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#define DECLARE_FUNCTION(func) void func( FFrame&amp; Stack, RESULT_DECL )</span><br><span class="line"></span><br><span class="line">DECLARE_FUNCTION(exec[你的函数名])</span><br><span class="line">&#123;</span><br><span class="line">	P_GET_TARRAY_REF(USceneComponent*, Z_Param_Out_AllComponet); //获取参数</span><br><span class="line">	P_FINISH;</span><br><span class="line">	P_NATIVE_BEGIN;</span><br><span class="line">	this-&gt;GetAllSubCustomComponet(Z_Param_Out_AllComponet); //实际调用区域</span><br><span class="line">	P_NATIVE_END;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在.generated.cpp中，这个函数会借助<code>FNativeFunctionRegistrar::RegisterFunction</code>函数，被注册到当前UClass类的<code>NativeFunction</code>列表中，并增加UFunction信息到UClass。</p>
+<p>假如一个蓝图需要调用一个C++函数，编译器会设置字节码<code>EX_FinalFunction</code>，并将对应的UFunction指针同时放入到下一个字节码中，执行时就会调用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CallFunction( Stack, RESULT_PARAM, (UFunction*)Stack.ReadObject() );</span><br></pre></td></tr></table></figure></p>
+<p>从而将对应的exec函数所属的UFunction对象取出，<code>CallFunction</code>函数在检查到这是一个原生函数时，会直接调用<code>UFunction::Invoke</code>函数。在Invoke函数内部会调用当前UFunction函数的Func函数指针:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return (Obj-&gt;*Func)(Stack, RESULT_PARAM);</span><br></pre></td></tr></table></figure></p>
+<p>这个函数就是上文中，UHT通过<code>DECLARE_FUNCTION</code>宏帮我们生成的exec函数。</p>
+<p>简而言之，C++函数封装过程可以这样理解：</p>
+<ol>
+<li>C++函数被UHT识别，生成包裹函数exec&lt;函数名&gt;。</li>
+<li>exec&lt;函数名&gt;被<code>FNativeFunctionRegistrar</code>在运行前注册到UClass的函数列表中，创建UFunction信息。</li>
+<li>蓝图编译器在发现函数调用节点时，生成调用State，发现是原生函数，生成<code>EX_FinalFunction</code>字节码，并将对应的UFunction指针压栈。</li>
+<li>蓝图执行系统发现<code>EX_FinalFunction</code>字节码，于是读取下一段字节，解释为<code>UFunction*</code>。</li>
+<li>通过<code>UFunction*</code>的<code>Invoke</code>函数，调用exec&lt;函数名&gt;包裹函数。</li>
+<li>包裹函数拆包并准备参数列表，调用C++函数。</li>
+</ol>
+
       
     </div>
 
@@ -855,7 +960,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#蓝图架构简述"><span class="nav-text">蓝图架构简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端：蓝图存储与编辑"><span class="nav-text">前端：蓝图存储与编辑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Schema"><span class="nav-text">Schema</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑器"><span class="nav-text">编辑器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后端：蓝图的编译"><span class="nav-text">后端：蓝图的编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译过程"><span class="nav-text">编译过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多编译器适配"><span class="nav-text">多编译器适配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译上下文"><span class="nav-text">编译上下文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整理与归并"><span class="nav-text">整理与归并</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点处理"><span class="nav-text">节点处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后话：VM虚拟机调用"><span class="nav-text">后话：VM虚拟机调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#蓝图虚拟机"><span class="nav-text">蓝图虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#便笺纸与白领的故事"><span class="nav-text">便笺纸与白领的故事</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚幻引擎的实现"><span class="nav-text">虚幻引擎的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-函数注册到蓝图"><span class="nav-text">C++函数注册到蓝图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#蓝图系统小结"><span class="nav-text">蓝图系统小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#蓝图架构简述"><span class="nav-text">蓝图架构简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端：蓝图存储与编辑"><span class="nav-text">前端：蓝图存储与编辑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Schema"><span class="nav-text">Schema</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑器"><span class="nav-text">编辑器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后端：蓝图的编译"><span class="nav-text">后端：蓝图的编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译过程"><span class="nav-text">编译过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多编译器适配"><span class="nav-text">多编译器适配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译上下文"><span class="nav-text">编译上下文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整理与归并"><span class="nav-text">整理与归并</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点处理"><span class="nav-text">节点处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对象指针的存储"><span class="nav-text">对象指针的存储</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后话：VM虚拟机调用"><span class="nav-text">后话：VM虚拟机调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#蓝图虚拟机"><span class="nav-text">蓝图虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚幻引擎的实现"><span class="nav-text">虚幻引擎的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-函数注册到蓝图"><span class="nav-text">C++函数注册到蓝图</span></a></li></ol></li></ol></div>
             
 
           </div>
