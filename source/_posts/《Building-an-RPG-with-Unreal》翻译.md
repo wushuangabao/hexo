@@ -165,17 +165,30 @@ Stats，或者说Statistics，是一些支配游戏的战斗的数字。Stats可
 #### 战斗结束后
 ##### 战利品
 ##### 经验
+死亡的队友无法获得经验。经验会平均分配给角色，均分后如果是小数会向上取整。
+
 #### 经验与等级
-##### Stat 增益
-##### 学习技能
-#### 游戏失败
-#### 胜利
+每升1级需要的经验值为：
+```
+f(x) = (xa) + c
+```
+这里，x是当前等级，a是比1大的数，c是常数（正值）。
+游戏中角色的最大等级是50级。升级时的属性增益和可学的技能取决于职阶。
 
 ### 选择合适的公式
-
-### 小结
+好的数值公式使游戏变得平衡、有趣，但是没有万能的银弹。
 
 ## Unreal中的编程和数据
+
+我们已经有了设计，工作由此展开，可以开始开发游戏了。
+
+这一章涵盖了以下主题：
+- 下载Unreal
+- 为Unreal配置Visual Studio
+- 配置一个新Unreal项目
+- 新建一个C++类
+- 创建蓝图和蓝图视图
+- 用Data Table导入数据表中的数据
 
 ### 下载Unreal
 
@@ -187,11 +200,37 @@ Stats，或者说Statistics，是一些支配游戏的战斗的数字。Stats可
 
 ### 配置一个新Unreal项目
 
+我们已经下载安装了Unreal和Visual Studio，开始创建一个游戏项目。
+本书用的引擎版本是4.7.6。创建新项目的步骤如下：
+1. 加载虚幻引擎后，点击New Project选项卡，然后点击C++选项卡并选择Basic Code。
+2. 选择一个项目存放的路径，为项目起一个名字（这里叫做RPG）。
+
+打开新建的项目，编辑器加载完成后，点击File|Open Visual Studio。
+
 ### 创建一个新C++类
+
+步骤如下：
+1. 在Unreal编辑器中，点击File|Add Code To Project，选择Actor作为父类。
+2. 输入新类的名字，比如`MyNewActor`，点击Create Class。在它把文件加入项目后，点Yes在VS中打开MyNewActor.h。
+3. 我们想让actor在游戏开始时输出一条信息。为此将使用`BeginPlay`事件。
+4. 在MyNewActor.h文件的`GENERATED_BODY()`后面有一行：`public: virtual void BeginPlay();`
+5. 在MyNewActor.cpp文件的`void AnyNewActor::BeginPlay()`函数中加入代码，输出Hello,world!
+6. 回到编辑器，点击主工具栏中的Compile按钮。
+7. 我们需要将编译好的类加入场景。搜索MyNewActor并将其拖入场景视窗。它不可见也不能被点击，但你能在Scene/World Outliner面板的底部看见MyNewActor1已经在了。
+8. 点击Play按钮进行测试。你应该能看见一条黄色的“Hello,world!”消息输出到了控制台。
+
+第5步中的代码如下：
+```
+void AnyNewActor::BeginPlay()
+{
+    Super::BeginPlay();
+    UE_LOG( LogTemp, Warning, TEXT("Hello, world!") );
+}
+```
 
 ### 蓝图
 #### 创建一个新蓝图
-#### 向场景找中加入一个蓝图
+#### 向场景中加入一个蓝图
 #### Actor类的蓝图
 
 ### 使用Data Table导入电子表格的数据
