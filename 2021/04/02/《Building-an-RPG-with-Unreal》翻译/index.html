@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/hexo/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/hexo/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/hexo/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/hexo/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/hexo/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/hexo/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/hexo/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文是对《Building an RPG with Unreal 4.x》英文书的翻译。因为偷懒，删去了我认为没必要的内容。">
+<meta name="keywords" content="阅读,UE4,翻译">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Building an RPG with Unreal》翻译">
+<meta property="og:url" content="http://wushuangabao.github.io/hexo/2021/04/02/《Building-an-RPG-with-Unreal》翻译/index.html">
+<meta property="og:site_name" content="人间的我">
+<meta property="og:description" content="本文是对《Building an RPG with Unreal 4.x》英文书的翻译。因为偷懒，删去了我认为没必要的内容。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-04-07T08:05:30.409Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Building an RPG with Unreal》翻译">
+<meta name="twitter:description" content="本文是对《Building an RPG with Unreal 4.x》英文书的翻译。因为偷懒，删去了我认为没必要的内容。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://wushuangabao.github.io/hexo/2021/04/02/《Building-an-RPG-with-Unreal》翻译/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>《Building an RPG with Unreal》翻译 | 人间的我</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/hexo/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">人间的我</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">大多数人在体能和意志上训练不足，却在思维和情感上训练过度。</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/hexo/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/wushuangabao" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wushuangabao.github.io/hexo/hexo/2021/04/02/《Building-an-RPG-with-Unreal》翻译/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="无双BaOY_WHA">
+      <meta itemprop="description" content="服装工程专业，非科班新手程序员。">
+      <meta itemprop="image" content="/hexo/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="人间的我">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《Building an RPG with Unreal》翻译
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-04-02 16:02:58" itemprop="dateCreated datePublished" datetime="2021-04-02T16:02:58+08:00">2021-04-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-04-07 16:05:30" itemprop="dateModified" datetime="2021-04-07T16:05:30+08:00">2021-04-07</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/hexo/categories/游戏引擎/" itemprop="url" rel="index"><span itemprop="name">游戏引擎</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文是对《Building an RPG with Unreal 4.x》英文书的翻译。因为偷懒，删去了我认为没必要的内容。</p>
+<a id="more"></a>
+<h2 id="开始在Unreal中设计RPG"><a href="#开始在Unreal中设计RPG" class="headerlink" title="开始在Unreal中设计RPG"></a>开始在Unreal中设计RPG</h2><p>在写下代码前，很有必要弄清你想要做什么样的RPG、游戏怎么玩、是实时战斗还是回合制、玩家关注的属性（stats）有哪些。</p>
+<h3 id="游戏设计的工具"><a href="#游戏设计的工具" class="headerlink" title="游戏设计的工具"></a>游戏设计的工具</h3><p>有很多种工具能帮助我们完成设计文档。其中特别值得注意的是Google工具套件，它们有多种应用而且免费。</p>
+<ul>
+<li><p>Google Drive<br>一种云端文件存储系统。还可以设置他人的修改权限。</p>
+</li>
+<li><p>Google Docs<br>与Google Drive集成的在线文字处理应用，具有实时合作编辑、评论、聊天功能。</p>
+</li>
+<li><p>Google Spreadsheets电子表格<br>同样与Google Drive集成，提供Excel风格的界面。</p>
+</li>
+<li><p>笔和纸<br>当你灵光一闪时，也许应该马上把它记到纸上。</p>
+</li>
+</ul>
+<h3 id="设计和概念阶段"><a href="#设计和概念阶段" class="headerlink" title="设计和概念阶段"></a>设计和概念阶段</h3><p>几乎所有的游戏都是从一堆粗糙的概念或设计文档中开始诞生的。</p>
+<p>设计文档的目的是描述游戏的方方面面。在RPG中，它需要描述玩家如何在游戏世界中移动，如何与NPC和敌人交互，如何战斗，等等。设计文档是构建游戏代码的基石。</p>
+<ul>
+<li><p>概念<br>例如，我们设想本书中的游戏是一款线性回合制的RPG冒险。这是一个很粗犷的概念，但是完全没问题——只要能从此开始充实和创建设计文档就行了。</p>
+</li>
+<li><p>设计<br>设计文档以前面的粗糙概念为基础，目的是细化概念并说清运行机制。你的设计文档要让任何人能明白你的游戏会是什么样的，它是如何运作的。设计文档的一个最大功能就是确保开发团队的认知一致。</p>
+</li>
+</ul>
+<h3 id="现存角色扮演游戏的tropes"><a href="#现存角色扮演游戏的tropes" class="headerlink" title="现存角色扮演游戏的tropes"></a>现存角色扮演游戏的tropes</h3><p>尽管RPG的类型多到爆，但是仍然有大量共通的主题。</p>
+<h4 id="Stats和养成（Progress）"><a href="#Stats和养成（Progress）" class="headerlink" title="Stats和养成（Progress）"></a>Stats和养成（Progress）</h4><p>这都不用多提，每个RPG都有这些基础概念。</p>
+<p>Stats，或者说Statistics，是一些支配游戏的战斗的数字。Stats可以有很多种，但一般都包括最大生命、最大MP、力量（攻击）、防御等。</p>
+<p>随着游戏的进行，玩家的这些stats也会提高。提高的途径是多样的，但大部分游戏都用战斗获得的经验点（XP）来实现——当获得足够的XP后，角色的等级会提升，stats也会增加。</p>
+<h4 id="职阶（Classes）"><a href="#职阶（Classes）" class="headerlink" title="职阶（Classes）"></a>职阶（Classes）</h4><p>在RPG中有classes很正常。一个class有丰富的内涵，但它通常用来定义一个角色有什么能力，以及角色会如何养成。<br>举个例子，战士职阶可能意味着角色能够挥剑，并且在升级时专注于提升攻击力和防御力。</p>
+<h4 id="特殊能力"><a href="#特殊能力" class="headerlink" title="特殊能力"></a>特殊能力</h4><p>很少有角色扮演游戏会没有魔法咒语或某种特殊能力。</p>
+<p>一般而言，角色会有某种类型的魔力值，当他们使用特殊技能时被消耗掉。当角色没有足够的魔力时无法施放技能（魔力也会被称作法力、耐力、能量等融入游戏剧情的东西）。</p>
+<h3 id="RPG设计概览"><a href="#RPG设计概览" class="headerlink" title="RPG设计概览"></a>RPG设计概览</h3><p>现在我们来看看我们将在本书中开发的RPG的设计。</p>
+<h4 id="设定"><a href="#设定" class="headerlink" title="设定"></a>设定</h4><p>这个游戏设在一座塔里。玩家们在前进到塔顶的过程中一路与敌人战斗，最终遇到大恶人。游戏的目标是战胜大恶人。</p>
+<h4 id="探索"><a href="#探索" class="headerlink" title="探索"></a>探索</h4><p>非战斗时，玩家们以等距透视视角探索世界，就像《暗黑破坏神》那样。这个视角下，玩家可以和NPC及道具交互，也可以暂停游戏来管理队伍成员、仓库（inventory）和装备。</p>
+<h4 id="对话"><a href="#对话" class="headerlink" title="对话"></a>对话</h4><p>当和NPC或道具交互时，可能会触发对话。这游戏中的对话主要依赖文本。对话框可以是线条，玩家简单地按个按钮来前进到下一个对话页，或者在一张选项列表中做选择。每一个选项将推进至不同的对话页。</p>
+<h4 id="购物"><a href="#购物" class="headerlink" title="购物"></a>购物</h4><p>对话也可以触发商店UI。例如，店老板可以问玩家是否想购买物品。如果玩家选择“是”。就会显示一个商店UI。在商店中，玩具架可以从NPC处购买物品。</p>
+<h4 id="金币"><a href="#金币" class="headerlink" title="金币"></a>金币</h4><p>战斗中击败怪物会获得金币。这里金币被看做是怪物掉落的一种。</p>
+<h4 id="The-pause-screen"><a href="#The-pause-screen" class="headerlink" title="The pause screen"></a>The pause screen</h4><p>游戏暂停时，玩家可以做以下事情：</p>
+<ul>
+<li>查看队伍成员和他们的状态（生命，魔法，等级，效果等）；</li>
+<li>查看每个队友学会的技能；</li>
+<li>查看当前携带的金币总数；</li>
+<li>浏览仓库，对成员使用物品（药剂，酒类等）；</li>
+<li>管理每个队员的装备物品（武器，盔甲等）。</li>
+</ul>
+<h4 id="队友"><a href="#队友" class="headerlink" title="队友"></a>队友</h4><p>玩家有个队伍成员表。表里是当前在玩家队伍里的所有角色。玩家可能在塔里遇到一个角色加入队伍并参战。</p>
+<h4 id="装备"><a href="#装备" class="headerlink" title="装备"></a>装备</h4><p>玩家队伍中的每个角色都有以下武器槽：</p>
+<ul>
+<li>盔甲：通常增加防御</li>
+<li>武器：通常提升攻击力（参与到攻击公式计算中）</li>
+</ul>
+<h4 id="职阶"><a href="#职阶" class="headerlink" title="职阶"></a>职阶</h4><p>角色的职阶定义了以下要素：</p>
+<ul>
+<li>升级的经验曲线</li>
+<li>升级后增加的属性值</li>
+<li>升级后能学哪种技能</li>
+</ul>
+<p>本教学只实现一个玩家角色和职阶。</p>
+<h5 id="Soldier"><a href="#Soldier" class="headerlink" title="Soldier"></a>Soldier</h5><p>战士职阶专注于提升攻击、最大HP和幸运。此外，特技主要是对敌人造成巨量伤害。</p>
+<h4 id="战斗"><a href="#战斗" class="headerlink" title="战斗"></a>战斗</h4><p>探索游戏世界时会触发随机事件。战斗事件会在过场景和剧情时触发。触发后会转换到战斗区域视图。</p>
+<p>战斗人员分为两方：敌人和玩家。双方各处于战斗区域一端，面对面排成一条线。先是玩家的回合，再是敌人的回合。一回合战斗分为两阶段：决策和行动。</p>
+<p>首先，每个参战者选择自己的行为。可以攻击一个敌人或者使用一个技能。所有参战者决策完毕之后，按顺序执行动作。多数动作都有一个特定目标。如果执行动作时目标无效，会选择下一个目标，要是没有可选目标，动作执行失败，角色什么也不做。</p>
+<p>直到所有敌人或玩家队伍角色死亡前，回合会一直循环。如果所有敌人死亡，玩家队伍成员就会获得经验奖励，还会从被击败的敌人身上劫获奖励（通常是随机数额的金币）。如果所有玩家角色死亡，那么游戏失败。</p>
+<h4 id="战斗stats"><a href="#战斗stats" class="headerlink" title="战斗stats"></a>战斗stats</h4><p>每一个参战者都拥有以下属性：</p>
+<ul>
+<li>生命点数（HP）：代表角色能承受的伤害多少。HP达到0时角色死亡。角色存活时可以通过物品或技能补充HP，死亡后不行。</li>
+<li>最大生命：任何时候角色HP所能达到的最大值。治疗物品或技能也不能令HP超出这个上限。在角色升级时会提高。特定的装备也能临时性提高最大生命。</li>
+<li>魔法点数（MP）：施放技能时被消耗。可通过物品补充。</li>
+<li>最大魔法值</li>
+<li>攻击力：角色攻击一个敌人时造成的伤害量。武器会给攻击附加额外攻击力。伤害计算公式为<code>max(attacker.ATK-enemy.DEF,0)+attacker.weapon.ATK</code>。</li>
+<li>防御：减少角色受到的伤害。</li>
+<li>幸运：影响角色的暴击率（暴击造成正常伤害的2倍）。幸运值范围是0到100，均匀地对应0%到25%的暴击率。</li>
+</ul>
+<h4 id="战斗行为"><a href="#战斗行为" class="headerlink" title="战斗行为"></a>战斗行为</h4><p>分为两部分：（普通）攻击和技能。</p>
+<h5 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h5><p>每个角色都有攻击的技能，消耗0MP，位于行动菜单的第一个选项。<br>一般攻击的目标为单个敌人，伤害公式在之前的攻击力描述中给出了。</p>
+<h5 id="技能"><a href="#技能" class="headerlink" title="技能"></a>技能</h5><p>除了攻击以外的技能都会消耗MP并造成不同效果。技能的目标分为不同的类型：</p>
+<ul>
+<li>单个敌人</li>
+<li>所有敌人</li>
+<li>单个友方</li>
+<li>全体友方</li>
+</ul>
+<p>技能可以治疗、复活、移除一些特殊状态、召唤临时同伴、临时增益等。然而技能无法增加MP。</p>
+<h4 id="战斗结束后"><a href="#战斗结束后" class="headerlink" title="战斗结束后"></a>战斗结束后</h4><h5 id="战利品"><a href="#战利品" class="headerlink" title="战利品"></a>战利品</h5><h5 id="经验"><a href="#经验" class="headerlink" title="经验"></a>经验</h5><h4 id="经验与等级"><a href="#经验与等级" class="headerlink" title="经验与等级"></a>经验与等级</h4><h5 id="Stat-增益"><a href="#Stat-增益" class="headerlink" title="Stat 增益"></a>Stat 增益</h5><h5 id="学习技能"><a href="#学习技能" class="headerlink" title="学习技能"></a>学习技能</h5><h4 id="游戏失败"><a href="#游戏失败" class="headerlink" title="游戏失败"></a>游戏失败</h4><h4 id="胜利"><a href="#胜利" class="headerlink" title="胜利"></a>胜利</h4><h3 id="选择合适的公式"><a href="#选择合适的公式" class="headerlink" title="选择合适的公式"></a>选择合适的公式</h3><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><h2 id="Unreal中的编程和数据"><a href="#Unreal中的编程和数据" class="headerlink" title="Unreal中的编程和数据"></a>Unreal中的编程和数据</h2><h3 id="下载Unreal"><a href="#下载Unreal" class="headerlink" title="下载Unreal"></a>下载Unreal</h3><h3 id="下载Visual-Studio"><a href="#下载Visual-Studio" class="headerlink" title="下载Visual Studio"></a>下载Visual Studio</h3><h3 id="针对Unreal配置Visual-Studio"><a href="#针对Unreal配置Visual-Studio" class="headerlink" title="针对Unreal配置Visual Studio"></a>针对Unreal配置Visual Studio</h3><h4 id="增加Solution-Platforms下拉列表"><a href="#增加Solution-Platforms下拉列表" class="headerlink" title="增加Solution Platforms下拉列表"></a>增加Solution Platforms下拉列表</h4><h4 id="关闭Error-List-tab"><a href="#关闭Error-List-tab" class="headerlink" title="关闭Error List tab"></a>关闭Error List tab</h4><h3 id="配置一个新Unreal项目"><a href="#配置一个新Unreal项目" class="headerlink" title="配置一个新Unreal项目"></a>配置一个新Unreal项目</h3><h3 id="创建一个新C-类"><a href="#创建一个新C-类" class="headerlink" title="创建一个新C++类"></a>创建一个新C++类</h3><h3 id="蓝图"><a href="#蓝图" class="headerlink" title="蓝图"></a>蓝图</h3><h4 id="创建一个新蓝图"><a href="#创建一个新蓝图" class="headerlink" title="创建一个新蓝图"></a>创建一个新蓝图</h4><h4 id="向场景找中加入一个蓝图"><a href="#向场景找中加入一个蓝图" class="headerlink" title="向场景找中加入一个蓝图"></a>向场景找中加入一个蓝图</h4><h4 id="Actor类的蓝图"><a href="#Actor类的蓝图" class="headerlink" title="Actor类的蓝图"></a>Actor类的蓝图</h4><h3 id="使用Data-Table导入电子表格的数据"><a href="#使用Data-Table导入电子表格的数据" class="headerlink" title="使用Data Table导入电子表格的数据"></a>使用Data Table导入电子表格的数据</h3><h4 id="电子表格的格式"><a href="#电子表格的格式" class="headerlink" title="电子表格的格式"></a>电子表格的格式</h4><h4 id="一个电子表格例子"><a href="#一个电子表格例子" class="headerlink" title="一个电子表格例子"></a>一个电子表格例子</h4><h4 id="Data-Table的结构"><a href="#Data-Table的结构" class="headerlink" title="Data Table的结构"></a>Data Table的结构</h4><h4 id="导入电子表格"><a href="#导入电子表格" class="headerlink" title="导入电子表格"></a>导入电子表格</h4><h4 id="查询电子表格"><a href="#查询电子表格" class="headerlink" title="查询电子表格"></a>查询电子表格</h4><h3 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h3><h2 id="探索和战斗"><a href="#探索和战斗" class="headerlink" title="探索和战斗"></a>探索和战斗</h2><h3 id="创建player-pawn"><a href="#创建player-pawn" class="headerlink" title="创建player pawn"></a>创建player pawn</h3><h4 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h4><h4 id="PlayerController"><a href="#PlayerController" class="headerlink" title="PlayerController"></a>PlayerController</h4><h4 id="Pawn"><a href="#Pawn" class="headerlink" title="Pawn"></a>Pawn</h4><h4 id="GameMode类"><a href="#GameMode类" class="headerlink" title="GameMode类"></a>GameMode类</h4><h4 id="添加skinned-mesh蒙皮网格"><a href="#添加skinned-mesh蒙皮网格" class="headerlink" title="添加skinned mesh蒙皮网格"></a>添加skinned mesh蒙皮网格</h4><h4 id="创建Camera组件"><a href="#创建Camera组件" class="headerlink" title="创建Camera组件"></a>创建Camera组件</h4><h3 id="定义角色和敌人"><a href="#定义角色和敌人" class="headerlink" title="定义角色和敌人"></a>定义角色和敌人</h3><h4 id="Classes"><a href="#Classes" class="headerlink" title="Classes"></a>Classes</h4><h4 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h4><h4 id="敌人"><a href="#敌人" class="headerlink" title="敌人"></a>敌人</h4><h3 id="队友-1"><a href="#队友-1" class="headerlink" title="队友"></a>队友</h3><h4 id="GameInstance类"><a href="#GameInstance类" class="headerlink" title="GameInstance类"></a>GameInstance类</h4><h3 id="回合制战斗"><a href="#回合制战斗" class="headerlink" title="回合制战斗"></a>回合制战斗</h3><h4 id="表演actions"><a href="#表演actions" class="headerlink" title="表演actions"></a>表演actions</h4><h4 id="做决策"><a href="#做决策" class="headerlink" title="做决策"></a>做决策</h4><h4 id="目标选择"><a href="#目标选择" class="headerlink" title="目标选择"></a>目标选择</h4><h4 id="计算伤害"><a href="#计算伤害" class="headerlink" title="计算伤害"></a>计算伤害</h4><h4 id="使用UMG的战斗UI"><a href="#使用UMG的战斗UI" class="headerlink" title="使用UMG的战斗UI"></a>使用UMG的战斗UI</h4><h4 id="以UI驱动做决策"><a href="#以UI驱动做决策" class="headerlink" title="以UI驱动做决策"></a>以UI驱动做决策</h4><h4 id="创建游戏失败的画面"><a href="#创建游戏失败的画面" class="headerlink" title="创建游戏失败的画面"></a>创建游戏失败的画面</h4><h3 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h3><h2 id="暂停菜单的构架"><a href="#暂停菜单的构架" class="headerlink" title="暂停菜单的构架"></a>暂停菜单的构架</h2><h3 id="UMG暂停画面的初始化"><a href="#UMG暂停画面的初始化" class="headerlink" title="UMG暂停画面的初始化"></a>UMG暂停画面的初始化</h3><h3 id="UMG背景色"><a href="#UMG背景色" class="headerlink" title="UMG背景色"></a>UMG背景色</h3><h3 id="UMG文本"><a href="#UMG文本" class="headerlink" title="UMG文本"></a>UMG文本</h3><h3 id="UMG按钮"><a href="#UMG按钮" class="headerlink" title="UMG按钮"></a>UMG按钮</h3><h3 id="UMG-inventory（库存）子菜单"><a href="#UMG-inventory（库存）子菜单" class="headerlink" title="UMG inventory（库存）子菜单"></a>UMG inventory（库存）子菜单</h3><h3 id="UMG装备子菜单"><a href="#UMG装备子菜单" class="headerlink" title="UMG装备子菜单"></a>UMG装备子菜单</h3><h3 id="按键绑定"><a href="#按键绑定" class="headerlink" title="按键绑定"></a>按键绑定</h3><h3 id="按钮编程"><a href="#按钮编程" class="headerlink" title="按钮编程"></a>按钮编程</h3><h3 id="小结-3"><a href="#小结-3" class="headerlink" title="小结"></a>小结</h3><h2 id="Bridging角色的Statistics"><a href="#Bridging角色的Statistics" class="headerlink" title="Bridging角色的Statistics"></a>Bridging角色的Statistics</h2><h3 id="获取角色数据"><a href="#获取角色数据" class="headerlink" title="获取角色数据"></a>获取角色数据</h3><h3 id="获取player-instance"><a href="#获取player-instance" class="headerlink" title="获取player instance"></a>获取player instance</h3><h3 id="显示stats"><a href="#显示stats" class="headerlink" title="显示stats"></a>显示stats</h3><h3 id="小结-4"><a href="#小结-4" class="headerlink" title="小结"></a>小结</h3><h2 id="NPC和对话"><a href="#NPC和对话" class="headerlink" title="NPC和对话"></a>NPC和对话</h2><h3 id="创建NPC角色蓝图"><a href="#创建NPC角色蓝图" class="headerlink" title="创建NPC角色蓝图"></a>创建NPC角色蓝图</h3><h3 id="和NPC交互"><a href="#和NPC交互" class="headerlink" title="和NPC交互"></a>和NPC交互</h3><h3 id="对话box设置"><a href="#对话box设置" class="headerlink" title="对话box设置"></a>对话box设置</h3><h3 id="创建一个NPC欢迎的box"><a href="#创建一个NPC欢迎的box" class="headerlink" title="创建一个NPC欢迎的box"></a>创建一个NPC欢迎的box</h3><h3 id="添加NPC-talk的box"><a href="#添加NPC-talk的box" class="headerlink" title="添加NPC talk的box"></a>添加NPC talk的box</h3><h3 id="小结-5"><a href="#小结-5" class="headerlink" title="小结"></a>小结</h3><h2 id="金币，物品和商店"><a href="#金币，物品和商店" class="headerlink" title="金币，物品和商店"></a>金币，物品和商店</h2><h3 id="金币instances的setting和getting"><a href="#金币instances的setting和getting" class="headerlink" title="金币instances的setting和getting"></a>金币instances的setting和getting</h3><h3 id="物品数据"><a href="#物品数据" class="headerlink" title="物品数据"></a>物品数据</h3><h3 id="商店画面构架"><a href="#商店画面构架" class="headerlink" title="商店画面构架"></a>商店画面构架</h3><h3 id="物品按钮构架"><a href="#物品按钮构架" class="headerlink" title="物品按钮构架"></a>物品按钮构架</h3><h3 id="链接到物品数据"><a href="#链接到物品数据" class="headerlink" title="链接到物品数据"></a>链接到物品数据</h3><h3 id="小结-6"><a href="#小结-6" class="headerlink" title="小结"></a>小结</h3><h2 id="Inventory（库存）Population和物品使用"><a href="#Inventory（库存）Population和物品使用" class="headerlink" title="Inventory（库存）Population和物品使用"></a>Inventory（库存）Population和物品使用</h2><h3 id="创建FieldPlayer布尔值"><a href="#创建FieldPlayer布尔值" class="headerlink" title="创建FieldPlayer布尔值"></a>创建FieldPlayer布尔值</h3><h3 id="判断库存画面是否开启"><a href="#判断库存画面是否开启" class="headerlink" title="判断库存画面是否开启"></a>判断库存画面是否开启</h3><h3 id="库存和商品在逻辑上的区别"><a href="#库存和商品在逻辑上的区别" class="headerlink" title="库存和商品在逻辑上的区别"></a>库存和商品在逻辑上的区别</h3><h3 id="关闭库存画面"><a href="#关闭库存画面" class="headerlink" title="关闭库存画面"></a>关闭库存画面</h3><h3 id="购买物品"><a href="#购买物品" class="headerlink" title="购买物品"></a>购买物品</h3><h3 id="使用物品"><a href="#使用物品" class="headerlink" title="使用物品"></a>使用物品</h3><h3 id="小结-7"><a href="#小结-7" class="headerlink" title="小结"></a>小结</h3><h2 id="装备-1"><a href="#装备-1" class="headerlink" title="装备"></a>装备</h2><h2 id="等级，技能和存档"><a href="#等级，技能和存档" class="headerlink" title="等级，技能和存档"></a>等级，技能和存档</h2>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/hexo/tags/阅读/" rel="tag"># 阅读</a>
+          
+            <a href="/hexo/tags/UE4/" rel="tag"># UE4</a>
+          
+            <a href="/hexo/tags/翻译/" rel="tag"># 翻译</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/hexo/2021/04/01/虚幻4蓝图系统架构/" rel="next" title="虚幻4蓝图系统架构">
+                <i class="fa fa-chevron-left"></i> 虚幻4蓝图系统架构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/hexo/images/header.jpg" alt="无双BaOY_WHA">
+            
+              <p class="site-author-name" itemprop="name">无双BaOY_WHA</p>
+              <div class="site-description motion-element" itemprop="description">服装工程专业，非科班新手程序员。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/hexo/archives/">
+                
+                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/hexo/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/hexo/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/wushuangabao" title="GitHub &rarr; https://github.com/wushuangabao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:445395697@qq.com" title="E-Mail &rarr; mailto:445395697@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/u/3801041566" title="Weibo &rarr; https://weibo.com/u/3801041566" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://space.bilibili.com/20467999" title="Bilibili &rarr; https://space.bilibili.com/20467999" rel="noopener" target="_blank"><i class="fa fa-fw fa-youtube-square"></i>Bilibili</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始在Unreal中设计RPG"><span class="nav-text">开始在Unreal中设计RPG</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#游戏设计的工具"><span class="nav-text">游戏设计的工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计和概念阶段"><span class="nav-text">设计和概念阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#现存角色扮演游戏的tropes"><span class="nav-text">现存角色扮演游戏的tropes</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Stats和养成（Progress）"><span class="nav-text">Stats和养成（Progress）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#职阶（Classes）"><span class="nav-text">职阶（Classes）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊能力"><span class="nav-text">特殊能力</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPG设计概览"><span class="nav-text">RPG设计概览</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设定"><span class="nav-text">设定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#探索"><span class="nav-text">探索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对话"><span class="nav-text">对话</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#购物"><span class="nav-text">购物</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#金币"><span class="nav-text">金币</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-pause-screen"><span class="nav-text">The pause screen</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队友"><span class="nav-text">队友</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装备"><span class="nav-text">装备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#职阶"><span class="nav-text">职阶</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Soldier"><span class="nav-text">Soldier</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#战斗"><span class="nav-text">战斗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#战斗stats"><span class="nav-text">战斗stats</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#战斗行为"><span class="nav-text">战斗行为</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#攻击"><span class="nav-text">攻击</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#技能"><span class="nav-text">技能</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#战斗结束后"><span class="nav-text">战斗结束后</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#战利品"><span class="nav-text">战利品</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#经验"><span class="nav-text">经验</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#经验与等级"><span class="nav-text">经验与等级</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Stat-增益"><span class="nav-text">Stat 增益</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#学习技能"><span class="nav-text">学习技能</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#游戏失败"><span class="nav-text">游戏失败</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#胜利"><span class="nav-text">胜利</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择合适的公式"><span class="nav-text">选择合适的公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unreal中的编程和数据"><span class="nav-text">Unreal中的编程和数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载Unreal"><span class="nav-text">下载Unreal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载Visual-Studio"><span class="nav-text">下载Visual Studio</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#针对Unreal配置Visual-Studio"><span class="nav-text">针对Unreal配置Visual Studio</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#增加Solution-Platforms下拉列表"><span class="nav-text">增加Solution Platforms下拉列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关闭Error-List-tab"><span class="nav-text">关闭Error List tab</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置一个新Unreal项目"><span class="nav-text">配置一个新Unreal项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个新C-类"><span class="nav-text">创建一个新C++类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#蓝图"><span class="nav-text">蓝图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建一个新蓝图"><span class="nav-text">创建一个新蓝图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向场景找中加入一个蓝图"><span class="nav-text">向场景找中加入一个蓝图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Actor类的蓝图"><span class="nav-text">Actor类的蓝图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Data-Table导入电子表格的数据"><span class="nav-text">使用Data Table导入电子表格的数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#电子表格的格式"><span class="nav-text">电子表格的格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个电子表格例子"><span class="nav-text">一个电子表格例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Data-Table的结构"><span class="nav-text">Data Table的结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#导入电子表格"><span class="nav-text">导入电子表格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询电子表格"><span class="nav-text">查询电子表格</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-1"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#探索和战斗"><span class="nav-text">探索和战斗</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建player-pawn"><span class="nav-text">创建player pawn</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#接口"><span class="nav-text">接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PlayerController"><span class="nav-text">PlayerController</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pawn"><span class="nav-text">Pawn</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GameMode类"><span class="nav-text">GameMode类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加skinned-mesh蒙皮网格"><span class="nav-text">添加skinned mesh蒙皮网格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建Camera组件"><span class="nav-text">创建Camera组件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义角色和敌人"><span class="nav-text">定义角色和敌人</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Classes"><span class="nav-text">Classes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#角色"><span class="nav-text">角色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#敌人"><span class="nav-text">敌人</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队友-1"><span class="nav-text">队友</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GameInstance类"><span class="nav-text">GameInstance类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回合制战斗"><span class="nav-text">回合制战斗</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#表演actions"><span class="nav-text">表演actions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#做决策"><span class="nav-text">做决策</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标选择"><span class="nav-text">目标选择</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算伤害"><span class="nav-text">计算伤害</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用UMG的战斗UI"><span class="nav-text">使用UMG的战斗UI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以UI驱动做决策"><span class="nav-text">以UI驱动做决策</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建游戏失败的画面"><span class="nav-text">创建游戏失败的画面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-2"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#暂停菜单的构架"><span class="nav-text">暂停菜单的构架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UMG暂停画面的初始化"><span class="nav-text">UMG暂停画面的初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UMG背景色"><span class="nav-text">UMG背景色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UMG文本"><span class="nav-text">UMG文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UMG按钮"><span class="nav-text">UMG按钮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UMG-inventory（库存）子菜单"><span class="nav-text">UMG inventory（库存）子菜单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UMG装备子菜单"><span class="nav-text">UMG装备子菜单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按键绑定"><span class="nav-text">按键绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按钮编程"><span class="nav-text">按钮编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-3"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bridging角色的Statistics"><span class="nav-text">Bridging角色的Statistics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取角色数据"><span class="nav-text">获取角色数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取player-instance"><span class="nav-text">获取player instance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示stats"><span class="nav-text">显示stats</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-4"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NPC和对话"><span class="nav-text">NPC和对话</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建NPC角色蓝图"><span class="nav-text">创建NPC角色蓝图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#和NPC交互"><span class="nav-text">和NPC交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对话box设置"><span class="nav-text">对话box设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个NPC欢迎的box"><span class="nav-text">创建一个NPC欢迎的box</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加NPC-talk的box"><span class="nav-text">添加NPC talk的box</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-5"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#金币，物品和商店"><span class="nav-text">金币，物品和商店</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#金币instances的setting和getting"><span class="nav-text">金币instances的setting和getting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物品数据"><span class="nav-text">物品数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#商店画面构架"><span class="nav-text">商店画面构架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物品按钮构架"><span class="nav-text">物品按钮构架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接到物品数据"><span class="nav-text">链接到物品数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-6"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Inventory（库存）Population和物品使用"><span class="nav-text">Inventory（库存）Population和物品使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建FieldPlayer布尔值"><span class="nav-text">创建FieldPlayer布尔值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断库存画面是否开启"><span class="nav-text">判断库存画面是否开启</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#库存和商品在逻辑上的区别"><span class="nav-text">库存和商品在逻辑上的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭库存画面"><span class="nav-text">关闭库存画面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#购买物品"><span class="nav-text">购买物品</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用物品"><span class="nav-text">使用物品</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-7"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装备-1"><span class="nav-text">装备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#等级，技能和存档"><span class="nav-text">等级，技能和存档</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">无双BaOY_WHA</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/hexo/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/hexo/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/hexo/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/hexo/js/utils.js?v=7.1.1"></script>
+
+  <script src="/hexo/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/hexo/js/affix.js?v=7.1.1"></script>
+
+  <script src="/hexo/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/hexo/js/scrollspy.js?v=7.1.1"></script>
+<script src="/hexo/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/hexo/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/hexo/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
