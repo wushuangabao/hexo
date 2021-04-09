@@ -229,28 +229,332 @@ void AnyNewActor::BeginPlay()
 ```
 
 ### 蓝图
+
+Unreal中的蓝图是基于C++的、专为Unreal构建的、可视化的脚本语言。
+……
+
 #### 创建一个新蓝图
+这几节都过于简单，省略……
+
 #### 向场景中加入一个蓝图
 #### Actor类的蓝图
 
 ### 使用Data Table导入电子表格的数据
+
+首先，你得确保你的电子表格符合某种格式；同时，你写个包含表格中一行数据的C++ struct。然后，导出CSV文件（到Unreal）并以C++ struct为这个文件的数据类型。
+
 #### 电子表格的格式
+
+电子表格必须符合一些简单的规则，以确保能被正确导出到Unreal。
+
+- 第一个单元格必须留空。
+- 第一行要包含字段的名称，它们要和你的C++ struct中的变量名一致。
+- 第一列包含每条记录的lookup key（查找键）。每行的键不能重复。
+- 其他列包含每个变量的值。
+
 #### 一个电子表格例子
+
+| |SomeNumber|SomeString|
+|-|-|-|
+|1|10|Hello, world|
+|2|15|Hello, again|
+|3|30|Hello!|
+
+如果你用的是Google Spreadsheet，你须要点击File|Download as|Comma-separated values(.csv)，导出数据到CSV。大多电子表应用都能导出CSV格式。
+
+在把CSV导入到Unreal之前，我们要先为其创建C++ struct。
+
 #### Data Table的结构
+
+就像之前创建actor类一样，我们创建一个新的actor类，名为TestCustomData。这个类之所以继承自Actor仅仅是为了让Unreal生成一些默认代码。
+
+接着打开TestCustomData.h文件并把代码整体替换为下面的：
+```
+#pragma once
+#include "TestCustomData.generated.h"
+
+USTRUCT(BlueprintType)
+struct FTestCustomData : public FTableRowBase
+{
+    GENERATED_USTRUCT_BODY()
+
+    UPROPERTY( BlueprintReadOnly, Category = "TestCustomData" )
+    int32 SomeNumber;
+
+    UPROPERTY( BlueprintReadOnly, Category = "TestCustomData" )
+    FString SomeString;
+};
+```
+
+成员变量名要与电子表中的header单元格一致，这很重要，虚幻引擎据此将对应的表格字段与struct匹配。
+
+然后把TestCustomData.cpp文件中除了include语句外的代码全删除。回到Unreal编辑器并点击Compile。
+
 #### 导入电子表格
+
+将CSV文件拖入Content Browser面板，出现一个弹窗让你选择如何导入数据、这是什么类型的数据。分别选择Data Table和TestCustomData。点击OK就会导入CSV文件了。
+
 #### 查询电子表格
 
-### 小结
+你可以通过名称查找表中特定的行。我们将把这个查询能力添加到自定义类MyNewActor中。我们需要向蓝图暴露一个Data Table让我们的actor来用。
+
+首先，把下面的代码添加到MyNewActor.h文件的`GENERATED_BODY()`后面：
+```
+public:
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "My New Actor")
+    UDataTable* DataTable;
+```
+
+接下来，fetch一行记录并输出它的SomeString字段。在MyNewActor.cpp文件中的`BeginPlay`函数末尾添加代码：
+```
+if( DataTable != NULL )
+{
+    FTestCustomData* row = DataTable->FindRow<FTestCustomData>( TEXT( "2" ), TEXT(" LookupTestCustomData" ) );  // 2号记录
+    FString someString = row->SomeString;
+    UE_LOG( LogTemp, Warning, TEXT( "%s" ), *someString );
+}
+```
+同时在MyNewActor.cpp顶端添加`#include TestCustomData.h`。
+
+在编辑器中编译代码。然后打开你从MyNewActor继承来的蓝图，在Data Table字段你可以选择已导入的CSV文件。
+
+编译、保存蓝图，然后按下Play来测试。
+
+
+
 
 ## 探索和战斗
 
+本章，我们将制作一个可在世界移动的游戏角色，定义游戏数据，制作一个基础战斗系统的原型。我们将涉及以下主题：
+- 创建player pawn
+- 定义角色，职阶和敌人
+- 保持探测队友
+- 创建基本的回合制战斗引擎
+- 触发游戏失败画面
+
+
 ### 创建player pawn
+
+player分为两部分：有一个pawn负责处理移动、物理和渲染。然后，Player Controller负责将玩家的输入转化为pawn的行为。
+
+此外，我们将通过让pawn实现一个`IControllableCharacter`接口来实现一层分离。这并不是必须的，但是确实有助于让不同的类之间减少信息共享（例如，任何其他actor都可以便利地实现`IControllableCharacter`接口，然后我们的控制器可以无缝衔接地控制这些新的actor）。
+
 #### 接口
+
+我们新建一个继承自Actor的类，名叫`ControllableCharacter`。在Unreal生成代码文件之后，打开ControllableCharacter.h，将它改为下面这样：
+```
+#pragma once
+#include "Object.h"
+#include "ControllableCharacter.generated.h"
+
+UINTERFACE()
+class RPG_API UControllableCharacter : public UInterface
+{
+    GENERATED_UINTERFACE_BODY()
+};
+
+class RPG_API IControllableCharacter
+{
+    GENERATED_IINTERFACE_BODY()
+    virtual void MoveVertical( float Value );
+    virtual void MoveHorizontal( float Value );
+};
+```
+
+在Unreal中，**接口有两个部分：`UInterface`类和真正的接口类**。这两个类和Unreal的宏系统一起，使你能实现适用`Cast`宏的接口类（`Cast`宏能把一个actor转换为它所实现的接口）。
+
+`UInterface`类用U做前缀，只包含一行代码。
+
+打开ControllableCharacter.cpp并改成这样：
+```
+UControllableCharacter::UControllableCharacter( const class FObjectInitializer& ObjectInitializer ) : Super( ObjectInitializer )
+{}
+
+void IControllableCharacter::MoveVertical( float Value )
+{}
+
+void IControllableCharacter::MoveHorizontal( float Value )
+{}
+```
+这里我们定义了`UControllableCharacter`类的构造函数，和成员函数的默认实现。
+
 #### PlayerController
+
+创建一个新类并选择PlayerController作为父类，取名RPGPlayerController。在生成的头文件中加入：
+```
+protected:
+    void MoveVertical( float Value ); //监听玩家输入
+    void MoveHorizontal( float Value ); //监听玩家输入
+    virtual void SetupInputComponent() override;
+```
+
+在RPGPlayerController.cpp中添加以下代码：
+```
+void ARPGPlayerController::MoveVertical( float Value )
+{
+    IControllableCharacter* pawn = Cast<IControllableCharacter>( GetPawn() );
+    if( pawn != NULL )
+        pawn->MoveVertical( Value );
+}
+
+void ARPGPlayerController::MoveHorizontal( float Value )
+{
+    IControllableCharacter* pawn = Cast<IControllableCharacter>( GetPawn() );
+    if( pawn != NULL )
+        pawn->MoveHorizontal( Value );
+}
+
+void ARPGPlayerController::SetupInputComponent()
+{
+    if( InputComponent == NULL )
+    {
+        InputComponent = ConstructObject<UInputComponent>( UInputComponent::StaticClass(), this, TEXT( "PC_InputComponent0" ) );
+        InputComponent->RegisterComponent();
+    }
+    // 绑定输入映射
+    InputComponent->BindAxis( "MoveVertical", this, &ARPGPlayerController::MoveVertical );
+    InputComponent->BindAxis( "MoveHorizontal", this, &ARPGPlayerController::MoveHorizontal );
+    this->bShowMouseCursor = true; // 不隐藏鼠标
+} 
+```
+
 #### Pawn
+
+建一个新类，名为RPGCharacter，选择Character作为父类。打开RPGCharacter.h更改类的定义为：
+```
+UCLASS()
+class RPG_API ARPGCharacter : public ACharacter, public IControllableCharacter
+{
+    GENERATED_BODY()
+    ARPGCharacter( const class FObjectInitializer& ObjectInitializer );
+
+public:
+    virtual void MoveVertical( float Value );
+    virtual void MoveHorizontal( float Value );
+};
+```
+这个类实现了`IControllableCharacter`接口，所以也要实现接口中定义的两个成员方法。
+
+接下来，在cpp文件中添加如下代码：
+```
+ARPGCharacter::ARPGCharacter( const class FObjectInitializer& ObjectInitializer ) : Super( ObjectInitializer )
+{
+    bUseControllerRotationYaw = false;
+    GetCharacterMovement()->bOrientRotationToMovement = true;
+    GetCharacterMovement()->RotationRate = FRotator( 0.0f, 0.0f, 540.0f ); //默认转向速度
+    GetCharacterMovement()->MaxWalkSpeed = 400.0f; //默认最大步行（奔跑）速度
+}
+
+void ARPGCharacter::MoveVertical( float Value )
+{
+    if( Controller != NULL && Value != 0.0f )
+    {
+        const FVector moveDir = FVector( 1, 0, 0 );
+        AddMovementInput( moveDir, Value );
+    }
+}
+
+void ARPGCharacter::MoveHorizontal( float Value )
+{
+    if( Controller != NULL && Value != 0.0f )
+    {
+        const FVector moveDir = FVector( 0, 1, 0 );
+        AddMovementInput( moveDir, Value );
+    }
+}
+```
+
 #### GameMode类
+
+新建一个类并选择GameMode作为父类，命名为RPGGameMode。
+
+打开RPGGameMode.h并修改类的定义为：
+```
+UCLASS()
+class RPG_API ARPGGameMode : public AGameMode
+{
+    GENERATED_BODY()
+    ARPGGameMode( const class FObjectInitializer& ObjectInitializer );
+};
+```
+
+然后在RPGGameMode.cpp中实现这个构造函数：
+```
+#include "RPGPlayerController.h"
+#include "RPGCharacter.h"
+
+ARPGGameMode::ARPGGameMode( const class FObjectInitializer& ObjectInitializer ) : Super( ObjectInitializer )
+{
+    // 设置默认类
+    PlayerControllerClass = ARPGPlayerController::StaticClass();
+    DefaultPawnClass = ARPGCharacter::StaticClass();
+}
+```
+
+编译完后，将这个新的game mode设为默认的游戏模式。前往Edit|Project Settings|Default Modes中设置，在Default GameMode下拉框中选择RPGGameMode。
+
+然而，我们并不想直接使用这个类。我们建一个蓝图，将game mode的属性暴露到蓝图中，就可以方便修改。这个蓝图名为DefaultRPGGameMode，继承自RPGGameMode类。
+
+在这个蓝图中，我们可以修改很多默认设置，包括Default Pawn Class，HUD Class，PlayerController Class等。
+
+为了看见Pawn，我们要给它添加蒙皮网格，让摄像机跟随。
+
 #### 添加skinned mesh蒙皮网格
+
+基于Third Person案例建一个新项目，然后把下列资源迁移到RPG项目中：
+- HeroTPP
+- HeroTPP_AnimBlueprint
+- HeroTPP_Skeleton
+- IdleRun_TPP
+
+迁移步骤：
+1. 全选这些资源。
+2. 右键单击其中任意一个，选择Migrate（迁移），点OK。
+3. 选择要导入的RPG项目中的目录，点OK。
+
+有了HeroTPP模型，可以为我们的Pawn创建新蓝图了。新建RPGCharacter的子蓝图，名为FieldPlayer。
+
+展开Mesh，选择HeroTPP作为pawn的skeletal mesh。展开Animation，选择HeroTPP_AnimBlueprint作为使用的动画蓝图。
+
+最后，打开game mode蓝图，把pawn改为FieldPlayer。现在你的角色已经可以被看见了，而且移动时会播放奔跑动画。但是摄像机还需要设置。
+
 #### 创建Camera组件
+
+新建一个CameraComponent的子类，名为RPGCameraComponent。然后，打开RPGCameraComponent.h更改类定义为：
+```
+UCLASS( meta = ( BlueprintSpawnableComponent ) ) //使摄像机组件可以添加到pawn蓝图中
+class RPG_API URPGCameraComponent : public UCameraComponent
+{
+    GENERATED_BODY()
+public:
+    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = CameraProperties)
+    float CameraPitch;
+
+    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = CameraProperties)
+    float CameraDistance;
+
+    // 当游戏视角切换到挂载这个摄像机组件的pawn上时，调用此方法。
+    virtual void GetCameraView( float DeltaTime, FMinimalViewInfo& DesiredView ) override;
+};
+```
+
+打开RPGCameraComponent.cpp添加以下代码：
+```
+void URPGCameraComponent::GetCameraView( float DeltaTime, FMinimalViewInfo& DesiredView )
+{
+    UCameraComponent::GetCameraView( DeltaTime, DesiredView );
+    DesiredView.Rotation = FRotator( CameraPitch, 0.0f, 0.0f );
+    if( APawn* OwningPawn = Cast<APawn>( GetOwner() ) )
+    {
+        FVector location = OwningPawn->GetActorLocation();
+        location -= DesiredView.Rotation.Vector() * CameraDistance;
+        DesiredView.Location = location;
+    }
+}
+```
+
+打开之前创建的pawn蓝图，添加RPGCamera组件。设置组件的属性，pitch为-50，distance为600.
+
 
 ### 定义角色和敌人
 #### Classes
