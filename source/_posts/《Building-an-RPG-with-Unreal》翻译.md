@@ -557,15 +557,851 @@ void URPGCameraComponent::GetCameraView( float DeltaTime, FMinimalViewInfo& Desi
 
 
 ### 定义角色和敌人
+
+我们已经会使用Data Table导入数据，也确定了什么属性会影响战斗、如何影响。现在将综合这些，来定义我们游戏的角色、职阶和敌人触发器（enemy encounter）。
+
 #### Classes
+
+根据第一章，我们的角色有以下属性：
+- 生命
+- 最大生命
+- 魔法
+- 最大魔法
+- 攻击力
+- 防御
+- 幸运
+
+我们忽视掉生命和魔法，因为他们在游戏中会不停变化，而其他值是随着职阶确定而固定的。我们需要存储50级（最大等级）时的这些属性。此外，角色初始会自带一些技能，升级后会学一些技能，
+
+这些都在角色职阶电子表中定义，所以我们的角色职阶schema如下：
+- 职阶名称（string）
+- 初始最大HP（int）
+- 50级最大HP（int）
+- 初始最大MP（int）
+- 50级最大MP（int）
+- 初始攻击（int）
+- 50级最大攻击（int）
+- 初始防御（int）
+- 50级防御（int）
+- 初始幸运（int）
+- 50级幸运（int）
+- 初始的技能（string数组）
+- 可学的技能（string数组）
+- 可学技能的等级（int数组）
+
+在游戏行业，你需要考虑写一个自己的工具来帮助管理数据，以减少人所犯的错误。不过这不在本书的讨论范围内。
+
+我们先继承Actor（事实上继承谁都无所谓）来创建一个新类，名为`FCharacterClassInfo`。类定义如下：
+```
+USTRUCT( BlueprintType )
+struct FCharacterClassInfo : public FTableRowBase
+{
+    GENERATED_USTRUCT_BODY()
+
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "ClassInfo" )
+    FString Class_Name;
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "ClassInfo" )
+    int32 StartMHP;
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "ClassInfo" )
+    int32 StartMMP;
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "ClassInfo" )
+    int32 StartATK;
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "ClassInfo" )
+    int32 StartDEF;
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "ClassInfo" )
+    int32 StartLuck;
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "ClassInfo" )
+    int32 EndMHP;
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "ClassInfo" )
+    int32 EndMMP;
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "ClassInfo" )
+    int32 EndATK;
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "ClassInfo" )
+    int32 EndDEF;
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "ClassInfo" )
+    int32 EndLuck;
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "ClassInfo" )
+    TArray<FString> StartingAbilities;
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "ClassInfo" )
+    TArray<FString> LearnedAbilities;
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "ClassInfo" )
+    TArray<int32> LearnedAbilityLevels;
+};
+```
+
+编译完成后，以Character Class Info为基础创建一个您的Data Table（在Content Browser右键，选择Create Advanced Asset|Miscellaneous|Data Table），然后双击打开。
+
+> 如果此时Row Editor面板为空，你可能须要重启Unreal编辑器。
+
+我们在Row Editor面板中新增一条记录。Rename字段中输入S1（我们在其他Data Table中用它来访问角色职阶信息），按回车添加新记录，属性设置如下：
+- Class name: Soldier
+- Start MHP: 100
+- Start MMP: 100
+- Start ATK: 5
+- Start DEF: 0
+- Start Luck: 0
+- End MHP: 800
+- End MMP: 500
+- End ATK: 20
+- End DEF: 20
+- End Luck: 10
+- Starting abilities: (leave empty for now)
+- Learned abilities: (leave empty for now)
+- Learned ability levels: (leave empty for now)
+
 #### 角色
+
+现在用名字和职阶就能定义角色。
+
+头文件FCharacter.h中角色数据结构如下：
+```
+USTRUCT(BlueprintType)
+struct FCharacterInfo : public FTableRowBase
+{
+    GENERATED_USTRUCT_BODY()
+
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "CharacterInfo" )
+    FString Character_Name;
+
+    UPROPERTY( BlueprintReadOnly, EditAnywhere, Category = "CharacterInfo" )
+    FString Class_ID;
+};
+```
+
+编译后新建基于CharacterInfo的DataTable。新增一条记录，在class ID栏中填S1（我们之前定义的Soldier职阶）。
+
 #### 敌人
 
+因为敌人没有经验、不升级，我们就不区分角色和职阶两种类型的信息了，而是统合成一张表。此外敌人也不消耗MP。因此，敌人的数据有如下属性：
+- Enemy name (string array)
+- MHP (integer)
+- ATK (integer)
+- DEF (integer)
+- Luck (integer)
+- Abilities (string array)
+
+据此你应该知道怎么定义EnemyInfo类了，不过我们还是来看看吧：
+```
+USTRUCT( BlueprintType )
+struct FEnemyInfo : public FTableRowBase
+{
+    GENERATED_USTRUCT_BODY()
+
+    UPROPERTY( BlueprintReadWrite, EditAnywhere, Category = "EnemyInfo" )
+    FString EnemyName;
+    UPROPERTY( BlueprintReadOnly, EditAnywhere, Category = "EnemyInfo" )
+    int32 MHP;
+    UPROPERTY( BlueprintReadOnly, EditAnywhere, Category = "EnemyInfo" )
+    int32 ATK;
+    UPROPERTY( BlueprintReadOnly, EditAnywhere, Category = "EnemyInfo" )
+    int32 DEF;
+    UPROPERTY( BlueprintReadOnly, EditAnywhere, Category = "EnemyInfo" )
+    int32 Luck;
+    UPROPERTY( BlueprintReadOnly, EditAnywhere, Category = "EnemyInfo" )
+    TArray<FString> Abilities;
+};
+```
+
+编译后，新建EnemyInfo类的Data Table，加一条名为S1的记录，属性如下：
+- Enemy name: Goblin
+- MHP: 20
+- ATK: 5
+- DEF: 0
+- Luck: 0
+- Abilities: (leave empty for now)
+
+现在我们有了一个角色，这个角色的职阶，以及单一的敌人。接下来，我们将检测active party中有哪些角色以及他们目前的属性怎么样。
+
 ### 队友
+
+在我们检测队友前，我们需要有一种检测某角色当前状态（如有多少HP、装备如何）的方法。
+
+为此，我们要创建一个`GameCharacter`类。父类选择Object。头文件如下：
+```
+#include "Data/FCharacterInfo.h"
+#include "Data/FCharacterClassInfo.h"
+#include "GameCharacter.generated.h"
+UCLASS( BlueprintType )
+class RPG_API UGameCharacter : public UObject
+{
+    GENERATED_BODY()
+
+public:
+    FCharacterClassInfo* ClassInfo;
+    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = CharacterInfo )
+    FString CharacterName;
+    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = CharacterInfo )
+    int32 MHP;
+    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = CharacterInfo )
+    int32 MMP;
+    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = CharacterInfo )
+    int32 HP;
+    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = CharacterInfo )
+    int32 MP;
+    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = CharacterInfo )
+    int32 ATK;
+    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = CharacterInfo )
+    int32 DEF;
+    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = CharacterInfo )
+    int32 LUCK;
+
+    static UGameCharacter* CreateGameCharacter( FCharacterInfo* characterInfo, UObject* outer );
+
+    void BeginDestroy() override;
+};
+```
+现在我们可以随时检测角色的这些（成员）属性了，之后做战斗系统时会增加别的成员。
+
+cpp文件像这样：
+```
+UGameCharacter::UGameCharacter( const class FObjectInitializer& objectInitializer ) : Super( objectInitializer )
+{}
+
+UGameCharacter* UGameCharacter::CreateGameCharacter( FCharacterInfo* characterInfo, UObject* outer )
+{
+    UGameCharacter* character = NewObject<UGameCharacter>( outer );
+
+    // locate character classes asset
+    UDataTable* characterClasses = Cast<UDataTable>( StaticLoadObject( UDataTable::StaticClass(), NULL, TEXT( "DataTable'/Game/Data/CharacterClasses.CharacterClasses'" ) ) );
+
+    if( characterClasses == NULL )
+    {
+        UE_LOG( LogTemp, Error, TEXT( "Character classes datatable not found!" ) );
+    }
+    else
+    {
+        character->CharacterName = characterInfo->Character_Name;
+        FCharacterClassInfo* row = characterClasses->FindRow<FCharacterClassInfo>( *( characterInfo->Class_ID ), TEXT( "LookupCharacterClass" ) );
+        character->ClassInfo = row;
+
+        character->MHP = character->ClassInfo->StartMHP;
+        character->MMP = character->ClassInfo->StartMMP;
+        character->HP = character->MHP;
+        character->MP = character->MMP;
+
+        character->ATK = character->ClassInfo->StartATK;
+        character->DEF = character->ClassInfo->StartDEF;
+        character->LUCK = character->ClassInfo->StartLuck;
+    }
+    return character;
+}
+
+void UGameCharacter::BeginDestroy()
+{
+    Super::BeginDestroy();
+}
+```
+
+`CreateGameCharacter`是`UGameCharacter`类的工厂方法，它传入一个`FCharacterInfo`类型的指针（指向Data Table）和一个`Outer`对象（传递到`NewObject`函数），根据路径（这个路径可以通过右键Data Table选择Copy Reference来获取）找到角色职阶的Data Table，定位到某一行，拿到职阶数据，并初始化角色的属性和`CharacterName`字段。
+
+虽然这只是对角色的非常基础性的表示，但目前能应付了。接下来，我们将存一张角色表来表示当前的队伍。
+
 #### GameInstance类
 
+我们已经有了一个GameMode类，似乎这是一个追踪诸如队友和inventory信息的好地方，是吗？
+
+并不，因为GameMode在关卡切换期间不能持续存在！也就是说，除非你将某些信息存储到磁盘中，不然你会在加载一个新area时丢失数据。
+
+GameInstance类就是为了解决此类问题而产生的，它在整个游戏生命周期中持续存在，无视关卡的重载。我们将创建一个新的GameInstance类来保持对队伍成员和inventory的track（追踪、检测）。
+
+以GameInstance为父类新建一个类，取名RPGGameInstance。
+
+在头文件中，我们添加一个`UGameCharacter`类型指针的`TArray`，一个bool变量来记游戏是否已经初始化，和一个`Init`函数：
+```
+#include "GameCharacter.h"
+
+UCLASS()
+class RPG_API URPGGameInstance : public UGameInstance
+{
+    GENERATED_BODY()
+
+    URPGGameInstance( const class FObjectInitializer& ObjectInitializer );
+
+public:
+    TArray<UGameCharacter*> PartyMembers;
+
+protected:
+    bool isInitialized;
+
+public:
+    void Init();
+};
+```
+
+这个`Init`函数中，我们加入一个默认的队伍成员，然后设`isInitialized`为true：
+```
+void URPGGameInstance::Init()
+{
+    if( this->isInitialized ) return;
+    this->isInitialized = true;
+
+    // locate characters asset
+    UDataTable* characters = Cast<UDataTable>( StaticLoadObject( UDataTable::StaticClass(), NULL, TEXT( DataTable'/Game/Data/Characters.Characters'" ) ) );
+
+    if( characters == NULL )
+    {
+        UE_LOG( LogTemp, Error, TEXT( "Characters data table not found!" ) );
+        return;
+    }
+
+    // locate character
+    FCharacterInfo* row = characters->FindRow<FCharacterInfo>( TEXT( "S1" ), TEXT( "LookupCharacterClass" ) );
+    if( row == NULL )
+    {
+        UE_LOG( LogTemp, Error, TEXT( "Character ID 'S1' not found!" ) );
+        return;
+    }
+
+    // add character to party
+    this->PartyMembers.Add( UGameCharacter::CreateGameCharacter( row, this ) );
+}
+```
+
+打开Edit|Project Settings，切到Maps&Modes，在Game Instance的下拉列表中选择RPGGameInstance，这样就把这个类设置为GameInstance类了。最后，我们要重载`BeginPlay`函数来调用`Init`方法：
+```
+// RPGGameMode.h
+virtual void BeginPlay() override;
+
+// RPGGameMode.cpp
+void ARPGGameMode::BeginPlay()
+{
+    Cast<URPGGameInstance>( GetGameInstance() )->Init();
+}
+```
+
+现在我们有了一个活动的队伍成员的列表，是时候搭建战斗引擎的雏形了。
+
 ### 回合制战斗
-#### 表演actions
+
+就如第一章提到的，我们的战斗是回合制，先让所有角色选择动作，然后依次序执行动作。
+战斗被分为两个主要的阶段：决策阶段，和行动阶段。
+
+#### CombatEngine
+
+让我们创建一个`CombatEngine`类来处理战斗：
+```
+#include "RPG.h"
+#include "GameCharacter.h"
+
+enum class CombatPhase : uint8
+{
+    CPHASE_Decision,
+    CPHASE_Action,
+    CPHASE_Victory,
+    CPHASE_GameOver,
+};
+
+class RPG_API CombatEngine
+{
+public:
+    TArray<UGameCharacter*> combatantOrder;
+    TArray<UGameCharacter*> playerParty;
+    TArray<UGameCharacter*> enemyParty;
+    CombatPhase phase;
+
+protected:
+    UGameCharacter* currentTickTarget;
+    int tickTargetIndex;
+
+public:
+    CombatEngine( TArray<UGameCharacter*> playerParty, TArray<UGameCharacter*> enemyParty );
+    ~CombatEngine();
+    bool Tick( float DeltaSeconds );
+
+protected:
+    void SetPhase( CombatPhase phase );
+    void SelectNextCharacter();
+};
+```
+
+我们的战斗引擎在触发战斗时被分配内存，在战斗结束是被删除。
+一个`CombatEngine`实例持有3个`TArray`：一个战斗次序表（包含所有参与战斗者的列表，决定了他们被轮到的顺序），一个玩家表，一个敌人表。
+`CombatEngine`类定义了一个`Tick`方法。在战斗中game mode每一帧都会调用这个方法，如果战斗结束，那么它的返回值是true（否则是false）。它需要一个参数——上一帧所用的秒数。
+
+这个类的CPP文件很大，我们把它分成小块。首先，构造函数和析构函数如下：
+```
+CombatEngine::CombatEngine( TArray<UGameCharacter*> playerParty, TArray<UGameCharacter*> enemyParty )
+{
+    this->playerParty = playerParty;
+    this->enemyParty = enemyParty;
+
+    // first add all players to combat order
+    for( int i = 0; i < playerParty.Num(); i++ )
+    {
+        this->combatantOrder.Add( playerParty[i] );
+    }
+
+    // next add all enemies to combat order
+    for( int i = 0; i < enemyParty.Num(); i++ )
+    {
+        this->combatantOrder.Add( enemyParty[i] );
+    }
+
+    this->tickTargetIndex = 0;
+    this->SetPhase( CombatPhase::CPHASE_Decision );
+}
+
+CombatEngine::~CombatEngine()
+{}
+```
+
+接下来是`Tick`方法：
+```
+bool CombatEngine::Tick( float DeltaSeconds )
+{
+    switch( phase )
+    {
+    case CombatPhase::CPHASE_Decision:
+        // todo: ask current character to make decision
+        // todo: if decision made
+        SelectNextCharacter();
+        // no next character, switch to action phase
+        if( this->tickTargetIndex == -1 )
+        {
+            this->SetPhase( CombatPhase::CPHASE_Action );
+        }
+        break;
+    case CombatPhase::CPHASE_Action:
+        // todo: ask current character to execute decision
+        // todo: when action executed
+        SelectNextCharacter();
+        // no next character, loop back to decision phase
+        if( this->tickTargetIndex == -1 )
+        {
+            this->SetPhase( CombatPhase::CPHASE_Decision );
+        }
+        break;
+    // in case of victory or combat, return true (combat is finished)
+    case CombatPhase::CPHASE_GameOver:
+    case CombatPhase::CPHASE_Victory:
+        return true;
+        break;
+    }
+
+    // check for game over
+    int deadCount = 0;
+    for( int i = 0; i < this->playerParty.Num(); i++ )
+    {
+        if( this->playerParty[ i ]->HP <= 0 ) deadCount++;
+    }
+    // all players have died, switch to game over phase
+    if( deadCount == this->playerParty.Num() )
+    {
+        this->SetPhase( CombatPhase::CPHASE_GameOver );
+        return false;
+    }
+
+    // check for victory
+    deadCount = 0;
+    for( int i = 0; i < this->enemyParty.Num(); i++ )
+    {
+        if( this->enemyParty[ i ]->HP <= 0 ) deadCount++;
+    }
+    // all enemies have died, switch to victory phase
+    if( deadCount == this->enemyParty.Num() )
+    {
+        this->SetPhase( CombatPhase::CPHASE_Victory );
+        return false;
+    }
+
+    // if execution reaches here, combat has not finished - return false
+    return false;
+}
+
+void CombatEngine::SelectNextCharacter()
+{
+    for( int i = this->tickTargetIndex; i < this->combatantOrder.Num(); i++ )
+    {
+        GameCharacter* character = this->combatantOrder[ i ];
+        if( character->HP > 0 )
+        {
+            this->tickTargetIndex = i + 1;
+            this->currentTickTarget = character;
+            return;
+        }
+    }
+    this->tickTargetIndex = -1;
+    this->currentTickTarget = nullptr;
+}
+```
+
+设置阶段的函数：
+```
+void CombatEngine::SetPhase( CombatPhase phase )
+{
+    this->phase = phase;
+    switch( phase )
+    {
+    case CombatPhase::CPHASE_Action:
+    case CombatPhase::CPHASE_Decision:
+        // set the active target to the first character in the combat order
+        this->tickTargetIndex = 0;
+        this->SelectNextCharacter();
+        break;
+    case CombatPhase::CPHASE_Victory:
+        // todo: handle victory
+        break;
+    case CombatPhase::CPHASE_GameOver:
+        // todo: handle game over
+        break;
+    }
+}
+```
+在行动或决策阶段，它把战斗次序表中的第一个存活的角色设置为tick target。
+
+#### 与GameCharacter联动
+
+至此，还有一个严重的问题：角色无法做决策或执行决策的动作。让我们把这些加到`GameCharacter`类里，不过现在只是伪处理。
+我们先加一个`testDelayTimer`字段，它仅仅是为了测试：
+```
+protected:
+    float testDelayTimer;
+```
+
+然后我们在类中加几个方法：
+```
+public:
+    void BeginMakeDecision();
+    bool MakeDecision( float DeltaSeconds );
+    void BeginExecuteAction();
+    bool ExecuteAction( float DeltaSeconds );
+```
+
+Beginxxx方法会通知角色，要开始做决策或者执行动作了，这2个方法目前的实现只是输出log消息并延迟1秒；决策或行动方法会一直询问角色，直到决策完成或动作执行结束。
+```
+void UGameCharacter::BeginMakeDecision()
+{
+    UE_LOG( LogTemp, Log, TEXT( "Character %s making decision" ), *this->CharacterName );
+    this->testDelayTimer = 1;
+}
+
+bool UGameCharacter::MakeDecision( float DeltaSeconds )
+{
+    this->testDelayTimer -= DeltaSeconds;
+    return this->testDelayTimer <= 0;
+}
+
+void UGameCharacter::BeginExecuteAction()
+{
+    UE_LOG( LogTemp, Log, TEXT( "Character %s executing action" ), *this->CharacterName );
+    this->testDelayTimer = 1;
+}
+
+bool UGameCharacter::ExecuteAction( float DeltaSeconds )
+{
+    this->testDelayTimer -= DeltaSeconds;
+    return this->testDelayTimer <= 0;
+}
+```
+
+我们也要加一个指向战斗实例的指针。因为战斗引擎引用了角色，如果让角色引用战斗引擎就会造成循环依赖。为此，我们要在GameCharacter.h顶部加一个前向声明`class CombatEngine;`，并把include语句放到GameCharacter.cpp文件中。
+
+接下来，我们要让战斗引擎调用决策和行动方法。首先我们添加一个标记`bool waitingForCharacter`到`CombatEngine`类。这个标记使得我们在Beginxxx和xxx之间转换。
+
+我们修改`Tick`方法中的决策和行动。首先是决策的switch case：
+```
+{
+    if( !this->waitingForCharacter )
+    {
+        this->currentTickTarget->BeginMakeDecision();
+        this->waitingForCharacter = true;
+    }
+    bool decisionMade = this->currentTickTarget->MakeDecision( DeltaSeconds);
+    if( decisionMade )
+    {
+        SelectNextCharacter();
+        // no next character, switch to action phase
+        if( this->tickTargetIndex == -1 )
+        {
+            this->SetPhase( CombatPhase::CPHASE_Action );
+        }
+    }
+}
+break;
+```
+> 注意这里case语句如果不带最外面那层括号，就会产生编译错误，因为`decisionMade`的初始化会被跳过。
+
+行动阶段的case几乎一样：
+```
+{
+    if( !this->waitingForCharacter )
+    {
+        this->currentTickTarget->BeginExecuteAction();
+        this->waitingForCharacter = true;
+    }
+    bool actionFinished = this->currentTickTarget->ExecuteAction( DeltaSeconds );
+    if( actionFinished )
+    {
+        SelectNextCharacter();
+        // no next character, switch to action phase
+        if( this->tickTargetIndex == -1 )
+        {
+            this->SetPhase( CombatPhase::CPHASE_Decision );
+        }
+    }
+}
+break;
+```
+
+我们修改一下`SelectNextCharacter`，把`waitingForCharacter`设置成false：
+```
+void CombatEngine::SelectNextCharacter()
+{
+    this->waitingForCharacter = false;
+    // ...
+}
+```
+
+在构造函数中，我们的战斗引擎须要设置所有角色的`CombatInstance`指针，使它们指向战斗引擎自身。在析构函数中将清空这些指针，并释放敌人的指针：
+```
+CombatEngine::CombatEngine( TArray<UGameCharacter*> playerParty, TArray<UGameCharacter*> enemyParty )
+{
+    // ...
+    for( int i = 0; i < this->combatantOrder.Num(); i++ )
+    {
+        this->combatantOrder[i]->combatInstance = this;
+    }
+    this->tickTargetIndex = 0;
+    this->SetPhase( CombatPhase::CPHASE_Decision );
+}
+
+CombatEngine::~CombatEngine()
+{
+    // free enemies
+    for( int i = 0; i < this->enemyParty.Num(); i++ )
+    {
+        this->enemyParty[i] = nullptr;
+    }
+
+    for( int i = 0; i < this->combatantOrder.Num(); i++ )
+    {
+        this->combatantOrder[i]->combatInstance = nullptr;
+    }
+}
+```
+
+#### 与GameMode联动
+
+我们还需要有触发战斗和通过game mode更新战斗引擎的方法。
+所以，首先在game mode类中，添加一个指向当前战斗实例的指针；重载`Tick`方法；维护一个敌人角色列表（用`UPROPERTY`装饰，这样才能被垃圾回收）：
+```
+#include "Combat/CombatEngine.h"
+
+UCLASS()
+class RPG_API ARPGGameMode : public AGameMode
+{
+    GENERATED_BODY()
+
+    ARPGGameMode( const class FObjectInitializer& ObjectInitializer );
+    virtual void Tick( float DeltaTime ) override;
+
+public:
+    CombatEngine* currentCombatInstance;
+    TArray<UGameCharacter*> enemyParty;
+};
+```
+
+然后在.cpp文件中，实现`Tick`方法：
+```
+void ARPGGameMode::Tick( float DeltaTime )
+{
+    if( this->currentCombatInstance != nullptr )
+    {
+        bool combatOver = this->currentCombatInstance->Tick( DeltaTime );
+        if( combatOver )
+        {
+            if( this->currentCombatInstance->phase == CombatPhase::CPHASE_GameOver )
+            {
+                UE_LOG( LogTemp, Log, TEXT( "Player loses combat, game over" ) );
+            }
+            else if( this->currentCombatInstance->phase == CombatPhase::CPHASE_Victory )
+            {
+                UE_LOG( LogTemp, Log, TEXT( "Player wins combat" ) );
+            }
+
+            // enable player actor
+            UGameplayStatics::GetPlayerController( GetWorld(), 0 )->SetActorTickEnabled( true );
+            delete( this->currentCombatInstance );
+            this->currentCombatInstance = nullptr;
+            this->enemyParty.Empty();
+        }
+    }
+}
+```
+
+然而我们现在还是没有开启战斗触发器。没有和玩家战斗的敌人。
+
+我们定义了一张敌人的表格，但是我们的GameCharacter类不支持根据EnemyInfo来初始化。
+为此，我们要为GameCharacter类添加一个新的工方法（当然要先include EnemyInfo类）：
+```
+static UGameCharacter* CreateGameCharacter( FEnemyInfo* enemyInfo, UObject* outer );
+
+// implementation in .cpp file
+UGameCharacter* UGameCharacter::CreateGameCharacter( FEnemyInfo* enemyInfo, UObject* outer )
+{
+    UGameCharacter* character = NewObject<UGameCharacter>( outer );
+
+    character->CharacterName = enemyInfo->EnemyName;
+    character->ClassInfo = nullptr; //敌人没有职阶
+
+    character->MHP = enemyInfo->MHP;
+    character->MMP = 0;
+    character->HP = enemyInfo->MHP;
+    character->MP = 0;
+
+    character->ATK = enemyInfo->ATK;
+    character->DEF = enemyInfo->DEF;
+    character->LUCK = enemyInfo->Luck;
+
+    return character;
+}
+```
+
+为了测试我们的战斗系统，我们要在RPGGameMode.h中添加一个由Unreal控制台调用的函数：
+```
+UFUNCTION(exec) //使函数可以被控制台命令调用
+void TestCombat();
+```
+
+这个方法在RPGGameMode.cpp中的实现如下：
+```
+void ARPGGameMode::TestCombat()
+{
+    // locate enemies asset
+    UDataTable* enemyTable = Cast<UDataTable>( StaticLoadObject( UDataTable::StaticClass(), NULL, TEXT("DataTable'/Game/Data/Enemies.Enemies'" ) ) );
+    if( enemyTable == NULL )
+    {
+        UE_LOG( LogTemp, Error, TEXT( "Enemies data table not found!" ) );
+        return;
+    }
+
+    // locate enemy
+    FEnemyInfo* row = enemyTable->FindRow<FEnemyInfo>( TEXT( "S1" ), TEXT( "LookupEnemyInfo" ) );
+    if( row == NULL )
+    {
+        UE_LOG( LogTemp, Error, TEXT( "Enemy ID 'S1' not found!" ) );
+        return;
+    }
+
+    // disable player actor
+    UGameplayStatics::GetPlayerController( GetWorld(), 0 )->SetActorTickEnabled( false );
+
+    // add character to enemy party
+    UGameCharacter* enemy = UGameCharacter::CreateGameCharacter( row, this );
+    this->enemyParty.Add( enemy );
+
+    URPGGameInstance* gameInstance = Cast<URPGGameInstance>( GetGameInstance() );
+    this->currentCombatInstance = new CombatEngine( gameInstance->PartyMembers, this->enemyParty );
+    UE_LOG( LogTemp, Log, TEXT( "Combat started" ) );
+}
+```
+
+#### 用控制台命令来测试战斗
+
+最后，可以开始测试战斗引擎了。开始游戏，按下波浪符（~）键打开控制台命令输入框。输入TestCombat并按下回车。
+
+在输出窗口你应该能看见如下的东西：
+```
+LogTemp: Combat started
+LogTemp: Character Kumo making decision
+LogTemp: Character Goblin making decision
+LogTemp: Character Kumo executing action
+LogTemp: Character Goblin executing action
+LogTemp: Character Kumo making decision
+LogTemp: Character Goblin making decision
+LogTemp: Character Kumo executing action
+LogTemp: Character Goblin executing action
+LogTemp: Character Kumo making decision
+LogTemp: Character Goblin making decision
+LogTemp: Character Kumo executing action
+LogTemp: Character Goblin executing action
+LogTemp: Character Kumo making decision
+```
+
+这说明战斗引擎如预期的那样运行了。因为实际上什么也没做，现在战斗会永远循环下去。
+
+目前还有两个课题待解决：一个如上所述——实际上没做什么事；另一个是玩家角色和敌对角色的决策方式需要区分（玩家角色需要UI来选择行为，而敌人是自动选行为的）。
+
+我们先解决第一个课题。
+
+#### 执行actions
+
+为了让角色可以执行动作，我们要将所有战斗动作抽象为单个公用的接口。首先这个接口要能匹配我们已使用的角色的`BeginExecuteAction`和`ExecuteAxtion`方法。
+
+我们新建一个`ICombatAction`接口：
+```
+#pragma once
+
+#include "GameCharacter.h"
+
+class UGameCharacter;
+
+class ICombatAction
+{
+public:
+    virtual void BeginExecuteAction( UGameCharacter* character ) = 0;
+    virtual bool ExecuteAction( float DeltaSeconds ) = 0;
+};
+```
+
+.cpp文件如下：
+```
+#include "RPG.h"
+#include "TestCombatAction.h"
+
+void TestCombatAction::BeginExecuteAction( UGameCharacter* character )
+{
+    UE_LOG( LogTemp, Log, TEXT( "%s does nothing" ), *character->CharacterName );
+    this->delayTimer = 1.0f;
+}
+
+bool TestCombatAction::ExecuteAction( float DeltaSeconds )
+{
+    this->delayTimer -= DeltaSeconds;
+    return this->delayTimer <= 0.0f;
+}
+```
+
+然后我们要修改角色，令其能存储和执行动作。
+
+先把测试时加的延迟计时器字段替换为一个战斗动作指针。让它成为public的，对决策系统开放：
+```
+public:
+    ICombatAction* combatAction;
+```
+
+然后，我们需要在决策函数中对战斗动作赋值，在行为函数中执行这个动作：
+```
+void UGameCharacter::BeginMakeDecision()
+{
+    UE_LOG( LogTemp, Log, TEXT( "Character %s making decision" ), *( this->CharacterName ) );
+    this->combatAction = new TestCombatAction();
+}
+
+bool UGameCharacter::MakeDecision( float DeltaSeconds )
+{
+    return true;
+}
+
+void UGameCharacter::BeginExecuteAction()
+{
+    this->combatAction->BeginExecuteAction( this );
+}
+
+bool UGameCharacter::ExecuteAction( float DeltaSeconds )
+{
+    bool finishedAction = this->combatAction->ExecuteAction( DeltaSeconds );
+    if( finishedAction )
+    {
+        delete( this->combatAction );
+        return true;
+    }
+    return false;
+}
+```
+
+现在我们已经能存储和执行动作了，下一步是为角色构建决策系统。
+
 #### 做决策
 #### 目标选择
 #### 计算伤害
