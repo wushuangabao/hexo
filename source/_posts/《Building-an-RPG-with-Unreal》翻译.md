@@ -1344,6 +1344,21 @@ public:
 };
 ```
 
+然后，可以新建一个动作来实现这个接口。作为测试，我们在`TestCombatAction`中让角色什么也不做。头文件如下：
+```
+#pragma once
+#include "ICombatAction.h"
+
+class TestCombatAction : public ICombatAction
+{
+protected:
+    float delayTimer;
+public:
+    virtual void BeginExecuteAction( UGameCharacter* character ) override;
+    virtual bool ExecuteAction( float DeltaSeconds ) override;
+};
+```
+
 .cpp文件如下：
 ```
 #include "RPG.h"
@@ -1370,7 +1385,7 @@ public:
     ICombatAction* combatAction;
 ```
 
-然后，我们需要在决策函数中对战斗动作赋值，在行为函数中执行这个动作：
+然后，我们需要在决策函数中对战斗动作赋值、在行为函数中执行这个动作：
 ```
 void UGameCharacter::BeginMakeDecision()
 {
@@ -1403,10 +1418,385 @@ bool UGameCharacter::ExecuteAction( float DeltaSeconds )
 现在我们已经能存储和执行动作了，下一步是为角色构建决策系统。
 
 #### 做决策
+
+就如动作一样，我们将为决策创建一个接口，`IDecisionMaker`：
+```
+#pragma once
+#include "GameCharacter.h"
+
+class UGameCharacter;
+
+class IDecisionMaker
+{
+public:
+    virtual void BeginMakeDecision( UGameCharacter* character ) = 0;
+    virtual bool MakeDecision( float DeltaSeconds ) = 0;
+};
+```
+
+然后创建`TestDecisionMaker`来实现这个接口：
+```
+// TestDecisionMaker.h
+#pragma once
+#include "IDecisionMaker.h"
+
+class RPG_API TestDecisionMaker : public IDecisionMaker
+{
+public:
+    virtual void BeginMakeDecision( UGameCharacter* character ) override;
+    virtual bool MakeDecision( float DeltaSeconds ) override;
+};
+
+// TestDecisionMaker.cpp
+#include "RPG.h"
+#include "TestDecisionMaker.h"
+#include "../Actions/TestCombatAction.h"
+
+void TestDecisionMaker::BeginMakeDecision( UGameCharacter* character )
+{
+    character->combatAction = new TestCombatAction();
+}
+
+bool TestDecisionMaker::MakeDecision( float DeltaSeconds )
+{
+    return true;
+}
+```
+
+接下来，在游戏角色类中添加一个`IDecisionMaker`指针，并用它来修改BeginMakeDecision/MakeDecision函数：
+```
+// GameCharacter.h
+public:
+    IDecisionMaker* decisionMaker;
+
+// GameCharacter.cpp
+void UGameCharacter::BeginDestroy()
+{
+    Super::BeginDestroy();
+    delete( this->decisionMaker );
+}
+
+void UGameCharacter::BeginMakeDecision()
+{
+    this->decisionMaker->BeginMakeDecision( this );
+}
+
+bool UGameCharacter::MakeDecision( float DeltaSeconds )
+{
+    return this->decisionMaker->MakeDecision( DeltaSeconds );
+}
+
+// 在重载的几个构造函数中，都添加下面这行代码：
+this->decisionMaker = new TestDecisionMaker();
+```
+
+现在，可以为不同的角色赋予不一样的决策产生器了，并且很容易把要执行的战斗动作赋给这些决策产生器。然而，我们还要先对GameCharacter类做一个小修改。
+
 #### 目标选择
+
+我们要在GameCharacter类加一个字段`bool isPlayer;`来区分角色是玩家还是敌人。另外，我们还要加一个`UGameCharacter* SelectTarget();`方法，根据是玩家还是敌人，来选择当前战斗实例中的第一个存活角色。
+GameCharacter.cpp 中，两个构造函数中对`isPlayer`字段进行不同的赋值：
+```
+UGameCharacter* CreateGameCharacter( FCharacterInfo* characterInfo, UObject* outer )
+{
+    //...
+    character->isPlayer = true;
+    return character;
+}
+UGameCharacter* CreateGameCharacter( FEnemyInfo* enemyInfo, UObject* outer)
+{
+    // ...
+    character->isPlayer = false;
+    return character;
+}
+```
+
+从敌对阵营自动选择目标的`selectTarget`方法如下：
+```
+UGameCharacter* UGameCharacter::SelectTarget()
+{
+    UGameCharacter* target = nullptr;
+    TArray<UGameCharacter*> targetList = this->combatInstance->enemyParty;
+    if( !this->isPlayer )
+    {
+        targetList = this->combatInstance->playerParty;
+    }
+    for( int i = 0; i < targetList.Num(); i++ )
+    {
+        if( targetList[ i ]->HP > 0 )
+        {
+            target = targetList[i];
+            break;
+        }
+    }
+    if( target->HP <= 0 )
+    {
+        return nullptr;
+    }
+    return target;
+}
+```
+
 #### 计算伤害
+
+我们来让`TestCombatAction`类能造成伤害。添加角色引用和目标引用字段，以及一个带目标参数的构造函数：
+```
+protected:
+    UGameCharacter* character;
+    UGameCharacter* target;
+public:
+    TestCombatAction( UGameCharacter* target );
+```
+
+修改实现部分：
+```
+TestCombatAction::TestCombatAction( UGameCharacter* target )
+{
+    this->target = target;
+}
+
+void TestCombatAction::BeginExecuteAction( UGameCharacter* character )
+{
+    this->character = character;
+
+    // target is dead, select another target
+    if( this->target->HP <= 0 )
+    {
+        this->target = this->character->SelectTarget();
+    }
+
+    // no target, just return
+    if( this->target == nullptr )
+    {
+        return;
+    }
+    UE_LOG( LogTemp, Log, TEXT( "%s attacks %s" ), *character->CharacterName, *target->CharacterName );
+
+    target->HP -= 10;
+    this->delayTimer = 1.0f;
+}
+```
+
+下一步，修改`TestDecisionMaker`，选择一个目标并传递给`TestCombatAction`的构造函数：
+```
+void TestDecisionMaker::BeginMakeDecision( UGameCharacter* character )
+{
+    // pick a target
+    UGameCharacter* target = character->SelectTarget();
+    character->combatAction = new TestCombatAction( target );
+}
+```
+
+至此，你应该能在测试时得到像下面这样的输出了：
+```
+LogTemp: Combat started
+LogTemp: Kumo attacks Goblin
+LogTemp: Goblin attacks Kumo
+LogTemp: Kumo attacks Goblin
+LogTemp: Player wins combat
+```
+
+接下来，我们将开始关联用户界面。
+
 #### 使用UMG的战斗UI
+
+在开始之前，我们要设置项目来正确地导入UMG和Slate相关类。
+
+首先，打开RPG.Build.cs（或者[项目名].Build.cs），将构造函数的第一行改为下面的代码：
+```
+PublicDependencyModuleNames.AddRange( new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", "Slate", "SlateCore" } );
+```
+
+然后在RPG.h中加入如下几行代码：
+```
+#include "Runtime/UMG/Public/UMG.h"
+#include "Runtime/UMG/Public/UMGStyle.h"
+#include "Runtime/UMG/Public/Slate/SObjectWidget.h"
+#include "Runtime/UMG/Public/IUMGModule.h"
+#include "Runtime/UMG/Public/Blueprint/UserWidget.h"
+```
+
+现在花一些时间编译项目。
+
+##### CombatUIWidget类和CombatUI蓝图
+
+接着我们将创建一个战斗UI的基类。我们将通过这个基类来建立C++代码和蓝图UMG代码之间的通信，方法是在头文件中定义**蓝图实现函数**（BluePrint-implementable functions），这种函数由C++调用、由蓝图实现。
+
+新建一个`CombatUIWidget`类，选择UserWidget作为父类：
+```
+#include "GameCharacter.h"
+#include "Blueprint/UserWidget.h"
+#include "CombatUIWidget.generated.h"
+
+UCLASS()
+class RPG_API UCombatUIWidget : public UUserWidget
+{
+    GENERATED_BODY()
+
+public:
+    UFUNCTION( BlueprintImplementableEvent, Category = "Combat UI" )
+    void AddPlayerCharacterPanel( UGameCharacter* target );
+
+    UFUNCTION( BlueprintImplementableEvent, Category = "Combat UI" )
+    void AddEnemyCharacterPanel( UGameCharacter* target );
+};
+```
+
+编译这些代码之后，回到编辑器中，新建一个Widget蓝图，名为CombatUI。打开这个蓝图，在File|ReparentBlueprint这里选择`CombatUIWidget`作为父类。
+
+在Designer界面，创建两个Horizontal Box并命名为enemyPartyStatus和playerPartyStatus。它们将分别持有敌人和玩家的角色，并显示每个角色的状态。别忘了勾选Is Variable选项框，这关系到他们能不能作为蓝图的变量来使用。保存并编译蓝图。
+
+我们要创建显示玩家和敌人角色状态的窗口，两者有着共同的父窗口。
+
+##### 在CombatUI中创建角色状态面板
+
+新建一个Widget蓝图，名为PlayerCharacterCombatPanel，设置它的父类为BaseCharacterCombatPanel。
+
+在Designer界面，添加三个Text Block窗口。一个显示角色名，另一个显示HP，第三个显示MP。在细节面板的Text右边点击Bind，为每个Text Block创建一个新的binding。这会创建新的蓝图函数，负责生成Text Block。
+以HP Text Block为例，可以执行以下步骤：
+1. 把Character Target变量拖到图中，选择Get。
+2. 拖出输出引脚，选择Variables|Character下的Get HP。
+3. 新建一个Format Text节点，设置文本为HP：{HP}，然后连接Get HP的输出到Format Text节点的输入节点。
+4. 把Format Text节点的输出连到Return节点的Return值上。
+
+你可以用相似的步骤设置角色名和HP的binding。
+
+EnemyCharacterCombatPanel的创建与PlayerCharacterCombatPanel类似，只不过没有MP Text Block（之前提过，敌人不消耗MP）。
+
+现在我们有了玩家和敌人的窗口，可以来实现CombatUI蓝图中的`AddPlayerCharacterPanel`和`AddEnemyCharacterPanel`函数了。
+
+首先，创建一个辅助的蓝图函数`SpawnCharacterWidget`，用来生成角色状态窗。这个函数接收下列参数：
+- TargetCharacter，类型为Game Character的引用
+- TargetPanel，类型为Panel窗口的引用
+- Class，类型为BaseCharacterCombatPanel类
+
+这个函数会执行下列步骤：
+1. 根据给定类，构建新的窗口。
+2. 把这个窗口转换为BaseCharacterCombatPanel类型。
+3. 把这个窗口的Character Target设置为输入的TargetCharacter。
+4. 把这个窗口添加到输入的TargetPanel的子窗口。
+
+对应的蓝图如下：
+![SpawnCharacterCombatPanel](http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrEI.gTSqU16RAXGeXc5lm1ueCmuLQco7iTdI0kznrrYPWxal0bjgwrRMXuTjuaZaw8xl4z.jVAKq*1ePWMCqfuTs!/b&bo=swInAQAAAAADJ5U!&rf=viewer_4)
+
+然后在CombatUI的事件图表中，右键添加`EventAddPlayerCharacterPanel`和`EventAddEnemyCharacterPanel`事件，每个事件都连一个`SpawnCharacterWidget`函数，并设置输入如下图：
+![CombatUI的事件图表](http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrEExTsxfvIWXnIb3F0y1rd4zTIWXePbfDLk0G8s4nhozaQI73nHM*bOaB0XGKPosYt1HDhOYP8vaRpjzDLQQT4RE!/b&bo=*QGtAQAAAAADJ1I!&rf=viewer_4)
+
+##### 战斗UI生成和销毁
+
+战斗开始时，我们可以从game mode生成UI，当战斗结束时销毁。在`RPGGameMode`头文件中，添加指向`UCombatUIWidget`的指针，以及一个能生成战斗UI的类（以便我们能选择一个继承自`CombatUIWidget`的Widget BluePrint）：
+```
+UPROPERTY()
+UCombatUIWidget* CombatUIInstance;
+
+UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = "UI" )
+TSubclassOf<class UCombatUIWidget> CombatUIClass;
+```
+
+在我们的`TestCombat`函数中，我们可以生成这个窗口的新实例：
+```
+this->CombatUIInstance = CreateWidget<UCombatUIWidget>( GetGameInstance(), this->CombatUIClass );
+this->CombatUIInstance->AddToViewport();
+
+for( int i = 0; i < gameInstance->PartyMembers.Num(); i++ )
+this->CombatUIInstance->AddPlayerCharacterPanel( gameInstance->PartyMembers[i] );
+
+for( int i = 0; i < this->enemyParty.Num(); i++ )
+this->CombatUIInstance->AddEnemyCharacterPanel( this->enemyParty[i] );
+```
+
+战斗结束后，我们从viewport删除窗口并设置它的引用为null，使其可以被垃圾回收：
+```
+this->CombatUIInstance->RemoveFromViewport();
+this->CombatUIInstance = nullptr;
+```
+
+接下来，我们要让玩家角色通过UI来决策，而不是自动决策。
+
 #### 以UI驱动做决策
+
+我们可以让`CombatUIWidget`类来实现决策机制，并且仅在战斗开始时对其赋值（并在战斗结束时清空指针）。
+
+我们将对`GameCharacter`类做一些改动。首先在玩家对`CreateGameCharacter`的重载中删除下面这行代码：
+```
+character->decisionMaker = new TestDecisionMaker();
+```
+
+然后，在`BeginDestroy`函数中，用if包住delete语句：
+```
+if( !this.isPlayer )
+    delete( this->decisionMaker );
+```
+
+这样做的原因是我们不能手动删除UI（这样会使Unreal崩溃）。现在，只要没有UPROPERTY指向它，它就会自动被垃圾回收。
+
+接着，在CombatUIWidget.h中我们会实现`IDecisionMaker`接口：
+```
+class RPG_API UCombatUIWidget: public UUserWidget, public IDecisionMaker
+{
+// ...
+public:
+    void BeginMakeDecision( UGameCharacter* target );
+    bool MakeDecision( float DeltaSeconds );
+}
+```
+
+我们加一些可以被UI蓝图图表调用的辅助函数：
+```
+public:
+    UFUNCTION( BlueprintCallable, Category = "Combat UI" )
+    TArray<UGameCharacter*> GetCharacterTargets(); //获取当前角色的可能的目标
+
+    UFUNCTION( BlueprintCallable, Category = "Combat UI" )
+    void AttackTarget( UGameCharacter* target ); //将给定目标的新TestCombatAction加到当前角色上
+```
+
+此外，我们还要添加一个蓝图实现函数，用来显示当前角色的一系列action：
+```
+UFUNCTION( BlueprintImplementableEvent, Category = "Combat UI" )
+void ShowActionsPanel( UGameCharacter* target );
+```
+
+再添加一个如下的标记：
+```
+protected:
+    bool finishedDecision; //是否已完成决策
+```
+
+直接给出四个函数的实现：
+```
+void UCombatUIWidget::BeginMakeDecision( UGameCharacter* target )
+{
+    this->currentTarget = target;
+    this->finishedDecision = false;
+    ShowActionsPanel( target );
+}
+
+bool UCombatUIWidget::MakeDecision( float DeltaSeconds )
+{
+    return this->finishedDecision;
+}
+
+void UCombatUIWidget::AttackTarget( UGameCharacter* target )
+{
+    TestCombatAction* action = new TestCombatAction( target );
+    this->currentTarget->combatAction = action;
+    this->finishedDecision = true;
+}
+
+TArray<UGameCharacter*> UCombatUIWidget::GetCharacterTargets()
+{
+    if( this->currentTarget->isPlayer )
+    {
+        return this->currentTarget->combatInstance->enemyParty;
+    }
+    else
+    {
+        return this->currentTarget->combatInstance->playerParty;
+    }
+}
+```
+
 #### 创建游戏失败的画面
 
 ### 小结
