@@ -1769,7 +1769,7 @@ void UCombatUIWidget::BeginMakeDecision( UGameCharacter* target )
 {
     this->currentTarget = target;
     this->finishedDecision = false;
-    ShowActionsPanel( target );
+    ShowActionsPanel( target ); //这个在UI蓝图图表中处理
 }
 
 bool UCombatUIWidget::MakeDecision( float DeltaSeconds )
@@ -1796,6 +1796,69 @@ TArray<UGameCharacter*> UCombatUIWidget::GetCharacterTargets()
     }
 }
 ```
+
+既然现在UI已经实现了`IDecisionMaker`接口，我们现在可以把它作为玩家角色的决策生成器了。首先，在RPGGameMode.cpp的`TestCombat`函数中，我们更改遍历角色的循环，让它把UI赋值给决策生成器：
+```
+for( int i = 0; i < gameInstance->PartyMembers.Num(); i++ )
+{
+    this->CombatUIInstance->AddPlayerCharacterPanel( gameInstance->PartyMembers[i] );
+    gameInstance->PartyMembers[i]->decisionMaker = this->CombatUIInstance;
+}
+```
+
+当战斗结束时，把决策生成器设为null：
+```
+for( int i = 0; i < this->currentCombatInstance->playerParty.Num(); i++ )
+{
+    this->currentCombatInstance->playerParty[i]->decisionMaker = nullptr;
+}
+```
+
+现在的UI还什么都没做。我们要在蓝图中添加功能。
+
+首先，我们要为攻击目标选项创建一个widget，名为AttackTargetOption，放入一个button和一个text block。在蓝图中添加两个新变量，Combat UI Reference类型的targetUI，和Game Character Reference类型的target。这里的按钮会调用targetUI的Attack Target方法，并把target变量传入该方法（target也用来和text block绑定）。
+
+按钮点击事件的图表很简单，仅仅连了Attack Target方法的执行，并把targetUI和target连到方法的输入引脚上，如图。
+
+![button-clicked event](http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrELfmi.LVHuxnn1OdPpYxcQT5p4czQTGUQfr0NYhcWf6hq0VDRUd8Lp308a48CMZihmEUehiQ669VR2MY8zv*Hhw!/b&bo=vAHeAAAAAAADF1E!&rf=viewer_4)
+
+然后我们为combat主UI加一个角色动作面板。这是一个Canvas Panel，带有一个Attack子按钮和一个目标列表Vertical Box：
+
+![Canvas Panel](http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrEAIQ6y5VNeni4Du5mtu8oU02Lt.HGIEQJpUx8*qmq0HprUFrgvhrQZzJTzZC98sTbrceyBPZrMmXGdzYh8xLzeo!/b&bo=6wHoAAAAAAADFzA!&rf=viewer_4)
+
+把它们的Is Variable设为开启，使它们可以在蓝图中可编辑。
+
+在蓝图图表中，我们要实现Show Actions Panel事件。它先把actions面板设置为可见，再把target list设置为隐藏，如图：
+
+![show actions panel event](http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrEAkJeB0tQyp00T2oMnUG*DwbQwcc0enH35ka8GcvGkork37h11At9oMxRpcmAdnfgVWwr7nOHoKNr0hiH*EOh80!/b&bo=uALxAAAAAAADF3k!&rf=viewer_4)
+
+处理攻击按钮点击的蓝图图表很大，所以我们分小块来看：
+
+![click attack button 1](http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrEBrf49VbpZU3r3hYra2BQiNpIYwQ88U*gFhrzC0zaDGaYJbBCtn5G1ST2SYFF3Snuc*xyKGeT5UU5U51sh5F024!/b&bo=pwE.AQAAAAADF6s!&rf=viewer_4)
+
+![click attack button 2](http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrEHSYxS293fxYWnjWrzYnaGoPPXYDt8P1k5gFpwkH0tal*vmWTe4NWCNttO5aR6Ots6JjEFpNsPIT6Euj5T12ezQ!/b&bo=uAI.AQAAAAADJ4c!&rf=viewer_4)
+
+对所有HP大于0的目标，创建AttackTargetOption窗口的新实例，并添加到攻击目标列表的vertical box中。
+
+![click attack button 3](http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrEJLsebfhwYbwXh3B81IMf8PMkqE5AhP7.O5RSb86IqXbadqZIVaZm02UbvdnS8eKgZB9HiXY6*5LXUo.bE8d9to!/b&bo=pQIyAQAAAAADJ5Y!&rf=viewer_4)
+
+然后，对我们刚添加的窗口，设置targetUI变量为self，把ForEachLoop的数组元素引脚连过来设置target变量。
+
+![click attack button 4](http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrEMI00sMPaTkI8S2iETmb9QFqKK2IsjSfySJFz5SvpyYe2oeq0C5uLt1XMUqmOSSnLLb.jKYfrFL7Wn6IXbqWmjk!/b&bo=ugJLAQAAAAADF8A!&rf=viewer_4)
+
+最后，从ForEachLoop的Completed引脚连出，设置target option list为可见。
+
+![click attack button 5](http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrEEJEXVtxtTkmIW*EG2jQJvrQK2AAqlcxaOB2IRaDjXZeZd1IqKZVuTG2er6hhF4vWovTOuh9StGs4f7Q55I1Vn8!/b&bo=fAIgAQAAAAADF20!&rf=viewer_4)
+
+当然我们还要在action被选择后隐藏action panel。我们在CombatUI中加一个简单的函数：
+
+![click attack button 6](http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrEPm*tlzg.*asRf1h250xiDV4zQtPKjL5fgW2r1AKua9PUZZyPYd9yHZojhfLmjty5x.UVyQtto0YTqgERUARU0g!/b&bo=DwLCAAAAAAADF*0!&rf=viewer_4)
+
+在AttackTargetOption的图表中添加对点击的处理：
+
+![click attack button 7](http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrEEEjO4MbCX4IMhuxySEdyPWtTtgPTBYf9KxCDyvaMsb1aAwQrl2yLWMPWPeWEyMQPxy4EgSRUc5V6iedXxR6Byc!/b&bo=rgIKAQAAAAADF5U!&rf=viewer_4)
+
+做完所有这些，我们的战斗引擎就具备了所有功能了。这一章的最后，我们创建一个game over screen，让玩家全员阵亡后能够见到游戏结束的消息。
 
 #### 创建游戏失败的画面
 
