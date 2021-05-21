@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="人间的我">
 <meta property="og:description" content="以前的同系列文章：许世伟的架构课（一）">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-04-20T10:19:55.941Z">
+<meta property="og:updated_time" content="2021-05-21T10:26:21.233Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【学习】许世伟的架构课（极客时间）（二）">
 <meta name="twitter:description" content="以前的同系列文章：许世伟的架构课（一）">
@@ -441,7 +441,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2021-04-20 18:19:55" itemprop="dateModified" datetime="2021-04-20T18:19:55+08:00">2021-04-20</time>
+                <time title="修改时间：2021-05-21 18:26:21" itemprop="dateModified" datetime="2021-05-21T18:26:21+08:00">2021-05-21</time>
               
             
           </span>
@@ -583,7 +583,97 @@
 <h3 id="架构师的批判性思维"><a href="#架构师的批判性思维" class="headerlink" title="架构师的批判性思维"></a>架构师的批判性思维</h3><p>执行体的设计，有非常多值得反思的地方。</p>
 <p>操作系统内核之中，不乏无数精妙的设计思想。但是，前辈们也并非圣贤，也可能会出现一些决策上失误，留下了诸多后遗症。</p>
 <p>作为后辈的我们，在体会这些精妙的设计思想的同时，也要批判性去吸收。</p>
-<h2 id="12进程内协同：同步、互斥与通信"><a href="#12进程内协同：同步、互斥与通信" class="headerlink" title="12进程内协同：同步、互斥与通信"></a>12进程内协同：同步、互斥与通信</h2><h2 id="13进程间的同步互斥、资源共享与通讯"><a href="#13进程间的同步互斥、资源共享与通讯" class="headerlink" title="13进程间的同步互斥、资源共享与通讯"></a>13进程间的同步互斥、资源共享与通讯</h2>
+<h2 id="12进程内协同：同步、互斥与通信"><a href="#12进程内协同：同步、互斥与通信" class="headerlink" title="12进程内协同：同步、互斥与通信"></a>12进程内协同：同步、互斥与通信</h2><p>进程内的执行体有两类：用户态的协程（以 Go 语言的 goroutine 为代表）、操作系统的线程。这两类执行体的协同机制概要：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>goroutine</th>
+<th>线程</th>
+<th>语义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原子操作</td>
+<td>atomic.AddInt32/AddInt64</td>
+<td>atomic.AddInt32/AddInt64</td>
+<td>val += delta; return val</td>
+</tr>
+<tr>
+<td>原子操作</td>
+<td>atomic.SwapInt32/SwapInt64</td>
+<td>atomic.SwapInt32/SwapInt64</td>
+<td>oldval, val = val, newval; return oldval</td>
+</tr>
+<tr>
+<td>原子操作</td>
+<td>atomic.CompareAndSwapInt32</td>
+<td>atomic.CompareAndSwapInt64</td>
+<td>if val == oldval {val = newval}</td>
+</tr>
+<tr>
+<td>互斥体</td>
+<td>sync.Mutex</td>
+<td>pthread_mutex_t</td>
+<td>锁：用于多个执行体互斥访问，避免多个执行体同时操作一组数据产生竞争。</td>
+</tr>
+<tr>
+<td>互斥体</td>
+<td>sync.RWMutex</td>
+<td>pthread_rwlock_t</td>
+<td>读写锁：锁在读多写少情况下的优化。把操作分为读操作和写操作。</td>
+</tr>
+<tr>
+<td>等待组</td>
+<td>sync.WaitGroup</td>
+<td></td>
+<td>同步：等待一组在做不同任务的执行体的任务全部结束。</td>
+</tr>
+<tr>
+<td>条件变量</td>
+<td>sync.Cond</td>
+<td>pthread_cond_t</td>
+<td>同步：在锁保护下，如果资源不足则等待，否则对该资源执行某种操作。</td>
+</tr>
+<tr>
+<td>管道</td>
+<td>io.Pipe</td>
+<td>pipe</td>
+<td>执行体之间收发无类型的二进制消息。</td>
+</tr>
+<tr>
+<td>消息传递</td>
+<td>channel</td>
+<td>缺失</td>
+<td>执行体之间收发类型安全的消息。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="原子操作"><a href="#原子操作" class="headerlink" title="原子操作"></a>原子操作</h3><p>原子操作是CPU提供的能力，和操作系统无关。这里列上只是为了让你看到进程内通讯的全貌。</p>
+<p>原子操作的每一个操作都不会被人中途打断，这个原子性是CPU保证的。</p>
+<p>从语义上来说，原子操作可以用互斥体实现，只不过原子操作要快得多。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var val int32</span><br><span class="line">...</span><br><span class="line">newval = atomic.AddInt32(&amp;val, delta)</span><br></pre></td></tr></table></figure></p>
+<p>等价于：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var val int32</span><br><span class="line">var mutex sync.Mutex</span><br><span class="line">...</span><br><span class="line">mutex.Lock()</span><br><span class="line">val += delta</span><br><span class="line">newval = val</span><br><span class="line">mutex.Unlock()</span><br></pre></td></tr></table></figure></p>
+<h3 id="执行体的互斥"><a href="#执行体的互斥" class="headerlink" title="执行体的互斥"></a>执行体的互斥</h3><p>互斥体也叫锁，用于多个执行体之间的互斥访问。</p>
+<p>锁的使用范式比较简单：在操作需要互斥的数据前，先调用 Lock，操作完成后就调用 Unlock。</p>
+<blockquote>
+<p>锁会导致代码串行执行，所以在某段代码并发度非常高的情况下，串行执行会导致性能显著降低。但相比其他的进程内通讯的原语来说，锁并不慢。从进程内通讯来说，比锁快的东西，只有原子操作。</p>
+</blockquote>
+<h4 id="为什么锁“不容易控制”"><a href="#为什么锁“不容易控制”" class="headerlink" title="为什么锁“不容易控制”"></a>为什么锁“不容易控制”</h4><p>锁的最大问题在于<strong>不容易控制</strong>。锁 Lock 了但是忘记 Unlock 后是灾难性的，因为相当于服务器挂了，所有和该锁相关的代码都不能被执行。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mutex.Lock()</span><br><span class="line">doSth()</span><br><span class="line">mutex.Unlock()</span><br></pre></td></tr></table></figure></p>
+<p>在考虑异常的情况下，这段代码是不安全的，如果 doSth 抛出了异常，那么服务器就会出现问题。</p>
+<blockquote>
+<p>因为锁的配对问题，所以 Go 创造了 defer 语法；因为内存的配对问题，所以 C++ 创造了 RAII。（当然，RAII 也能解决锁的问题。）</p>
+</blockquote>
+<p>锁不容易控制的另一个表现是锁<strong>粒度</strong>的问题。例如上面 doSth 函数里面如果调用了网络 IO 请求，而网络 IO 请求在少数特殊情况下可能会出现慢请求，要好几秒才返回。那么这几秒对服务器来说就好像挂了，无法处理请求。</p>
+<blockquote>
+<p>不要在锁里面（指在mutex.Lock和mutex.Unlock之间）执行费时操作。</p>
+</blockquote>
+<h4 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h4><p>从需求上来说，如果当前我们正在执行某个读操作，那么再来一个新的读操作，是不应该挡在外面的，大家都不修改数据，可以安全地并发执行。但如果来的是写操作，就应该挡在外面，等待读操作执行完。</p>
+<p>整体来说，读写锁的特性就是：<strong>读操作</strong>不阻止读操作，<strong>阻止写操作</strong>；<strong>写操作阻止一切</strong>，不管读操作还是写操作。</p>
+<h3 id="执行体的同步"><a href="#执行体的同步" class="headerlink" title="执行体的同步"></a>执行体的同步</h3><p>条件变量是最复杂的同步原语，功能强大。虽然平常我们直接使用条件变量的机会不是太多，大部分常见的场景往往有更高阶的原语（例如 channel）可以取代。但是它的设计精巧而高效，值得细细体会。</p>
+<h3 id="执行体的通讯"><a href="#执行体的通讯" class="headerlink" title="执行体的通讯"></a>执行体的通讯</h3><p>管道是大家都很熟知的执行体间的通讯机制。</p>
+<p>其实 Go 语言中引入的 channel 也是管道，只不过它是类型安全的管道。</p>
+<h2 id="13进程间的同步互斥、资源共享与通讯"><a href="#13进程间的同步互斥、资源共享与通讯" class="headerlink" title="13进程间的同步互斥、资源共享与通讯"></a>13进程间的同步互斥、资源共享与通讯</h2>
       
     </div>
 
@@ -902,7 +992,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#11多任务：进程、线程、协程"><span class="nav-text">11多任务：进程、线程、协程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现多任务"><span class="nav-text">实现多任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行体"><span class="nav-text">执行体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程与线程"><span class="nav-text">进程与线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协程与goroutine"><span class="nav-text">协程与goroutine</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决的需求"><span class="nav-text">解决的需求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何解决？"><span class="nav-text">如何解决？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构师的批判性思维"><span class="nav-text">架构师的批判性思维</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12进程内协同：同步、互斥与通信"><span class="nav-text">12进程内协同：同步、互斥与通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13进程间的同步互斥、资源共享与通讯"><span class="nav-text">13进程间的同步互斥、资源共享与通讯</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#11多任务：进程、线程、协程"><span class="nav-text">11多任务：进程、线程、协程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现多任务"><span class="nav-text">实现多任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行体"><span class="nav-text">执行体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程与线程"><span class="nav-text">进程与线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协程与goroutine"><span class="nav-text">协程与goroutine</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决的需求"><span class="nav-text">解决的需求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何解决？"><span class="nav-text">如何解决？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构师的批判性思维"><span class="nav-text">架构师的批判性思维</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12进程内协同：同步、互斥与通信"><span class="nav-text">12进程内协同：同步、互斥与通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原子操作"><span class="nav-text">原子操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行体的互斥"><span class="nav-text">执行体的互斥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么锁“不容易控制”"><span class="nav-text">为什么锁“不容易控制”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读写锁"><span class="nav-text">读写锁</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行体的同步"><span class="nav-text">执行体的同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行体的通讯"><span class="nav-text">执行体的通讯</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13进程间的同步互斥、资源共享与通讯"><span class="nav-text">13进程间的同步互斥、资源共享与通讯</span></a></li></ol></div>
             
 
           </div>
