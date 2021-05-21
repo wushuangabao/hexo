@@ -1862,12 +1862,85 @@ for( int i = 0; i < this->currentCombatInstance->playerParty.Num(); i++ )
 
 #### 创建游戏失败的画面
 
+第一步是创建画面本身。只需要一个颜色设置成黑色的背景图片，一个写有Game Over的text block，和一个含有子text block，写着Restart的按钮：
+
+![game over screen](http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrEFeWYuruAX*2O39HnJsH57y*dbctpMTT7kGSiqR.t7AUUq9h9nPpddcnUG7FmUJCsG7khBQSOElphjrQIYRvqh0!/b&bo=fQJwAQAAAAADFzw!&rf=viewer_4)
+
+这个按钮含点击事件蓝图。图表中调用了Execute Console Command节点来执行RestartLevel命令，然后调用Remove From Parent节点来删除game over窗口：
+
+![click restart event](http://m.qpic.cn/psc?/V11Tp57c2B9kPO/TmEUgtj9EK6.7V8ajmQrENVbjO2b*1zEiPj1VYspIme19sCJK41B8hvnLLyUKUJP53AbqgfVV8BkdoIBypcg9nj314tugDdazOP9dsA*9l4!/b&bo=hQKfAAAAAAADFyo!&rf=viewer_4)
+
+然后，在RPGGameMode.h中我们增加一个widget类型属性，使之能够被用来创建游戏结束的窗口：
+```
+UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = "UI" )
+TSubclassOf<class UUserWidget> GameOverUIClass;
+```
+
+创建wiget并把它加到viewport：
+```
+if( this->currentCombatInstance->phase == CombatPhase::CPHASE_GameOver )
+{
+    UE_LOG( LogTemp, Log, TEXT( "Player loses combat, game over" ) );
+    Cast<URPGGameInstance>( GetGameInstance() )->PrepareReset();
+
+    UUserWidget* GameOverUIInstance = CreateWidget<UUserWidget>(GetGameInstance(), this->GameOverUIClass );
+    GameOverUIInstance->AddToViewport();
+}
+```
+
+如你所见，我们还调用了一个`PrepareReset`函数。这个方法还没被定义，所以我们现在来创建它：
+```
+//RPGGameInstance.h
+public:
+    void PrepareReset();
+
+//RPGGameInstance.cpp
+void URPGGameInstance::PrepareReset()
+{
+    this->isInitialized = false;
+}
+```
+
+把`isInitialized`设为false，就可以在下一次调用`Init`，清空并重载队伍成员。
+
 ### 小结
+
+在这一章，我们为RPG创建了一个核心gameplay功能。我们有了一个可以探索世界的角色，一个可track队伍成员的系统，一个回合制战斗引擎，和一个游戏结束（失败）的condition。
+
+在下一章，我们会制作一个库存（inventory）系统，让玩家可以在场景中和战斗中消耗物品，以及给队伍成员穿装备来提高他们的属性。
 
 ## 暂停菜单的构架
 
-### UMG暂停画面的初始化
+本章我们将创建菜单系统的第一个部分，设计和构建一个暂停菜单的框架。这一章将涉及以下主题：
+- UMG暂停屏幕初始化设置
+- UMG背景色
+- UMG文本
+- UMG按钮
+- UMG库存子菜单
+- UMG装备子菜单
+- 按键绑定
+- 按钮编程
+
+### UMG暂停画面的初始化设置
+
+为了设计暂停屏幕，我们将使用Unreal Motion Graphics（UMG）——为了使我们能够不借助像Adobe Flash那样的软件就能够设计虚拟用户界面而存在的UE4的一个独立部分。
+
+首先导航到文件夹BluePrints | UI，右键新建一个User Interface | Widget Blueprint，将这个Widget Blueprint命名为Pause。
+
+从Content Browser双击打开Pause窗口蓝图，你会见到设计器（Designer）界面。首先添加一个Palette | Panel | Canvas Panel作为包含其他窗口的容器。你会看到Hierachy面板的Root节点下多了一个CanvasPanel，Details面板中可以编辑你选中的item的属性。
+
+根据功能，我们列出需要添加的item：
+- 角色及他们的stats（等级，HP，MP，经验/下一等级）
+- Inventory按钮
+- 装备按钮
+- 退出按钮
+- 金币
+
 ### UMG背景色
+
+Palette | Common | Image
+
+
 ### UMG文本
 ### UMG按钮
 ### UMG inventory（库存）子菜单
