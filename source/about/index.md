@@ -5,7 +5,7 @@ date: 2019-05-23 13:20:59
 
 
 - 个人微信订阅号：[renjiandewo](https://weixin.sogou.com/weixin?type=1&s_from=input&query=%E4%BA%BA%E9%97%B4%E7%9A%84%E6%88%91)
-- 邮箱：445395697@qq.com
+- 邮箱：wushuangabao@qq.com
 - GitHub：[https://github.com/wushuangabao](https://github.com/wushuangabao)
 
 
